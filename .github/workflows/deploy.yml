@@ -98,6 +98,12 @@ jobs:
           DEPLOY_PORT_VAR: ${{ vars.DEPLOY_PORT }}
           SSH_PORT_SECRET: ${{ secrets.SSH_PORT }}
           SSH_PORT_VAR: ${{ vars.SSH_PORT }}
+          DEPLOY_APP_PORT_SECRET: ${{ secrets.DEPLOY_APP_PORT }}
+          DEPLOY_APP_PORT_VAR: ${{ vars.DEPLOY_APP_PORT }}
+          APP_PORT_SECRET: ${{ secrets.APP_PORT }}
+          APP_PORT_VAR: ${{ vars.APP_PORT }}
+          SSH_APP_PORT_SECRET: ${{ secrets.SSH_APP_PORT }}
+          SSH_APP_PORT_VAR: ${{ vars.SSH_APP_PORT }}
           DEPLOY_SSH_KEY_SECRET: ${{ secrets.DEPLOY_SSH_KEY }}
           SSH_PRIVATE_KEY_SECRET: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
@@ -105,6 +111,7 @@ jobs:
           user="${DEPLOY_USER_SECRET:-${DEPLOY_USER_VAR:-${SSH_USER_SECRET:-${SSH_USER_VAR:-}}}}"
           path="${DEPLOY_PATH_SECRET:-${DEPLOY_PATH_VAR:-${SSH_PATH_SECRET:-${SSH_PATH_VAR:-}}}}"
           port="${DEPLOY_PORT_SECRET:-${DEPLOY_PORT_VAR:-${SSH_PORT_SECRET:-${SSH_PORT_VAR:-22}}}}"
+          app_port="${DEPLOY_APP_PORT_SECRET:-${DEPLOY_APP_PORT_VAR:-${APP_PORT_SECRET:-${APP_PORT_VAR:-${SSH_APP_PORT_SECRET:-${SSH_APP_PORT_VAR:-8080}}}}}}"
           key="${DEPLOY_SSH_KEY_SECRET:-${SSH_PRIVATE_KEY_SECRET:-}}"
 
           if [ -z "${host:-}" ]; then
@@ -127,6 +134,7 @@ jobs:
           echo "user=$user" >> "$GITHUB_OUTPUT"
           echo "path=$path" >> "$GITHUB_OUTPUT"
           echo "port=$port" >> "$GITHUB_OUTPUT"
+          echo "app_port=$app_port" >> "$GITHUB_OUTPUT"
 
       - name: Configure SSH key
         env:
@@ -149,10 +157,11 @@ jobs:
           DEPLOY_PORT: ${{ steps.deploy-config.outputs.port }}
           DEPLOY_USER: ${{ steps.deploy-config.outputs.user }}
           DEPLOY_PATH: ${{ steps.deploy-config.outputs.path }}
+          APP_PORT: ${{ steps.deploy-config.outputs.app_port }}
           IMAGE_NAME: ${{ needs.build-and-push.outputs.image_name }}
         run: |
           ssh -p "$DEPLOY_PORT" "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "DEPLOY_PATH='${DEPLOY_PATH}' IMAGE_NAME='${IMAGE_NAME}' bash -s" <<'REMOTE'
+            "DEPLOY_PATH='${DEPLOY_PATH}' APP_PORT='${APP_PORT}' IMAGE_NAME='${IMAGE_NAME}' bash -s" <<'REMOTE'
           set -Eeuo pipefail
           mkdir -p "$DEPLOY_PATH"
           compose_file="$DEPLOY_PATH/docker-compose.yml"
@@ -165,7 +174,7 @@ jobs:
               container_name: portfolio-hub
               restart: unless-stopped
               ports:
-                - "127.0.0.1:8080:80"
+                - "127.0.0.1:\${APP_PORT:-8080}:80"
               healthcheck:
                 test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/healthz || exit 1"]
                 interval: 30s
@@ -175,6 +184,13 @@ jobs:
             echo "Created $compose_file"
           else
             echo "Using existing $compose_file"
+            # Migrate legacy hardcoded port mappings to APP_PORT variable.
+            sed -i \
+              -e "s#\"8080:80\"#\"127.0.0.1:\${APP_PORT:-8080}:80\"#g" \
+              -e "s#'8080:80'#\"127.0.0.1:\${APP_PORT:-8080}:80\"#g" \
+              -e "s#127.0.0.1:8080:80#127.0.0.1:\${APP_PORT:-8080}:80#g" \
+              -e "s#- 8080:80#- \"127.0.0.1:\${APP_PORT:-8080}:80\"#g" \
+              "$compose_file"
           fi
           REMOTE
 
@@ -200,8 +216,9 @@ jobs:
           DEPLOY_PORT: ${{ steps.deploy-config.outputs.port }}
           DEPLOY_USER: ${{ steps.deploy-config.outputs.user }}
           DEPLOY_PATH: ${{ steps.deploy-config.outputs.path }}
+          APP_PORT: ${{ steps.deploy-config.outputs.app_port }}
           IMAGE_TAG: ${{ needs.build-and-push.outputs.image_tag }}
         run: |
           ssh -p "$DEPLOY_PORT" "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "DEPLOY_PATH='${DEPLOY_PATH}' IMAGE_TAG='${IMAGE_TAG}' bash -s" \
+            "DEPLOY_PATH='${DEPLOY_PATH}' APP_PORT='${APP_PORT}' IMAGE_TAG='${IMAGE_TAG}' bash -s" \
             < scripts/deploy-remote.sh

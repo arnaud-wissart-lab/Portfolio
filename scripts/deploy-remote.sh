@@ -3,7 +3,8 @@ set -Eeuo pipefail
 
 DEPLOY_PATH="${DEPLOY_PATH:-/home/${USER:-deploy}/apps/portfolio-hub}"
 COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.yml}"
-HEALTHCHECK_URL="${HEALTHCHECK_URL:-http://127.0.0.1:8080/healthz}"
+APP_PORT="${APP_PORT:-8080}"
+HEALTHCHECK_URL="${HEALTHCHECK_URL:-http://127.0.0.1:${APP_PORT}/healthz}"
 IMAGE_TAG="${IMAGE_TAG:-latest}"
 
 if ! command -v docker >/dev/null 2>&1; then
@@ -29,7 +30,7 @@ if [ ! -f "$COMPOSE_FILE" ]; then
   exit 1
 fi
 
-export IMAGE_TAG
+export IMAGE_TAG APP_PORT
 
 "${COMPOSE_CMD[@]}" -f "$COMPOSE_FILE" pull
 "${COMPOSE_CMD[@]}" -f "$COMPOSE_FILE" up -d

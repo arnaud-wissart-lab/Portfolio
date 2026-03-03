@@ -74,6 +74,8 @@ Secrets requis:
 Secrets optionnels:
 
 - `DEPLOY_PORT` (defaut `22`)
+- `DEPLOY_APP_PORT` (port HTTP local de l'app, defaut `8080`)
+- `APP_PORT` (alias accepte)
 - `PUBLIC_URL` (prioritaire pour injecter l'URL publique au build)
 - `DOMAIN` (fallback, ex: `arnovissard.fr`)
 
@@ -84,6 +86,7 @@ Notes:
 - Compatibilite legacy: le workflow accepte aussi `SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY`, `SSH_PORT` (et `SSH_PATH` si vous l'utilisez deja).
 - Si aucun chemin n'est fourni, fallback automatique: `/home/<user>/apps/portfolio-hub`.
 - Le workflow effectue un `docker login ghcr.io` a distance avant le `pull` (avec `GHCR_TOKEN` si fourni, sinon `GITHUB_TOKEN`).
+- En cas de collision de port, definir `DEPLOY_APP_PORT` (ex: `18080`).
 
 ### 3) Lancer le deploiement ("bouton magique")
 
