@@ -79,19 +79,45 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Validate required secrets
+      - name: Resolve deploy target config
+        id: deploy-config
         env:
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_HOST_SECRET: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_HOST_VAR: ${{ vars.DEPLOY_HOST }}
+          DEPLOY_USER_SECRET: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_USER_VAR: ${{ vars.DEPLOY_USER }}
+          DEPLOY_PATH_SECRET: ${{ secrets.DEPLOY_PATH }}
+          DEPLOY_PATH_VAR: ${{ vars.DEPLOY_PATH }}
+          DEPLOY_PORT_SECRET: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_PORT_VAR: ${{ vars.DEPLOY_PORT }}
           DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
-          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
         run: |
-          for key in DEPLOY_HOST DEPLOY_USER DEPLOY_SSH_KEY DEPLOY_PATH; do
-            if [ -z "${!key:-}" ]; then
-              echo "::error::Missing required secret: $key"
-              exit 1
-            fi
-          done
+          host="${DEPLOY_HOST_SECRET:-${DEPLOY_HOST_VAR:-}}"
+          user="${DEPLOY_USER_SECRET:-${DEPLOY_USER_VAR:-}}"
+          path="${DEPLOY_PATH_SECRET:-${DEPLOY_PATH_VAR:-}}"
+          port="${DEPLOY_PORT_SECRET:-${DEPLOY_PORT_VAR:-22}}"
+
+          if [ -z "${host:-}" ]; then
+            echo "::error::Missing DEPLOY_HOST (set secret DEPLOY_HOST or variable DEPLOY_HOST)."
+            exit 1
+          fi
+          if [ -z "${user:-}" ]; then
+            echo "::error::Missing DEPLOY_USER (set secret DEPLOY_USER or variable DEPLOY_USER)."
+            exit 1
+          fi
+          if [ -z "${path:-}" ]; then
+            echo "::error::Missing DEPLOY_PATH (set secret DEPLOY_PATH or variable DEPLOY_PATH)."
+            exit 1
+          fi
+          if [ -z "${DEPLOY_SSH_KEY:-}" ]; then
+            echo "::error::Missing required secret DEPLOY_SSH_KEY."
+            exit 1
+          fi
+
+          echo "host=$host" >> "$GITHUB_OUTPUT"
+          echo "user=$user" >> "$GITHUB_OUTPUT"
+          echo "path=$path" >> "$GITHUB_OUTPUT"
+          echo "port=$port" >> "$GITHUB_OUTPUT"
 
       - name: Configure SSH key
         env:
@@ -103,17 +129,17 @@ jobs:
 
       - name: Trust remote host key
         env:
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT || '22' }}
+          DEPLOY_HOST: ${{ steps.deploy-config.outputs.host }}
+          DEPLOY_PORT: ${{ steps.deploy-config.outputs.port }}
         run: |
           ssh-keyscan -p "$DEPLOY_PORT" "$DEPLOY_HOST" >> ~/.ssh/known_hosts
 
       - name: Deploy on remote Docker host
         env:
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT || '22' }}
-          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          DEPLOY_HOST: ${{ steps.deploy-config.outputs.host }}
+          DEPLOY_PORT: ${{ steps.deploy-config.outputs.port }}
+          DEPLOY_USER: ${{ steps.deploy-config.outputs.user }}
+          DEPLOY_PATH: ${{ steps.deploy-config.outputs.path }}
           IMAGE_TAG: ${{ needs.build-and-push.outputs.image_tag }}
         run: |
           ssh -p "$DEPLOY_PORT" "${DEPLOY_USER}@${DEPLOY_HOST}" \

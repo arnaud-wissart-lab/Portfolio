@@ -76,6 +76,11 @@ Secrets optionnels:
 - `PUBLIC_URL` (prioritaire pour injecter l'URL publique au build)
 - `DOMAIN` (fallback, ex: `arnovissard.fr`)
 
+Notes:
+
+- `DEPLOY_SSH_KEY` doit rester un secret.
+- `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`, `DEPLOY_PORT` peuvent etre configures en `Repository secrets` ou `Repository variables`.
+
 ### 3) Lancer le deploiement ("bouton magique")
 
 Deux modes:
