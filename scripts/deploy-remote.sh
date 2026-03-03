@@ -6,6 +6,7 @@ COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.yml}"
 APP_PORT="${APP_PORT:-8080}"
 HEALTHCHECK_URL="${HEALTHCHECK_URL:-http://127.0.0.1:${APP_PORT}/healthz}"
 IMAGE_TAG="${IMAGE_TAG:-latest}"
+SERVICE_NAME="${SERVICE_NAME:-portfolio-hub}"
 
 if ! command -v docker >/dev/null 2>&1; then
   echo "docker is required on the remote machine." >&2
@@ -35,6 +36,18 @@ export IMAGE_TAG APP_PORT
 "${COMPOSE_CMD[@]}" -f "$COMPOSE_FILE" pull
 "${COMPOSE_CMD[@]}" -f "$COMPOSE_FILE" up -d
 
+# Prefer the real published port reported by Docker Compose.
+detected_port="$(
+  "${COMPOSE_CMD[@]}" -f "$COMPOSE_FILE" port "$SERVICE_NAME" 80 2>/dev/null |
+    head -n1 |
+    awk -F: '{print $NF}' |
+    tr -d '[:space:]'
+)"
+
+if [[ "$detected_port" =~ ^[0-9]+$ ]]; then
+  HEALTHCHECK_URL="http://127.0.0.1:${detected_port}/healthz"
+fi
+
 if command -v curl >/dev/null 2>&1; then
   for attempt in {1..20}; do
     if curl -fsS "$HEALTHCHECK_URL" >/dev/null; then
@@ -45,6 +58,8 @@ if command -v curl >/dev/null 2>&1; then
   done
 
   echo "Deployment finished but healthcheck failed: $HEALTHCHECK_URL" >&2
+  "${COMPOSE_CMD[@]}" -f "$COMPOSE_FILE" ps || true
+  "${COMPOSE_CMD[@]}" -f "$COMPOSE_FILE" logs --tail=120 "$SERVICE_NAME" || true
   exit 1
 fi
 

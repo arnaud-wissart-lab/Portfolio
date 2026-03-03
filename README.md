@@ -87,6 +87,7 @@ Notes:
 - Si aucun chemin n'est fourni, fallback automatique: `/home/<user>/apps/portfolio-hub`.
 - Le workflow effectue un `docker login ghcr.io` a distance avant le `pull` (avec `GHCR_TOKEN` si fourni, sinon `GITHUB_TOKEN`).
 - En cas de collision de port, definir `DEPLOY_APP_PORT` (ex: `18080`).
+- Le script de deploiement detecte aussi automatiquement le port publie reel (`docker compose port`) pour le healthcheck.
 
 ### 3) Lancer le deploiement ("bouton magique")
 
