@@ -37,12 +37,16 @@ export IMAGE_TAG APP_PORT
 "${COMPOSE_CMD[@]}" -f "$COMPOSE_FILE" up -d
 
 # Prefer the real published port reported by Docker Compose.
-detected_port="$(
-  "${COMPOSE_CMD[@]}" -f "$COMPOSE_FILE" port "$SERVICE_NAME" 80 2>/dev/null |
-    head -n1 |
-    awk -F: '{print $NF}' |
-    tr -d '[:space:]'
-)"
+# Some compose versions can fail transiently here; keep fallback to APP_PORT.
+detected_port=""
+if port_output="$("${COMPOSE_CMD[@]}" -f "$COMPOSE_FILE" port "$SERVICE_NAME" 80 2>/dev/null)"; then
+  detected_port="$(
+    printf '%s\n' "$port_output" |
+      head -n1 |
+      awk -F: '{print $NF}' |
+      tr -d '[:space:]'
+  )"
+fi
 
 if [[ "$detected_port" =~ ^[0-9]+$ ]]; then
   HEALTHCHECK_URL="http://127.0.0.1:${detected_port}/healthz"
