@@ -1,0 +1,13 @@
+services:
+  portfolio-hub:
+    image: ghcr.io/<owner>/<repo>:${IMAGE_TAG:-latest}
+    container_name: portfolio-hub
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:8080:80'
+    healthcheck:
+      test:
+        ['CMD-SHELL', 'wget -q -O /dev/null http://127.0.0.1/healthz || exit 1']
+      interval: 30s
+      timeout: 5s
+      retries: 3
