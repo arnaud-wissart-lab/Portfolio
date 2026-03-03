@@ -20,10 +20,7 @@ else
   exit 1
 fi
 
-if [ ! -d "$DEPLOY_PATH" ]; then
-  echo "Deployment path not found: $DEPLOY_PATH" >&2
-  exit 1
-fi
+mkdir -p "$DEPLOY_PATH"
 
 cd "$DEPLOY_PATH"
 

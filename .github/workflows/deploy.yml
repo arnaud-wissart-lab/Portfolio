@@ -140,6 +140,41 @@ jobs:
         run: |
           ssh-keyscan -p "$DEPLOY_PORT" "$DEPLOY_HOST" >> ~/.ssh/known_hosts
 
+      - name: Bootstrap remote path and compose (first run)
+        env:
+          DEPLOY_HOST: ${{ steps.deploy-config.outputs.host }}
+          DEPLOY_PORT: ${{ steps.deploy-config.outputs.port }}
+          DEPLOY_USER: ${{ steps.deploy-config.outputs.user }}
+          DEPLOY_PATH: ${{ steps.deploy-config.outputs.path }}
+          IMAGE_NAME: ${{ needs.build-and-push.outputs.image_name }}
+        run: |
+          ssh -p "$DEPLOY_PORT" "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "DEPLOY_PATH='${DEPLOY_PATH}' IMAGE_NAME='${IMAGE_NAME}' bash -s" <<'REMOTE'
+          set -Eeuo pipefail
+          mkdir -p "$DEPLOY_PATH"
+          compose_file="$DEPLOY_PATH/docker-compose.yml"
+
+          if [ ! -f "$compose_file" ]; then
+            cat > "$compose_file" <<EOF
+          services:
+            portfolio-hub:
+              image: ${IMAGE_NAME}:\${IMAGE_TAG:-latest}
+              container_name: portfolio-hub
+              restart: unless-stopped
+              ports:
+                - "127.0.0.1:8080:80"
+              healthcheck:
+                test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/healthz || exit 1"]
+                interval: 30s
+                timeout: 5s
+                retries: 3
+          EOF
+            echo "Created $compose_file"
+          else
+            echo "Using existing $compose_file"
+          fi
+          REMOTE
+
       - name: Deploy on remote Docker host
         env:
           DEPLOY_HOST: ${{ steps.deploy-config.outputs.host }}

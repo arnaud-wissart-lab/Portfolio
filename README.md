@@ -52,10 +52,10 @@ Le workflow de deploiement pousse l'image sur GHCR puis execute un deploiement d
 
 ### 1) Preparer la machine Docker de prod
 
-1. Creer le dossier de deploiement:
-   - `/opt/portfolio-hub`
-2. Copier `deploy/docker-compose.yml` dans `/opt/portfolio-hub/docker-compose.yml`
-3. Remplacer `ghcr.io/<owner>/<repo>` par votre image GHCR.
+1. Definir le chemin de deploiement (via `DEPLOY_PATH` ou `SSH_PATH`), par exemple:
+   - `/opt/apps/portfolio-hub`
+2. Le workflow cree automatiquement ce dossier a la premiere execution.
+3. Si `docker-compose.yml` est absent, le workflow cree automatiquement un template minimal.
 4. Verifier que la machine peut faire `docker compose`.
 5. Optionnel: si image privee, faire `docker login ghcr.io` sur la machine.
 
