@@ -4,6 +4,7 @@ set -Eeuo pipefail
 DEPLOY_PATH="${DEPLOY_PATH:-/home/${USER:-deploy}/apps/portfolio-hub}"
 COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.yml}"
 APP_PORT="${APP_PORT:-8080}"
+APP_BIND_IP="${APP_BIND_IP:-0.0.0.0}"
 HEALTHCHECK_URL="${HEALTHCHECK_URL:-http://127.0.0.1:${APP_PORT}/healthz}"
 IMAGE_TAG="${IMAGE_TAG:-latest}"
 SERVICE_NAME="${SERVICE_NAME:-portfolio-hub}"
@@ -31,7 +32,7 @@ if [ ! -f "$COMPOSE_FILE" ]; then
   exit 1
 fi
 
-export IMAGE_TAG APP_PORT
+export IMAGE_TAG APP_PORT APP_BIND_IP
 
 "${COMPOSE_CMD[@]}" -f "$COMPOSE_FILE" pull
 "${COMPOSE_CMD[@]}" -f "$COMPOSE_FILE" up -d

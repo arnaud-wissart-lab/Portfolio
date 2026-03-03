@@ -76,6 +76,8 @@ Secrets optionnels:
 - `DEPLOY_PORT` (defaut `22`)
 - `DEPLOY_APP_PORT` (port HTTP local de l'app, defaut `8080`)
 - `APP_PORT` (alias accepte)
+- `DEPLOY_BIND_IP` (IP de bind local, defaut `0.0.0.0`)
+- `APP_BIND_IP` (alias accepte)
 - `PUBLIC_URL` (prioritaire pour injecter l'URL publique au build)
 - `DOMAIN` (fallback, ex: `arnovissard.fr`)
 
@@ -88,6 +90,7 @@ Notes:
 - Le workflow effectue un `docker login ghcr.io` a distance avant le `pull` (avec `GHCR_TOKEN` si fourni, sinon `GITHUB_TOKEN`).
 - En cas de collision de port, definir `DEPLOY_APP_PORT` (ex: `18080`).
 - Le script de deploiement detecte aussi automatiquement le port publie reel (`docker compose port`) pour le healthcheck.
+- Pour un reverse proxy en conteneur (NPM/Traefik), preferer `DEPLOY_BIND_IP=0.0.0.0`.
 
 ### 3) Lancer le deploiement ("bouton magique")
 
