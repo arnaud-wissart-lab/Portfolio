@@ -79,7 +79,7 @@ Secrets optionnels:
 - `DEPLOY_BIND_IP` (IP de bind local, defaut `0.0.0.0`)
 - `APP_BIND_IP` (alias accepte)
 - `PUBLIC_URL` (prioritaire pour injecter l'URL publique au build)
-- `DOMAIN` (fallback, ex: `arnovissard.fr`)
+- `DOMAIN` (fallback, ex: `arnaudwissart.fr`)
 
 Notes:
 
@@ -101,9 +101,9 @@ Deux modes:
 
 Le workflow utilise `scripts/deploy-remote.sh`.
 
-## Configuration du domaine (arnovissard.fr par defaut)
+## Configuration du domaine (arnaudwissart.fr par defaut)
 
-Valeur par defaut: `https://arnovissard.fr`.
+Valeur par defaut: `https://arnaudwissart.fr`.
 
 Modifier:
 
@@ -150,7 +150,7 @@ Tagging image:
 
 ## Checklist production
 
-- DNS `arnovissard.fr` vers votre reverse proxy
+- DNS `arnaudwissart.fr` vers votre reverse proxy
 - HTTPS/TLS actif cote reverse proxy
 - Route reverse proxy vers `http://<docker-host>:8080`
 - Open Graph image valide: `/assets/og/portfolio.png`

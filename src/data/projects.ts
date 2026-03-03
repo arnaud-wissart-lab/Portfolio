@@ -11,21 +11,6 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: 'onigirishop',
-    name: 'OnigiriShop',
-    tagline:
-      'Boutique en ligne orientée expérience utilisateur et parcours de commande fluide.',
-    stack: ['ASP.NET Core', 'React', 'Docker'],
-    highlights: [
-      'Architecture claire API + frontend.',
-      'Parcours d’achat structuré avec gestion des états.',
-      'Déploiement continu sur environnement live.',
-    ],
-    demoUrl: 'https://onigirishop.onrender.com/',
-    codeUrl: 'https://github.com/arnaud-wissart/OnigiriShop',
-    imageUrl: '/assets/projects/onigirishop.jpg',
-  },
-  {
     slug: 'bikevoyager',
     name: 'BikeVoyager',
     tagline:
@@ -36,9 +21,9 @@ export const projects: Project[] = [
       'Structuration des données pour évolution progressive.',
       'Pipeline CI/CD prêt pour itérations rapides.',
     ],
-    demoUrl: 'https://bike.arnaud.wissart.fr',
+    demoUrl: 'https://bike.arnaudwissart.fr',
     codeUrl: 'https://github.com/arnaud-wissart/BikeVoyager',
-    imageUrl: '/assets/projects/bikevoyager.jpg',
+    imageUrl: '/assets/projects/bikevoyager.png',
   },
   {
     slug: 'proba-loto-euromillions',
@@ -51,9 +36,24 @@ export const projects: Project[] = [
       'Expérience simple pour un usage grand public.',
       'Code organisé pour enrichissement des scénarios.',
     ],
-    demoUrl: 'https://loto.arnaud.wissart.fr',
+    demoUrl: 'https://loto.arnaudwissart.fr',
     codeUrl: 'https://github.com/arnaud-wissart/proba-loto-euromillions',
-    imageUrl: '/assets/projects/loto.jpg',
+    imageUrl: '/assets/projects/loto.png',
+  },
+  {
+    slug: 'onigirishop',
+    name: 'OnigiriShop',
+    tagline:
+      'Boutique en ligne orientée expérience utilisateur et parcours de commande fluide.',
+    stack: ['ASP.NET Core', 'React', 'Docker'],
+    highlights: [
+      'Architecture claire API + frontend.',
+      'Parcours d’achat structuré avec gestion des états.',
+      'Déploiement continu sur environnement live.',
+    ],
+    demoUrl: 'https://onigirishop.onrender.com/',
+    codeUrl: 'https://github.com/arnaud-wissart/OnigiriShop',
+    imageUrl: '/assets/projects/onigirishop.png',
   },
   {
     slug: 'tetris',
@@ -66,8 +66,8 @@ export const projects: Project[] = [
       'Gestion des scores et progression continue.',
       'Démo légère et immédiate côté navigateur.',
     ],
-    demoUrl: 'https://tetris.arnaud.wissart.fr',
-    imageUrl: '/assets/projects/tetris.jpg',
+    demoUrl: 'https://tetris.arnaudwissart.fr',
+    imageUrl: '/assets/projects/tetris.gif',
   },
   {
     slug: 'nvconso',
@@ -80,7 +80,7 @@ export const projects: Project[] = [
       'Base exploitable pour dashboards métiers.',
     ],
     codeUrl: 'https://github.com/arnaud-wissart/NVConso',
-    imageUrl: '/assets/projects/nvconso.jpg',
+    imageUrl: '/assets/projects/nvconso.png',
   },
   {
     slug: 'demoredis',

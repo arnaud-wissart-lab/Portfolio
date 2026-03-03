@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from 'node:fs/promises'
 
-const FALLBACK_PUBLIC_URL = 'https://arnovissard.fr'
+const FALLBACK_PUBLIC_URL = 'https://arnaudwissart.fr'
 const domainFromEnv = process.env.DOMAIN
   ? `https://${process.env.DOMAIN.replace(/^https?:\/\//, '')}`
   : ''

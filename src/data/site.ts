@@ -15,7 +15,7 @@ export type SiteConfig = {
   aboutLines: string[]
 }
 
-const defaultPublicUrl = 'https://arnovissard.fr'
+const defaultPublicUrl = 'https://arnaudwissart.fr'
 const envPublicUrl = import.meta.env.VITE_PUBLIC_URL?.trim()
 const normalizedPublicUrl = (envPublicUrl || defaultPublicUrl).replace(
   /\/+$/,
@@ -27,7 +27,7 @@ export const siteConfig: SiteConfig = {
   headline: 'Développeur .NET Full-Stack (ASP.NET Core / React)',
   valueProposition:
     'Je conçois et livre des applications robustes avec une exigence forte sur la qualité, les tests automatisés et les pipelines CI/CD.',
-  email: 'contact@arnovissard.fr',
+  email: 'contact@arnaudwissart.fr',
   publicUrl: normalizedPublicUrl,
   siteRepoUrl:
     import.meta.env.VITE_SITE_REPO_URL ||
@@ -44,8 +44,16 @@ export const siteConfig: SiteConfig = {
   ],
   stackAndPractices: [
     '.NET 8+',
+    '.NET Framework',
     'ASP.NET Core Web API',
+    'ASP.NET Web Forms',
+    'ASP classique',
+    '.NET Aspire',
+    'Dynamics',
+    'Angular',
     'React + TypeScript',
+    'JavaScript',
+    'jQuery',
     'SQL / modélisation de données',
     'Docker',
     'CI/CD GitHub Actions',
