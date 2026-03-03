@@ -84,33 +84,39 @@ jobs:
         env:
           DEPLOY_HOST_SECRET: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_HOST_VAR: ${{ vars.DEPLOY_HOST }}
+          SSH_HOST_SECRET: ${{ secrets.SSH_HOST }}
+          SSH_HOST_VAR: ${{ vars.SSH_HOST }}
           DEPLOY_USER_SECRET: ${{ secrets.DEPLOY_USER }}
           DEPLOY_USER_VAR: ${{ vars.DEPLOY_USER }}
+          SSH_USER_SECRET: ${{ secrets.SSH_USER }}
+          SSH_USER_VAR: ${{ vars.SSH_USER }}
           DEPLOY_PATH_SECRET: ${{ secrets.DEPLOY_PATH }}
           DEPLOY_PATH_VAR: ${{ vars.DEPLOY_PATH }}
+          SSH_PATH_SECRET: ${{ secrets.SSH_PATH }}
+          SSH_PATH_VAR: ${{ vars.SSH_PATH }}
           DEPLOY_PORT_SECRET: ${{ secrets.DEPLOY_PORT }}
           DEPLOY_PORT_VAR: ${{ vars.DEPLOY_PORT }}
-          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          SSH_PORT_SECRET: ${{ secrets.SSH_PORT }}
+          SSH_PORT_VAR: ${{ vars.SSH_PORT }}
+          DEPLOY_SSH_KEY_SECRET: ${{ secrets.DEPLOY_SSH_KEY }}
+          SSH_PRIVATE_KEY_SECRET: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-          host="${DEPLOY_HOST_SECRET:-${DEPLOY_HOST_VAR:-}}"
-          user="${DEPLOY_USER_SECRET:-${DEPLOY_USER_VAR:-}}"
-          path="${DEPLOY_PATH_SECRET:-${DEPLOY_PATH_VAR:-}}"
-          port="${DEPLOY_PORT_SECRET:-${DEPLOY_PORT_VAR:-22}}"
+          host="${DEPLOY_HOST_SECRET:-${DEPLOY_HOST_VAR:-${SSH_HOST_SECRET:-${SSH_HOST_VAR:-}}}}"
+          user="${DEPLOY_USER_SECRET:-${DEPLOY_USER_VAR:-${SSH_USER_SECRET:-${SSH_USER_VAR:-}}}}"
+          path="${DEPLOY_PATH_SECRET:-${DEPLOY_PATH_VAR:-${SSH_PATH_SECRET:-${SSH_PATH_VAR:-/opt/portfolio-hub}}}}"
+          port="${DEPLOY_PORT_SECRET:-${DEPLOY_PORT_VAR:-${SSH_PORT_SECRET:-${SSH_PORT_VAR:-22}}}}"
+          key="${DEPLOY_SSH_KEY_SECRET:-${SSH_PRIVATE_KEY_SECRET:-}}"
 
           if [ -z "${host:-}" ]; then
-            echo "::error::Missing DEPLOY_HOST (set secret DEPLOY_HOST or variable DEPLOY_HOST)."
+            echo "::error::Missing host. Set DEPLOY_HOST (or legacy SSH_HOST)."
             exit 1
           fi
           if [ -z "${user:-}" ]; then
-            echo "::error::Missing DEPLOY_USER (set secret DEPLOY_USER or variable DEPLOY_USER)."
+            echo "::error::Missing user. Set DEPLOY_USER (or legacy SSH_USER)."
             exit 1
           fi
-          if [ -z "${path:-}" ]; then
-            echo "::error::Missing DEPLOY_PATH (set secret DEPLOY_PATH or variable DEPLOY_PATH)."
-            exit 1
-          fi
-          if [ -z "${DEPLOY_SSH_KEY:-}" ]; then
-            echo "::error::Missing required secret DEPLOY_SSH_KEY."
+          if [ -z "${key:-}" ]; then
+            echo "::error::Missing SSH key. Set DEPLOY_SSH_KEY (or legacy SSH_PRIVATE_KEY)."
             exit 1
           fi
 
@@ -121,7 +127,7 @@ jobs:
 
       - name: Configure SSH key
         env:
-          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY || secrets.SSH_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh
           printf '%s\n' "$DEPLOY_SSH_KEY" | tr -d '\r' > ~/.ssh/id_ed25519

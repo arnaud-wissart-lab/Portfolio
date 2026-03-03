@@ -68,7 +68,7 @@ Secrets requis:
 - `DEPLOY_HOST` (IP/DNS de la machine Docker de prod)
 - `DEPLOY_USER` (utilisateur SSH)
 - `DEPLOY_SSH_KEY` (cle privee SSH, format OpenSSH)
-- `DEPLOY_PATH` (ex: `/opt/portfolio-hub`)
+- `DEPLOY_PATH` (ex: `/opt/portfolio-hub`, fallback par defaut: `/opt/portfolio-hub`)
 
 Secrets optionnels:
 
@@ -80,6 +80,7 @@ Notes:
 
 - `DEPLOY_SSH_KEY` doit rester un secret.
 - `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`, `DEPLOY_PORT` peuvent etre configures en `Repository secrets` ou `Repository variables`.
+- Compatibilite legacy: le workflow accepte aussi `SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY`, `SSH_PORT` (et `SSH_PATH` si vous l'utilisez deja).
 
 ### 3) Lancer le deploiement ("bouton magique")
 
