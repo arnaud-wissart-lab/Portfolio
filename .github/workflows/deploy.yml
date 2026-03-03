@@ -178,6 +178,22 @@ jobs:
           fi
           REMOTE
 
+      - name: Authenticate remote Docker to GHCR
+        env:
+          DEPLOY_HOST: ${{ steps.deploy-config.outputs.host }}
+          DEPLOY_PORT: ${{ steps.deploy-config.outputs.port }}
+          DEPLOY_USER: ${{ steps.deploy-config.outputs.user }}
+          GHCR_USERNAME: ${{ secrets.GHCR_USERNAME || github.actor }}
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -z "${GHCR_TOKEN:-}" ]; then
+            echo "::error::Missing GHCR token. Set GHCR_TOKEN or rely on GITHUB_TOKEN."
+            exit 1
+          fi
+
+          printf '%s\n' "$GHCR_TOKEN" | ssh -p "$DEPLOY_PORT" "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "docker login ghcr.io -u '${GHCR_USERNAME}' --password-stdin"
+
       - name: Deploy on remote Docker host
         env:
           DEPLOY_HOST: ${{ steps.deploy-config.outputs.host }}

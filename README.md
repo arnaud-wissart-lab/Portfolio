@@ -83,6 +83,7 @@ Notes:
 - `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`, `DEPLOY_PORT` peuvent etre configures en `Repository secrets` ou `Repository variables`.
 - Compatibilite legacy: le workflow accepte aussi `SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY`, `SSH_PORT` (et `SSH_PATH` si vous l'utilisez deja).
 - Si aucun chemin n'est fourni, fallback automatique: `/home/<user>/apps/portfolio-hub`.
+- Le workflow effectue un `docker login ghcr.io` a distance avant le `pull` (avec `GHCR_TOKEN` si fourni, sinon `GITHUB_TOKEN`).
 
 ### 3) Lancer le deploiement ("bouton magique")
 
