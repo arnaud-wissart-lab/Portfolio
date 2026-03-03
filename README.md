@@ -53,7 +53,8 @@ Le workflow de deploiement pousse l'image sur GHCR puis execute un deploiement d
 ### 1) Preparer la machine Docker de prod
 
 1. Definir le chemin de deploiement (via `DEPLOY_PATH` ou `SSH_PATH`), par exemple:
-   - `/opt/apps/portfolio-hub`
+   - `/home/arnaud/apps/portfolio-hub` (recommande sans sudo)
+   - `/opt/apps/portfolio-hub` (possible si permissions configurees)
 2. Le workflow cree automatiquement ce dossier a la premiere execution.
 3. Si `docker-compose.yml` est absent, le workflow cree automatiquement un template minimal.
 4. Verifier que la machine peut faire `docker compose`.
@@ -81,6 +82,7 @@ Notes:
 - `DEPLOY_SSH_KEY` doit rester un secret.
 - `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`, `DEPLOY_PORT` peuvent etre configures en `Repository secrets` ou `Repository variables`.
 - Compatibilite legacy: le workflow accepte aussi `SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY`, `SSH_PORT` (et `SSH_PATH` si vous l'utilisez deja).
+- Si aucun chemin n'est fourni, fallback automatique: `/home/<user>/apps/portfolio-hub`.
 
 ### 3) Lancer le deploiement ("bouton magique")
 

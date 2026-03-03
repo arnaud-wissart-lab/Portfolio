@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-DEPLOY_PATH="${DEPLOY_PATH:-/opt/portfolio-hub}"
+DEPLOY_PATH="${DEPLOY_PATH:-/home/${USER:-deploy}/apps/portfolio-hub}"
 COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.yml}"
 HEALTHCHECK_URL="${HEALTHCHECK_URL:-http://127.0.0.1:8080/healthz}"
 IMAGE_TAG="${IMAGE_TAG:-latest}"

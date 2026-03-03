@@ -103,7 +103,7 @@ jobs:
         run: |
           host="${DEPLOY_HOST_SECRET:-${DEPLOY_HOST_VAR:-${SSH_HOST_SECRET:-${SSH_HOST_VAR:-}}}}"
           user="${DEPLOY_USER_SECRET:-${DEPLOY_USER_VAR:-${SSH_USER_SECRET:-${SSH_USER_VAR:-}}}}"
-          path="${DEPLOY_PATH_SECRET:-${DEPLOY_PATH_VAR:-${SSH_PATH_SECRET:-${SSH_PATH_VAR:-/opt/portfolio-hub}}}}"
+          path="${DEPLOY_PATH_SECRET:-${DEPLOY_PATH_VAR:-${SSH_PATH_SECRET:-${SSH_PATH_VAR:-}}}}"
           port="${DEPLOY_PORT_SECRET:-${DEPLOY_PORT_VAR:-${SSH_PORT_SECRET:-${SSH_PORT_VAR:-22}}}}"
           key="${DEPLOY_SSH_KEY_SECRET:-${SSH_PRIVATE_KEY_SECRET:-}}"
 
@@ -118,6 +118,9 @@ jobs:
           if [ -z "${key:-}" ]; then
             echo "::error::Missing SSH key. Set DEPLOY_SSH_KEY (or legacy SSH_PRIVATE_KEY)."
             exit 1
+          fi
+          if [ -z "${path:-}" ]; then
+            path="/home/${user}/apps/portfolio-hub"
           fi
 
           echo "host=$host" >> "$GITHUB_OUTPUT"
