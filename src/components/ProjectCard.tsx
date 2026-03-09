@@ -57,15 +57,11 @@ function ProjectActions({
 }
 
 function getProjectAvailabilityLabel(project: Project): string {
-  if (project.demoUrl && project.codeUrl) {
-    return 'Démo publique et code source'
-  }
+  return project.demoUrl ? 'Démo en ligne' : 'Sans démo en ligne'
+}
 
-  if (project.demoUrl) {
-    return 'Démo publique'
-  }
-
-  return 'Code source'
+function getProjectSourceLabel(project: Project): string {
+  return project.codeUrl ? 'Code public' : 'Code non public'
 }
 
 function ProjectMedia({
@@ -100,50 +96,54 @@ function ProjectMedia({
         aria-hidden="true"
       />
 
-      <div className="relative overflow-hidden rounded-3xl border border-white/80 bg-white/95 p-3 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.4)]">
-        <div className="relative overflow-hidden rounded-2xl border border-slate/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(241,245,249,0.92)_100%)] shadow-inner aspect-[16/9]">
-          {hasSecondaryImage ? (
-            <div className="grid h-full grid-cols-[minmax(0,1.72fr)_minmax(88px,0.62fr)] gap-3 p-3 sm:grid-cols-[minmax(0,1.74fr)_minmax(104px,0.66fr)] sm:gap-4 sm:p-4">
-              <a
-                href={imageSrc}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={primaryImageLinkLabel}
-                className="block h-full overflow-hidden rounded-[1.15rem] border border-slate/10 bg-white cursor-zoom-in"
-              >
-                <img
-                  src={imageSrc}
-                  alt={imageAlt}
-                  loading="lazy"
-                  decoding="async"
-                  onLoad={onImageLoad}
-                  onError={onImageError}
-                  className={`h-full w-full transition duration-500 ${
-                    shouldContainImage
-                      ? 'object-contain object-center p-2 sm:p-3'
-                      : 'object-cover object-top'
-                  }`}
-                />
-              </a>
-
-              <a
-                href={secondaryImageSrc ?? undefined}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={secondaryImageLinkLabel}
-                className="flex h-full items-center justify-center overflow-hidden rounded-[1.15rem] border border-slate/10 bg-white cursor-zoom-in"
-              >
-                <img
-                  src={secondaryImageSrc ?? ''}
-                  alt={secondaryImageAlt ?? ''}
-                  loading="lazy"
-                  decoding="async"
-                  onError={onSecondaryImageError}
-                  className="h-full w-full object-contain object-top p-1.5 sm:p-2"
-                />
-              </a>
+      {hasSecondaryImage ? (
+        <div className="relative flex h-full flex-col items-center justify-center gap-4 sm:gap-5">
+          <a
+            href={imageSrc}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={primaryImageLinkLabel}
+            className="block w-full max-w-[30rem] cursor-zoom-in overflow-hidden rounded-3xl border border-white/80 bg-white/95 p-3 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.4)]"
+          >
+            <div className="relative overflow-hidden rounded-2xl border border-slate/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(241,245,249,0.92)_100%)] shadow-inner aspect-[16/9]">
+              <img
+                src={imageSrc}
+                alt={imageAlt}
+                loading="lazy"
+                decoding="async"
+                onLoad={onImageLoad}
+                onError={onImageError}
+                className={`h-full w-full transition duration-500 ${
+                  shouldContainImage
+                    ? 'object-contain object-center p-2 sm:p-3'
+                    : 'object-cover object-top'
+                }`}
+              />
             </div>
-          ) : (
+          </a>
+
+          <a
+            href={secondaryImageSrc ?? undefined}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={secondaryImageLinkLabel}
+            className="block w-full max-w-[10.5rem] cursor-zoom-in overflow-hidden rounded-[2rem] border border-white/80 bg-white/95 p-2.5 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.4)] sm:max-w-[11.5rem]"
+          >
+            <div className="relative overflow-hidden rounded-[1.5rem] border border-slate/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(241,245,249,0.92)_100%)] shadow-inner aspect-[9/19]">
+              <img
+                src={secondaryImageSrc ?? ''}
+                alt={secondaryImageAlt ?? ''}
+                loading="lazy"
+                decoding="async"
+                onError={onSecondaryImageError}
+                className="h-full w-full object-contain object-center p-1.5 sm:p-2"
+              />
+            </div>
+          </a>
+        </div>
+      ) : (
+        <div className="relative overflow-hidden rounded-3xl border border-white/80 bg-white/95 p-3 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.4)]">
+          <div className="relative overflow-hidden rounded-2xl border border-slate/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(241,245,249,0.92)_100%)] shadow-inner aspect-[16/9]">
             <a
               href={imageSrc}
               target="_blank"
@@ -165,9 +165,9 @@ function ProjectMedia({
                 }`}
               />
             </a>
-          )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
@@ -211,12 +211,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         <div className="flex flex-col gap-6 p-6 sm:p-8">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="pill-accent">
-              Projet
-            </span>
-            <span className="pill-muted">
-              {getProjectAvailabilityLabel(project)}
-            </span>
+            <span className="pill-accent">{project.typeLabel}</span>
+            <span className="pill-muted">{getProjectAvailabilityLabel(project)}</span>
+            <span className="pill-muted">{getProjectSourceLabel(project)}</span>
           </div>
 
           <div className="space-y-3">
@@ -226,6 +223,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <p className="max-w-3xl text-base leading-relaxed text-slate/88 sm:text-lg">
               {project.tagline}
             </p>
+            <ul className="tag-list pt-1">
+              {project.stack.map((stackItem) => (
+                <li key={`${project.slug}-${stackItem}`} className="tag-item">
+                  {stackItem}
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="grid gap-4 xl:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
@@ -238,29 +242,30 @@ export function ProjectCard({ project }: ProjectCardProps) {
               </div>
 
               <div className="surface-subtle p-5 sm:p-6">
-                <p className="section-kicker">Apport</p>
+                <p className="section-kicker">Résultat</p>
                 <p className="mt-3 text-sm leading-relaxed text-slate/80">
-                  {project.value}
+                  {project.result}
                 </p>
               </div>
             </div>
 
             <div className="space-y-4">
               <div className="surface-subtle p-5 sm:p-6">
-                <p className="section-kicker">Stack</p>
-                <ul className="tag-list mt-3">
-                  {project.stack.map((stackItem) => (
-                    <li key={`${project.slug}-${stackItem}`} className="tag-item">
-                      {stackItem}
+                <p className="section-kicker">Décisions clés</p>
+                <ul className="mt-3 grid gap-2 text-sm leading-relaxed text-slate/85">
+                  {project.keyDecisions.map((decision) => (
+                    <li key={`${project.slug}-${decision}`} className="detail-item">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                      <span>{decision}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               <div className="surface-subtle p-5 sm:p-6">
-                <p className="section-kicker">Signaux de sérieux</p>
+                <p className="section-kicker">Validation et livraison</p>
                 <ul className="mt-3 grid gap-2 text-sm leading-relaxed text-slate/85 sm:grid-cols-2 xl:grid-cols-1">
-                  {project.qualitySignals.map((qualitySignal) => (
+                  {project.qualityAndDelivery.map((qualitySignal) => (
                     <li
                       key={`${project.slug}-${qualitySignal}`}
                       className="detail-item"

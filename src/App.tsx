@@ -5,6 +5,7 @@ import { siteConfig } from './data/site'
 import { usePublicFileExists } from './hooks/usePublicFileExists'
 
 const navigationLinks = [
+  { href: '#interventions', label: 'Interventions' },
   { href: '#projects', label: 'Projets' },
   { href: '#method', label: 'Méthode' },
   { href: '#stack', label: 'Compétences' },
@@ -89,7 +90,7 @@ function App() {
 
               <div className="flex flex-wrap items-center gap-3">
                 <a href="#projects" className="btn-primary w-full sm:w-auto">
-                  Voir les réalisations
+                  Voir les projets
                 </a>
                 {cvIsAvailable ? (
                   <a
@@ -118,11 +119,11 @@ function App() {
 
               <div className="surface-subtle mt-6 px-4 py-4 sm:px-5">
                 <p className="text-sm font-semibold text-slate">
-                  Intervention du cadrage jusqu’à la mise en production
+                  De la lecture de l’existant à la mise en ligne
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-slate/75">
-                  Reprise d’existant, clarification d’architecture, qualité
-                  logicielle et fiabilisation de la livraison.
+                  Reprise, remise au clair technique, sécurisation des
+                  changements et livraison fiable.
                 </p>
               </div>
             </div>
@@ -141,6 +142,37 @@ function App() {
         </section>
 
         <section
+          id="interventions"
+          aria-labelledby="interventions-title"
+          className="section-shell"
+        >
+          <SectionTitle
+            titleId="interventions-title"
+            eyebrow="Interventions"
+            title="Ce que je prends en charge"
+            description="Les sujets sur lesquels j’interviens le plus souvent quand une application doit être reprise, clarifiée ou stabilisée."
+          />
+
+          <div className="surface-panel p-4 sm:p-5">
+            <div className="grid auto-rows-fr gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {siteConfig.interventionAreas.map((interventionArea) => (
+                <article
+                  key={interventionArea.title}
+                  className="surface-card p-6 sm:p-7"
+                >
+                  <h3 className="font-display text-xl font-semibold tracking-tight text-slate">
+                    {interventionArea.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate/80">
+                    {interventionArea.description}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section
           id="projects"
           aria-labelledby="projects-title"
           className="section-shell"
@@ -148,21 +180,21 @@ function App() {
           <SectionTitle
             titleId="projects-title"
             eyebrow="Projets"
-            title="Projets choisis pour montrer le niveau technique et la qualité de livraison"
-            description="Chaque projet expose l’objectif, l’apport, la stack et les signaux de sérieux visibles dans le code, la mise en ligne ou l’organisation technique."
+            title="Projets retenus pour montrer les choix techniques et la capacité à livrer"
+            description="Chaque carte résume le contexte, les décisions structurantes, les points de validation et ce que le projet montre une fois livré."
           />
 
           <div className="surface-panel flex flex-col gap-4 px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-6">
             <div>
               <h3 className="font-display text-2xl font-semibold tracking-tight text-slate">
-                Sélection de projets
+                Études de cas courtes
               </h3>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate/82">
-                Un ensemble cohérent de réalisations pour montrer le niveau
-                technique, la qualité d’exécution et la capacité à livrer.
+                Cinq cas pour montrer du code lisible, des choix assumés et des
+                mises en ligne vérifiables.
               </p>
             </div>
-            <p className="pill-muted">{projects.length} projets retenus</p>
+            <p className="pill-muted">{projects.length} cas présentés</p>
           </div>
 
           <div className="space-y-6">
@@ -181,7 +213,7 @@ function App() {
             titleId="method-title"
             eyebrow="Méthode"
             title="Ma méthode de travail"
-            description="Je clarifie le besoin, sécurise l’existant et laisse une base exploitable pour la suite."
+            description="Je pars de l’existant, sécurise les changements et laisse un socle clair pour la suite."
           />
 
           <div className="surface-panel p-4 sm:p-5">
@@ -215,7 +247,7 @@ function App() {
             titleId="stack-title"
             eyebrow="Compétences"
             title="Compétences structurées par domaine"
-            description="Des compétences organisées par domaine pour montrer ce que je peux cadrer, construire, sécuriser et industrialiser."
+            description="Des capacités organisées par domaine pour montrer comment je reprends, fais évoluer et fiabilise une application."
           />
 
           <div className="surface-panel p-4 sm:p-5">
@@ -237,6 +269,9 @@ function App() {
                     >
                       {skillGroup.title}
                     </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-slate/78">
+                      {skillGroup.description}
+                    </p>
                     <ul className="mt-4 space-y-3 text-sm leading-relaxed text-slate/82">
                       {skillGroup.items.map((item) => (
                         <li
@@ -263,17 +298,17 @@ function App() {
           <SectionTitle
             titleId="contact-title"
             eyebrow="Contact"
-            title="Parlons reprise d’existant, architecture ou mise en production"
-            description="Un échange rapide pour cadrer une reprise d’existant, une architecture à clarifier ou une chaîne de livraison à fiabiliser."
+            title="Échange sur une reprise, une remise au clair technique ou une mise en ligne"
+            description="Un échange court suffit pour cadrer un existant, un point de structure ou une livraison à sécuriser."
           />
 
           <div className="surface-card p-6 sm:p-8">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
               <div className="max-w-2xl">
-                <p className="pill-accent">Échange ciblé</p>
+                <p className="pill-accent">Premier échange</p>
                 <p className="mt-4 text-base leading-relaxed text-slate/82">
-                  Le plus utile est de partir du périmètre, des risques actuels
-                  et de la prochaine livraison à sécuriser.
+                  Le plus utile est de partir du périmètre, des points fragiles
+                  et de la prochaine échéance.
                 </p>
               </div>
 

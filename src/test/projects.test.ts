@@ -47,6 +47,18 @@ describe('projects data', () => {
     expect(projects).toHaveLength(5)
   })
 
+  it('décrit chaque projet comme une mini étude de cas lisible', () => {
+    expect(
+      projects.every(
+        (project) =>
+          project.typeLabel.trim().length > 0 &&
+          project.keyDecisions.length >= 2 &&
+          project.qualityAndDelivery.length >= 2 &&
+          project.result.trim().length > 0,
+      ),
+    ).toBe(true)
+  })
+
   it('utilise deux captures pour illustrer OnigiriShop', () => {
     const onigirishop = projects.find((project) => project.slug === 'onigirishop')
 
@@ -60,5 +72,15 @@ describe('projects data', () => {
     expect(
       projects.every((project) => project.imageAlt.trim().length > 0),
     ).toBe(true)
+  })
+
+  it('rend visibles les projets plus démonstratifs sans les sortir de la sélection', () => {
+    const demonstrativeProjects = projects.filter((project) =>
+      project.typeLabel.includes('Démonstrateur'),
+    )
+
+    expect(demonstrativeProjects.map((project) => project.slug)).toEqual(
+      expect.arrayContaining(['proba-loto-euromillions', 'tetris']),
+    )
   })
 })

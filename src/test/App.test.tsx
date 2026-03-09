@@ -2,6 +2,7 @@ import { render, screen, within } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import App from '../App'
 import { projects } from '../data/projects'
+import { siteConfig } from '../data/site'
 
 describe('App', () => {
   beforeEach(() => {
@@ -21,7 +22,13 @@ describe('App', () => {
       }),
     ).toBeInTheDocument()
     expect(
-      screen.getByRole('link', { name: /voir les réalisations/i }),
+      screen.getByRole('link', { name: /voir les projets/i }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: /ce que je prends en charge/i,
+      }),
     ).toBeInTheDocument()
     expect(
       screen.getByRole('heading', {
@@ -37,23 +44,31 @@ describe('App', () => {
     ).toBeInTheDocument()
 
     const projectsSection = screen.getByRole('region', {
-      name: /projets choisis pour montrer le niveau technique/i,
+      name: /projets retenus pour montrer les choix techniques/i,
     })
 
     expect(
       within(projectsSection).getByRole('heading', {
         level: 2,
-        name: /projets choisis pour montrer le niveau technique/i,
+        name: /projets retenus pour montrer les choix techniques/i,
       }),
     ).toBeInTheDocument()
     expect(
       within(projectsSection).getByRole('heading', {
         level: 3,
-        name: /sélection de projets/i,
+        name: /études de cas courtes/i,
       }),
     ).toBeInTheDocument()
     expect(within(projectsSection).getAllByRole('article')).toHaveLength(
       projects.length,
+    )
+
+    const interventionsSection = screen.getByRole('region', {
+      name: /ce que je prends en charge/i,
+    })
+
+    expect(within(interventionsSection).getAllByRole('article')).toHaveLength(
+      siteConfig.interventionAreas.length,
     )
   })
 
@@ -78,6 +93,31 @@ describe('App', () => {
       'href',
       'https://github.com/arnaud-wissart-lab/Tetrigular',
     )
+
+    expect(
+      within(tetrigularCard).getByText('Démonstrateur front'),
+    ).toBeInTheDocument()
+  })
+
+  it('rend explicite l’absence de démo en ligne quand elle n’existe pas', () => {
+    render(<App />)
+
+    const nvConsoHeading = screen.getByRole('heading', {
+      name: 'NVConso',
+    })
+    const nvConsoCard = nvConsoHeading.closest('article')
+
+    expect(nvConsoCard).not.toBeNull()
+    if (!nvConsoCard) {
+      return
+    }
+
+    expect(
+      within(nvConsoCard).getByText('Sans démo en ligne'),
+    ).toBeInTheDocument()
+    expect(
+      within(nvConsoCard).getByText('Application métier'),
+    ).toBeInTheDocument()
   })
 
   it('permet d’ouvrir les captures projet en taille originale', () => {

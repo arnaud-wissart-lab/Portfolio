@@ -1,11 +1,13 @@
 export type Project = {
   slug: string
   name: string
+  typeLabel: string
   tagline: string
   context: string
-  value: string
+  keyDecisions: string[]
+  qualityAndDelivery: string[]
+  result: string
   stack: string[]
-  qualitySignals: string[]
   demoUrl?: string
   codeUrl?: string
   imageUrl: string
@@ -18,18 +20,24 @@ export const projects: Project[] = [
   {
     slug: 'onigirishop',
     name: 'OnigiriShop',
+    typeLabel: 'Application web',
     tagline:
-      'Boutique en ligne orientée expérience utilisateur et parcours de commande fluide.',
+      'Boutique en ligne avec API séparée, parcours de commande lisible et rendu cohérent sur desktop et mobile.',
     context:
-      'Concevoir une boutique web lisible, avec une séparation nette entre API et interface pour faire évoluer le parcours de commande sans complexifier inutilement le code.',
-    value:
-      'Le projet met en avant une architecture claire, une gestion des états maîtrisée et une base exploitable pour itérer sur le tunnel de commande.',
-    stack: ['ASP.NET Core', 'React', 'Docker'],
-    qualitySignals: [
-      'Architecture API + interface clairement séparée.',
-      'Déploiement continu sur environnement live.',
-      'Code source public et démonstration accessible.',
+      'Construire une boutique web claire, avec une séparation nette entre API et interface pour faire évoluer le parcours de commande sans rigidifier le code.',
+    keyDecisions: [
+      'Séparer l’API ASP.NET Core de l’interface React pour faire évoluer le parcours sans couplage excessif.',
+      'Organiser catalogue, panier et commande autour de flux courts et relisibles.',
+      'Utiliser Docker pour rapprocher exécution locale et exécution publiée.',
     ],
+    qualityAndDelivery: [
+      'Code public et démo en ligne pour relire le flux complet.',
+      'Mise en ligne accessible pour valider le comportement hors poste de développement.',
+      'Structure pensée pour faire évoluer le tunnel de commande sans reprise lourde.',
+    ],
+    result:
+      'Le projet montre une base e-commerce claire, publiable et reprenable, avec des responsabilités bien séparées.',
+    stack: ['ASP.NET Core', 'React', 'Docker'],
     demoUrl: 'https://onigirishop.onrender.com/',
     codeUrl: 'https://github.com/arnaud-wissart-lab/OnigiriShop',
     imageUrl: '/assets/projects/onigirishop-desktop.png',
@@ -42,18 +50,24 @@ export const projects: Project[] = [
   {
     slug: 'bikevoyager',
     name: 'BikeVoyager',
+    typeLabel: 'Application web',
     tagline:
-      'Application web orientée consultation rapide, avec interface lisible et socle de données exploitable.',
+      'Application de consultation et de planification avec interface claire et socle de données exploitable.',
     context:
-      'Structurer une application orientée consultation rapide, tout en gardant un modèle de données capable d’évoluer sans réécriture brutale.',
-    value:
-      'Le projet démontre une interface claire, un socle SQL exploitable et une organisation pensée pour des itérations progressives.',
-    stack: ['ASP.NET Core', 'React', 'SQL'],
-    qualitySignals: [
-      'Structuration des données pour évolution progressive.',
-      'Pipeline CI/CD prêt pour itérations rapides.',
-      'Démo publique accompagnée du code source.',
+      'Organiser une application de consultation rapide tout en gardant un modèle de données capable d’évoluer sans remise à plat.',
+    keyDecisions: [
+      'Garder un socle ASP.NET Core + SQL simple à étendre sur un périmètre fonctionnel clair.',
+      'Construire une interface React centrée sur la consultation rapide plutôt que sur l’accumulation d’écrans.',
+      'Séparer données utiles à l’interface et logique de navigation pour limiter les régressions.',
     ],
+    qualityAndDelivery: [
+      'Code public et démo accessible pour vérifier l’ensemble.',
+      'Socle de données conçu pour évoluer par étapes.',
+      'Mise en ligne disponible pour contrôler le rendu et les flux principaux.',
+    ],
+    result:
+      'Le projet montre une application web lisible, évolutive et livrable sans surcouche inutile.',
+    stack: ['ASP.NET Core', 'React', 'SQL'],
     demoUrl: 'https://bike.arnaudwissart.fr',
     codeUrl: 'https://github.com/arnaud-wissart-lab/BikeVoyager',
     imageUrl: '/assets/projects/bikevoyager.jpg',
@@ -63,18 +77,24 @@ export const projects: Project[] = [
   {
     slug: 'nvconso',
     name: 'NVConso',
+    typeLabel: 'Application métier',
     tagline:
-      'Application de suivi de consommation pensée pour l’analyse et l’évolution du modèle de données.',
+      'Application métier de suivi de consommation, centrée sur le modèle de données et la reprise du socle .NET.',
     context:
-      'Poser un socle .NET et SQL orienté analyse pour structurer un suivi de consommation exploitable dans la durée.',
-    value:
-      'Le projet montre un modèle de données pensé pour l’analyse, une base adaptée à des tableaux de bord métiers et un code préparé pour l’automatisation.',
-    stack: ['.NET', 'SQL', 'Docker'],
-    qualitySignals: [
-      'Modèle de données orienté analyse.',
-      'Code prêt pour automatisation de tests.',
-      'Projet versionné avec socle Docker.',
+      'Poser un socle .NET et SQL orienté analyse pour rendre un suivi de consommation exploitable dans la durée.',
+    keyDecisions: [
+      'Structurer le modèle SQL autour des mesures, seuils et états utiles à l’analyse.',
+      'Garder un socle .NET simple à reprendre pour brancher services, tests ou tableaux de bord.',
+      'Isoler les règles métier des écrans pour éviter une reprise trop coûteuse.',
     ],
+    qualityAndDelivery: [
+      'Code public versionné pour relire la structure et les choix de modélisation.',
+      'Socle Docker pour reconstruire rapidement un environnement de travail.',
+      'Pas de démo en ligne à ce stade : l’évaluation passe par le code et la conception.',
+    ],
+    result:
+      'Le projet montre une base métier orientée données, prête pour l’analyse et pour des évolutions ciblées.',
+    stack: ['.NET', 'SQL', 'Docker'],
     codeUrl: 'https://github.com/arnaud-wissart-lab/NVConso',
     imageUrl: '/assets/projects/nvconso.jpg',
     imageAlt:
@@ -83,18 +103,24 @@ export const projects: Project[] = [
   {
     slug: 'proba-loto-euromillions',
     name: 'Probabilités Loto & EuroMillions',
+    typeLabel: 'Démonstrateur métier',
     tagline:
-      'Démonstrateur web pour rendre lisibles des calculs de probabilités et structurer une logique métier explicable.',
+      'Démonstrateur web de probabilités conçu pour rendre une logique de calcul lisible.',
     context:
-      'Rendre lisibles des calculs statistiques pour un public non spécialiste, avec une interface simple et un code assez propre pour enrichir les scénarios.',
-    value:
-      'Le projet met en avant une visualisation directe des probabilités clés et une base de code organisée pour étendre la logique métier.',
-    stack: ['TypeScript', 'Statistiques', 'UI Web'],
-    qualitySignals: [
-      'Visualisation directe des probabilités clés.',
-      'Code organisé pour enrichissement des scénarios.',
-      'Démo publique et code source versionné.',
+      'Rendre compréhensibles des calculs statistiques pour un public non spécialiste, avec une interface simple et un code facile à faire évoluer.',
+    keyDecisions: [
+      'Isoler les règles de calcul pour garder une logique vérifiable.',
+      'Séparer hypothèses, résultats et présentation pour éviter un écran opaque.',
+      'S’appuyer sur TypeScript pour garder un front léger et lisible.',
     ],
+    qualityAndDelivery: [
+      'Code public et démo en ligne pour confronter calculs et rendu.',
+      'Structure légère, simple à republier.',
+      'Organisation du code adaptée à l’ajout de nouveaux scénarios.',
+    ],
+    result:
+      'Le projet montre comment rendre une logique métier lisible à la fois dans l’interface et dans le code.',
+    stack: ['TypeScript', 'Statistiques', 'UI Web'],
     demoUrl: 'https://loto.arnaudwissart.fr',
     codeUrl: 'https://github.com/arnaud-wissart-lab/proba-loto-euromillions',
     imageUrl: '/assets/projects/loto.jpg',
@@ -104,18 +130,24 @@ export const projects: Project[] = [
   {
     slug: 'tetris',
     name: 'Tetrigular',
+    typeLabel: 'Démonstrateur front',
     tagline:
-      'Version web du classique Tetris, orientée performance et réactivité.',
+      'Démonstrateur front temps réel centré sur la boucle de jeu, le rendu Canvas et la réactivité.',
     context:
-      'Démonstrateur front plus léger, centré sur le rendu navigateur et la réactivité de l’interface.',
-    value:
-      'Le projet illustre une boucle de jeu claire, la gestion des collisions et un comportement fluide côté client.',
-    stack: ['TypeScript', 'Canvas', 'Game loop'],
-    qualitySignals: [
-      'Boucle de jeu structurée et réactive.',
-      'Gestion des collisions et des scores.',
-      'Démo publique immédiatement exploitable.',
+      'Projet plus démonstratif, centré sur le rendu navigateur, la boucle de jeu et la réactivité de l’interface.',
+    keyDecisions: [
+      'S’appuyer sur Canvas et une boucle de jeu explicite pour garder la maîtrise du rendu.',
+      'Isoler collisions, rotations et score dans des règles relisibles.',
+      'Garder un client léger, simple à publier et à reprendre.',
     ],
+    qualityAndDelivery: [
+      'Code public et démo en ligne pour vérifier le comportement en conditions réelles.',
+      'Build front simple et rapide à republier.',
+      'Projet volontairement démonstratif pour montrer la structuration d’un comportement interactif.',
+    ],
+    result:
+      'Le projet montre une organisation front claire sur un sujet temps réel, sans complexité superflue.',
+    stack: ['TypeScript', 'Canvas', 'Game loop'],
     demoUrl: 'https://tetris.arnaudwissart.fr',
     codeUrl: 'https://github.com/arnaud-wissart-lab/Tetrigular',
     imageUrl: '/assets/projects/tetris.jpg',
