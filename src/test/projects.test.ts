@@ -17,9 +17,11 @@ describe('projects data', () => {
     expect(liveUrls).toEqual(expect.arrayContaining(expectedLiveUrls))
   })
 
-  it('laisse le repo Tetris vide tant qu’il est inconnu', () => {
+  it('renseigne le dépôt de Tetrigular', () => {
     const tetris = projects.find((project) => project.slug === 'tetris')
-    expect(tetris?.codeUrl).toBeUndefined()
+    expect(tetris?.codeUrl).toBe(
+      'https://github.com/arnaud-wissart-lab/Tetrigular',
+    )
   })
 
   it('pointe les dépôts projet vers le compte arnaud-wissart-lab', () => {

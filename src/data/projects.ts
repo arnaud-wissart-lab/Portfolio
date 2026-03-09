@@ -112,6 +112,7 @@ export const projects: Project[] = [
       'Démo publique immédiatement exploitable.',
     ],
     demoUrl: 'https://tetris.arnaudwissart.fr',
+    codeUrl: 'https://github.com/arnaud-wissart-lab/Tetrigular',
     imageUrl: '/assets/projects/tetris.jpg',
     imageAlt:
       'Capture de Tetrigular avec la grille du jeu, les pièces en cours et le panneau de score.',

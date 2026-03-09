@@ -57,7 +57,7 @@ describe('App', () => {
     )
   })
 
-  it('n’affiche pas le lien Code pour Tetrigular', () => {
+  it('affiche le lien Code pour Tetrigular', () => {
     render(<App />)
 
     const tetrigularHeading = screen.getByRole('heading', {
@@ -71,10 +71,21 @@ describe('App', () => {
     }
 
     expect(
-      within(tetrigularCard).queryByRole('link', {
+      within(tetrigularCard).getByRole('link', {
         name: /voir le code source/i,
       }),
-    ).not.toBeInTheDocument()
+    ).toHaveAttribute(
+      'href',
+      'https://github.com/arnaud-wissart-lab/Tetrigular',
+    )
+  })
+
+  it('pointe le lien du code source du portfolio vers arnaud-wissart-lab', () => {
+    render(<App />)
+
+    expect(
+      screen.getByRole('link', { name: /voir le dépôt du site/i }),
+    ).toHaveAttribute('href', 'https://github.com/arnaud-wissart-lab/Portfolio')
   })
 
   it('masque le bouton CV si /public/cv.pdf est absent', () => {

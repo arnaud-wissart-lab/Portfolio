@@ -49,7 +49,7 @@ export const siteConfig: SiteConfig = {
   publicUrl: normalizedPublicUrl,
   siteRepoUrl:
     import.meta.env.VITE_SITE_REPO_URL ||
-    'https://github.com/arnaud-wissart/portfolio',
+    'https://github.com/arnaud-wissart-lab/Portfolio',
   socialLinks: [
     {
       label: 'LinkedIn',
