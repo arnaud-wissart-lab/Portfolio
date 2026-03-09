@@ -18,10 +18,6 @@ function App() {
   const socialLinks = siteConfig.socialLinks.filter(
     (socialLink) => socialLink.url.trim().length > 0,
   )
-  const featuredProjects = projects.filter((project) => project.tier === 'featured')
-  const secondaryProjects = projects.filter(
-    (project) => project.tier === 'secondary',
-  )
 
   return (
     <div
@@ -95,13 +91,6 @@ function App() {
                 <a href="#projects" className="btn-primary w-full sm:w-auto">
                   Voir les réalisations
                 </a>
-                <a
-                  href={`mailto:${siteConfig.email}`}
-                  aria-label={`Envoyer un email à ${siteConfig.email}`}
-                  className="btn-secondary w-full sm:w-auto"
-                >
-                  Parler d’une reprise d’existant
-                </a>
                 {cvIsAvailable ? (
                   <a
                     href="/cv.pdf"
@@ -163,66 +152,23 @@ function App() {
             description="Chaque projet expose l’objectif, l’apport, la stack et les signaux de sérieux visibles dans le code, la mise en ligne ou l’organisation technique."
           />
 
-          <div className="space-y-10">
+          <div className="surface-panel flex flex-col gap-4 px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-6">
             <div>
-              <div className="surface-panel flex flex-col gap-4 px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-6">
-                <div>
-                  <h3 className="font-display text-2xl font-semibold tracking-tight text-slate">
-                    Projets majeurs
-                  </h3>
-                  <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate/82">
-                    Les projets les plus représentatifs d’un travail .NET / web
-                    structuré, maintenable et publiable.
-                  </p>
-                </div>
-                <p className="pill-muted">
-                  {featuredProjects.length} projets retenus
-                </p>
-              </div>
-
-              <div className="mt-6 space-y-6">
-                {featuredProjects.map((project) => (
-                  <ProjectCard
-                    key={project.slug}
-                    project={project}
-                    variant="featured"
-                  />
-                ))}
-              </div>
+              <h3 className="font-display text-2xl font-semibold tracking-tight text-slate">
+                Sélection de projets
+              </h3>
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate/82">
+                Un ensemble cohérent de réalisations pour montrer le niveau
+                technique, la qualité d’exécution et la capacité à livrer.
+              </p>
             </div>
+            <p className="pill-muted">{projects.length} projets retenus</p>
+          </div>
 
-            {secondaryProjects.length > 0 ? (
-              <div>
-                <div className="surface-panel flex flex-col gap-4 px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-6">
-                  <div>
-                    <h3 className="font-display text-2xl font-semibold tracking-tight text-slate">
-                      Projets complémentaires
-                    </h3>
-                    <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate/82">
-                      {secondaryProjects.length > 1
-                        ? 'Des projets plus légers, utiles pour montrer la maîtrise d’un périmètre ciblé côté navigateur.'
-                        : 'Un projet plus léger, utile pour montrer une maîtrise ciblée côté navigateur.'}
-                    </p>
-                  </div>
-                  <p className="pill-muted">
-                    {secondaryProjects.length}{' '}
-                    {secondaryProjects.length > 1
-                      ? 'projets complémentaires'
-                      : 'projet complémentaire'}
-                  </p>
-                </div>
-
-                <div className="mt-6 grid grid-cols-1 gap-5">
-                  {secondaryProjects.map((project) => (
-                    <ProjectCard
-                      key={project.slug}
-                      project={project}
-                      variant="secondary"
-                    />
-                  ))}
-                </div>
-              </div>
-            ) : null}
+          <div className="space-y-6">
+            {projects.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
           </div>
         </section>
 

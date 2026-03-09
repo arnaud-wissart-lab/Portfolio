@@ -49,7 +49,7 @@ describe('App', () => {
     expect(
       within(projectsSection).getByRole('heading', {
         level: 3,
-        name: /projets majeurs/i,
+        name: /sélection de projets/i,
       }),
     ).toBeInTheDocument()
     expect(within(projectsSection).getAllByRole('article')).toHaveLength(

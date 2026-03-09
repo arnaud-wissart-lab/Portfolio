@@ -1,7 +1,6 @@
 export type Project = {
   slug: string
   name: string
-  tier: 'featured' | 'secondary'
   tagline: string
   context: string
   value: string
@@ -17,7 +16,6 @@ export const projects: Project[] = [
   {
     slug: 'onigirishop',
     name: 'OnigiriShop',
-    tier: 'featured',
     tagline:
       'Boutique en ligne orientée expérience utilisateur et parcours de commande fluide.',
     context:
@@ -39,7 +37,6 @@ export const projects: Project[] = [
   {
     slug: 'bikevoyager',
     name: 'BikeVoyager',
-    tier: 'featured',
     tagline:
       'Application web orientée consultation rapide, avec interface lisible et socle de données exploitable.',
     context:
@@ -61,7 +58,6 @@ export const projects: Project[] = [
   {
     slug: 'nvconso',
     name: 'NVConso',
-    tier: 'featured',
     tagline:
       'Application de suivi de consommation pensée pour l’analyse et l’évolution du modèle de données.',
     context:
@@ -82,7 +78,6 @@ export const projects: Project[] = [
   {
     slug: 'proba-loto-euromillions',
     name: 'Probabilités Loto & EuroMillions',
-    tier: 'featured',
     tagline:
       'Démonstrateur web pour rendre lisibles des calculs de probabilités et structurer une logique métier explicable.',
     context:
@@ -104,7 +99,6 @@ export const projects: Project[] = [
   {
     slug: 'tetris',
     name: 'Tetrigular',
-    tier: 'secondary',
     tagline:
       'Version web du classique Tetris, orientée performance et réactivité.',
     context:

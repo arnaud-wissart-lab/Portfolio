@@ -5,7 +5,6 @@ const FALLBACK_IMAGE = '/assets/avatar-placeholder.jpg'
 
 type ProjectCardProps = {
   project: Project
-  variant?: 'featured' | 'secondary'
 }
 
 type ProjectMediaProps = {
@@ -57,6 +56,30 @@ function ProjectActions({
   )
 }
 
+function getProjectAccessLabel(project: Project): string {
+  if (project.demoUrl && project.codeUrl) {
+    return 'Démo + code'
+  }
+
+  if (project.demoUrl) {
+    return 'Démo'
+  }
+
+  return 'Code source'
+}
+
+function getProjectAvailabilityLabel(project: Project): string {
+  if (project.demoUrl && project.codeUrl) {
+    return 'Démo publique et code source'
+  }
+
+  if (project.demoUrl) {
+    return 'Démo publique'
+  }
+
+  return 'Code source'
+}
+
 function ProjectMedia({
   project,
   imageSrc,
@@ -73,7 +96,7 @@ function ProjectMedia({
 
   return (
     <div
-      className={`relative overflow-hidden bg-[linear-gradient(140deg,rgba(240,249,255,0.95)_0%,rgba(248,250,252,0.98)_52%,rgba(236,254,255,0.9)_100%)] ${
+      className={`relative flex h-full flex-col overflow-hidden bg-[linear-gradient(140deg,rgba(240,249,255,0.95)_0%,rgba(248,250,252,0.98)_52%,rgba(236,254,255,0.9)_100%)] ${
         compact ? 'p-4 sm:p-5' : 'p-5 sm:p-6'
       }`}
     >
@@ -123,13 +146,10 @@ function ProjectMedia({
   )
 }
 
-export function ProjectCard({
-  project,
-  variant = 'featured',
-}: ProjectCardProps) {
+export function ProjectCard({ project }: ProjectCardProps) {
   const [imageSrc, setImageSrc] = useState(project.imageUrl || FALLBACK_IMAGE)
   const [shouldContainImage, setShouldContainImage] = useState(false)
-  const mediaLabel = project.demoUrl ? 'Démo + code' : 'Code source'
+  const mediaLabel = getProjectAccessLabel(project)
 
   const handleImageLoad = (event: SyntheticEvent<HTMLImageElement>) => {
     const ratio =
@@ -142,78 +162,10 @@ export function ProjectCard({
     setShouldContainImage(true)
   }
 
-  if (variant === 'secondary') {
-    return (
-      <article className="surface-card overflow-hidden">
-        <div className="grid gap-0 lg:grid-cols-[minmax(240px,0.82fr)_minmax(0,1.18fr)] lg:items-start">
-          <ProjectMedia
-            project={project}
-            imageSrc={imageSrc}
-            mediaLabel={mediaLabel}
-            shouldContainImage={shouldContainImage}
-            onImageLoad={handleImageLoad}
-            onImageError={handleImageError}
-            compact
-          />
-
-          <div className="flex flex-col gap-5 p-6 sm:p-7">
-            <div className="space-y-2">
-              <h3 className="font-display text-2xl font-semibold tracking-tight text-slate sm:text-[1.75rem]">
-                {project.name}
-              </h3>
-              <p className="text-sm leading-relaxed text-slate/80 sm:text-base">
-                {project.tagline}
-              </p>
-            </div>
-
-            <div className="surface-subtle p-4 sm:p-5">
-              <p className="section-kicker">
-                Ce que le projet montre
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-slate/80">
-                {project.value}
-              </p>
-            </div>
-
-            <div className="grid gap-4 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)]">
-              <div className="surface-subtle p-4 sm:p-5">
-                <p className="section-kicker">Stack</p>
-                <ul className="tag-list mt-3">
-                  {project.stack.map((stackItem) => (
-                    <li key={`${project.slug}-${stackItem}`} className="tag-item">
-                      {stackItem}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="surface-subtle p-4 sm:p-5">
-                <p className="section-kicker">Signaux utiles</p>
-                <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate/85">
-                  {project.qualitySignals.slice(0, 2).map((qualitySignal) => (
-                    <li
-                      key={`${project.slug}-${qualitySignal}`}
-                      className="flex gap-3"
-                    >
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                      <span>{qualitySignal}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <ProjectActions project={project} compact />
-          </div>
-        </div>
-      </article>
-    )
-  }
-
   return (
     <article className="surface-card overflow-hidden">
-      <div className="grid gap-0 xl:grid-cols-[minmax(320px,0.84fr)_minmax(0,1.16fr)] xl:items-start">
-        <div className="border-b border-slate/10 xl:border-b-0">
+      <div className="grid gap-0 xl:grid-cols-[minmax(320px,0.84fr)_minmax(0,1.16fr)] xl:items-stretch">
+        <div className="border-b border-slate/10 xl:h-full xl:border-b-0">
           <ProjectMedia
             project={project}
             imageSrc={imageSrc}
@@ -227,10 +179,10 @@ export function ProjectCard({
         <div className="flex flex-col gap-6 p-6 sm:p-8">
           <div className="flex flex-wrap items-center gap-3">
             <span className="pill-accent">
-              Projet vedette
+              Projet
             </span>
             <span className="pill-muted">
-              {project.demoUrl ? 'Démo publique et code source' : 'Code source'}
+              {getProjectAvailabilityLabel(project)}
             </span>
           </div>
 

@@ -40,18 +40,9 @@ describe('projects data', () => {
     expect(projects[2]?.slug).toBe('nvconso')
   })
 
-  it('sépare les projets majeurs des projets complémentaires', () => {
-    const featuredProjects = projects.filter(
-      (project) => project.tier === 'featured',
-    )
-    const secondaryProjects = projects.filter(
-      (project) => project.tier === 'secondary',
-    )
-
-    expect(featuredProjects).toHaveLength(4)
-    expect(secondaryProjects.map((project) => project.slug)).toEqual([
-      'tetris',
-    ])
+  it('présente Tetrigular dans la même sélection que les autres projets', () => {
+    expect(projects.map((project) => project.slug)).toContain('tetris')
+    expect(projects).toHaveLength(5)
   })
 
   it('fournit un texte alternatif descriptif pour chaque visuel projet', () => {
