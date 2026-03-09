@@ -10,6 +10,8 @@ export type Project = {
   codeUrl?: string
   imageUrl: string
   imageAlt: string
+  secondaryImageUrl?: string
+  secondaryImageAlt?: string
 }
 
 export const projects: Project[] = [
@@ -30,9 +32,12 @@ export const projects: Project[] = [
     ],
     demoUrl: 'https://onigirishop.onrender.com/',
     codeUrl: 'https://github.com/arnaud-wissart-lab/OnigiriShop',
-    imageUrl: '/assets/projects/onigirishop.jpg',
+    imageUrl: '/assets/projects/onigirishop-desktop.png',
     imageAlt:
-      'Capture d’OnigiriShop montrant une interface e-commerce mobile avec liste de produits et panier.',
+      'Capture desktop d’OnigiriShop montrant la page boutique avec la liste des produits, la navigation et le panier.',
+    secondaryImageUrl: '/assets/projects/onigirishop-mobile.png',
+    secondaryImageAlt:
+      'Capture mobile d’OnigiriShop montrant l’interface e-commerce sur smartphone.',
   },
   {
     slug: 'bikevoyager',

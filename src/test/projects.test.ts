@@ -47,6 +47,15 @@ describe('projects data', () => {
     expect(projects).toHaveLength(5)
   })
 
+  it('utilise deux captures pour illustrer OnigiriShop', () => {
+    const onigirishop = projects.find((project) => project.slug === 'onigirishop')
+
+    expect(onigirishop?.imageUrl).toBe('/assets/projects/onigirishop-desktop.png')
+    expect(onigirishop?.secondaryImageUrl).toBe(
+      '/assets/projects/onigirishop-mobile.png',
+    )
+  })
+
   it('fournit un texte alternatif descriptif pour chaque visuel projet', () => {
     expect(
       projects.every((project) => project.imageAlt.trim().length > 0),

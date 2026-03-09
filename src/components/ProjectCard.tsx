@@ -10,9 +10,11 @@ type ProjectCardProps = {
 type ProjectMediaProps = {
   project: Project
   imageSrc: string
+  secondaryImageSrc?: string | null
   shouldContainImage: boolean
   onImageLoad: (event: SyntheticEvent<HTMLImageElement>) => void
   onImageError: () => void
+  onSecondaryImageError: () => void
 }
 
 type ProjectActionsProps = {
@@ -69,14 +71,18 @@ function getProjectAvailabilityLabel(project: Project): string {
 function ProjectMedia({
   project,
   imageSrc,
+  secondaryImageSrc,
   shouldContainImage,
   onImageLoad,
   onImageError,
+  onSecondaryImageError,
 }: ProjectMediaProps) {
   const imageAlt =
     imageSrc === FALLBACK_IMAGE
       ? `Illustration de remplacement pour le projet ${project.name}`
       : project.imageAlt
+  const secondaryImageAlt = project.secondaryImageAlt?.trim()
+  const hasSecondaryImage = Boolean(secondaryImageSrc && secondaryImageAlt)
 
   return (
     <div
@@ -88,7 +94,7 @@ function ProjectMedia({
       />
 
       <div className="relative overflow-hidden rounded-3xl border border-white/80 bg-white/95 p-3 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.4)]">
-        <div className="overflow-hidden rounded-2xl border border-slate/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(241,245,249,0.92)_100%)] shadow-inner aspect-[16/9]">
+        <div className="relative overflow-hidden rounded-2xl border border-slate/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(241,245,249,0.92)_100%)] shadow-inner aspect-[16/9]">
           <img
             src={imageSrc}
             alt={imageAlt}
@@ -102,6 +108,21 @@ function ProjectMedia({
                 : 'object-cover object-top'
             }`}
           />
+
+          {hasSecondaryImage ? (
+            <div className="absolute bottom-3 right-3 z-10 w-[24%] min-w-[88px] max-w-[156px] rounded-[1.35rem] border border-white/85 bg-white/95 p-1.5 shadow-[0_18px_40px_-24px_rgba(15,23,42,0.55)] sm:bottom-4 sm:right-4 sm:min-w-[104px] sm:p-2">
+              <div className="overflow-hidden rounded-[1rem] border border-slate/10 bg-slate-50 aspect-[9/19]">
+                <img
+                  src={secondaryImageSrc ?? ''}
+                  alt={secondaryImageAlt ?? ''}
+                  loading="lazy"
+                  decoding="async"
+                  onError={onSecondaryImageError}
+                  className="h-full w-full object-cover object-top"
+                />
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
@@ -110,6 +131,9 @@ function ProjectMedia({
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const [imageSrc, setImageSrc] = useState(project.imageUrl || FALLBACK_IMAGE)
+  const [secondaryImageSrc, setSecondaryImageSrc] = useState<string | null>(
+    project.secondaryImageUrl ?? null,
+  )
   const [shouldContainImage, setShouldContainImage] = useState(false)
 
   const handleImageLoad = (event: SyntheticEvent<HTMLImageElement>) => {
@@ -123,6 +147,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
     setShouldContainImage(true)
   }
 
+  const handleSecondaryImageError = () => {
+    setSecondaryImageSrc(null)
+  }
+
   return (
     <article className="surface-card overflow-hidden">
       <div className="grid gap-0 xl:grid-cols-[minmax(320px,0.84fr)_minmax(0,1.16fr)] xl:items-stretch">
@@ -130,9 +158,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <ProjectMedia
             project={project}
             imageSrc={imageSrc}
+            secondaryImageSrc={secondaryImageSrc}
             shouldContainImage={shouldContainImage}
             onImageLoad={handleImageLoad}
             onImageError={handleImageError}
+            onSecondaryImageError={handleSecondaryImageError}
           />
         </div>
 
