@@ -12,18 +12,18 @@ export function SectionTitle({
   titleId,
 }: SectionTitleProps) {
   return (
-    <div className="max-w-3xl">
-      <p className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
+    <div className="max-w-4xl space-y-3">
+      <p className="section-kicker">
         {eyebrow}
       </p>
       <h2
         id={titleId}
-        className="mt-3 font-display text-3xl font-semibold tracking-tight text-slate sm:text-4xl"
+        className="font-display text-3xl font-semibold tracking-tight text-slate sm:text-4xl lg:text-[2.65rem]"
       >
         {title}
       </h2>
       {description ? (
-        <p className="mt-4 text-base leading-relaxed text-slate/80">
+        <p className="max-w-3xl text-base leading-relaxed text-slate/82 sm:text-lg">
           {description}
         </p>
       ) : null}

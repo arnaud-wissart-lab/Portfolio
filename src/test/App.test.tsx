@@ -15,27 +15,65 @@ describe('App', () => {
     render(<App />)
 
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Arnaud Wissart' }),
+      screen.getByRole('heading', {
+        level: 1,
+        name: /développeur \.net \/ web expérimenté/i,
+      }),
     ).toBeInTheDocument()
     expect(
-      screen.getByRole('heading', { level: 2, name: /démos live/i }),
+      screen.getByRole('link', { name: /voir les réalisations/i }),
     ).toBeInTheDocument()
-    expect(screen.getAllByRole('article')).toHaveLength(projects.length)
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: /ma méthode de travail/i,
+      }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: /compétences structurées par domaine/i,
+      }),
+    ).toBeInTheDocument()
+
+    const projectsSection = screen.getByRole('region', {
+      name: /projets choisis pour montrer le niveau technique/i,
+    })
+
+    expect(
+      within(projectsSection).getByRole('heading', {
+        level: 2,
+        name: /projets choisis pour montrer le niveau technique/i,
+      }),
+    ).toBeInTheDocument()
+    expect(
+      within(projectsSection).getByRole('heading', {
+        level: 3,
+        name: /projets majeurs/i,
+      }),
+    ).toBeInTheDocument()
+    expect(within(projectsSection).getAllByRole('article')).toHaveLength(
+      projects.length,
+    )
   })
 
-  it('n’affiche pas le lien Code pour Tetris', () => {
+  it('n’affiche pas le lien Code pour Tetrigular', () => {
     render(<App />)
 
-    const tetrisHeading = screen.getByRole('heading', { name: 'Tetris' })
-    const tetrisCard = tetrisHeading.closest('article')
+    const tetrigularHeading = screen.getByRole('heading', {
+      name: 'Tetrigular',
+    })
+    const tetrigularCard = tetrigularHeading.closest('article')
 
-    expect(tetrisCard).not.toBeNull()
-    if (!tetrisCard) {
+    expect(tetrigularCard).not.toBeNull()
+    if (!tetrigularCard) {
       return
     }
 
     expect(
-      within(tetrisCard).queryByRole('link', { name: 'Code' }),
+      within(tetrigularCard).queryByRole('link', {
+        name: /voir le code source/i,
+      }),
     ).not.toBeInTheDocument()
   })
 
@@ -45,5 +83,11 @@ describe('App', () => {
     expect(
       screen.queryByRole('link', { name: /télécharger mon cv/i }),
     ).not.toBeInTheDocument()
+  })
+
+  it('rend la cible du lien d’évitement focalisable', () => {
+    render(<App />)
+
+    expect(screen.getByRole('main')).toHaveAttribute('tabindex', '-1')
   })
 })

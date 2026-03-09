@@ -22,9 +22,41 @@ describe('projects data', () => {
     expect(tetris?.codeUrl).toBeUndefined()
   })
 
-  it('place OnigiriShop en troisième position', () => {
-    expect(projects[0]?.slug).toBe('bikevoyager')
-    expect(projects[1]?.slug).toBe('proba-loto-euromillions')
-    expect(projects[2]?.slug).toBe('onigirishop')
+  it('pointe les dépôts projet vers le compte arnaud-wissart-lab', () => {
+    const projectRepoUrls = projects
+      .map((project) => project.codeUrl)
+      .filter((codeUrl): codeUrl is string => Boolean(codeUrl))
+
+    expect(
+      projectRepoUrls.every((codeUrl) =>
+        codeUrl.startsWith('https://github.com/arnaud-wissart-lab/'),
+      ),
+    ).toBe(true)
+  })
+
+  it('remonte les projets .NET / web les plus crédibles en tête de liste', () => {
+    expect(projects[0]?.slug).toBe('onigirishop')
+    expect(projects[1]?.slug).toBe('bikevoyager')
+    expect(projects[2]?.slug).toBe('nvconso')
+  })
+
+  it('sépare les projets majeurs des projets complémentaires', () => {
+    const featuredProjects = projects.filter(
+      (project) => project.tier === 'featured',
+    )
+    const secondaryProjects = projects.filter(
+      (project) => project.tier === 'secondary',
+    )
+
+    expect(featuredProjects).toHaveLength(4)
+    expect(secondaryProjects.map((project) => project.slug)).toEqual([
+      'tetris',
+    ])
+  })
+
+  it('fournit un texte alternatif descriptif pour chaque visuel projet', () => {
+    expect(
+      projects.every((project) => project.imageAlt.trim().length > 0),
+    ).toBe(true)
   })
 })
