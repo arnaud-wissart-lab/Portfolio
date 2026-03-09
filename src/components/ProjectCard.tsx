@@ -5,7 +5,6 @@ const FALLBACK_IMAGE = '/assets/avatar-placeholder.jpg'
 
 type ProjectCardProps = {
   project: Project
-  variant?: 'primary' | 'secondary'
 }
 
 type ProjectMediaProps = {
@@ -13,7 +12,6 @@ type ProjectMediaProps = {
   imageSrc: string
   secondaryImageSrc?: string | null
   shouldContainImage: boolean
-  compact?: boolean
   onImageLoad: (event: SyntheticEvent<HTMLImageElement>) => void
   onImageError: () => void
   onSecondaryImageError: () => void
@@ -21,21 +19,14 @@ type ProjectMediaProps = {
 
 type ProjectActionsProps = {
   project: Project
-  compact?: boolean
 }
 
 type ProjectDetailBlockProps = {
   title: string
-  compact?: boolean
   children: ReactNode
 }
 
-function ProjectActions({
-  project,
-  compact = false,
-}: ProjectActionsProps) {
-  const sizeClass = compact ? 'px-4 py-2.5' : 'px-5 py-3'
-
+function ProjectActions({ project }: ProjectActionsProps) {
   return (
     <div className="flex flex-wrap gap-3">
       {project.demoUrl ? (
@@ -44,7 +35,7 @@ function ProjectActions({
           target="_blank"
           rel="noreferrer"
           aria-label={`Voir la démo du projet ${project.name} (ouvre dans un nouvel onglet)`}
-          className={`btn-primary ${sizeClass}`}
+          className="btn-primary px-5 py-3"
         >
           Voir la démo
         </a>
@@ -55,7 +46,7 @@ function ProjectActions({
           target="_blank"
           rel="noreferrer"
           aria-label={`Voir le code source du projet ${project.name} (ouvre dans un nouvel onglet)`}
-          className={`btn-secondary ${sizeClass}`}
+          className="btn-secondary px-5 py-3"
         >
           Voir le code source
         </a>
@@ -64,13 +55,9 @@ function ProjectActions({
   )
 }
 
-function ProjectDetailBlock({
-  title,
-  compact = false,
-  children,
-}: ProjectDetailBlockProps) {
+function ProjectDetailBlock({ title, children }: ProjectDetailBlockProps) {
   return (
-    <div className={`surface-subtle self-start ${compact ? 'p-4' : 'p-4 sm:p-5'}`}>
+    <div className="surface-subtle self-start p-4 sm:p-5">
       <p className="section-kicker">{title}</p>
       <div className="mt-3">{children}</div>
     </div>
@@ -90,7 +77,6 @@ function ProjectMedia({
   imageSrc,
   secondaryImageSrc,
   shouldContainImage,
-  compact = false,
   onImageLoad,
   onImageError,
   onSecondaryImageError,
@@ -110,7 +96,7 @@ function ProjectMedia({
     : ''
 
   return (
-    <div className={compact ? 'p-4 sm:p-5' : 'p-4 sm:p-5 lg:p-6'}>
+    <div className="p-4 sm:p-5 lg:p-6">
       <div
         className="relative overflow-hidden rounded-[2rem] bg-[linear-gradient(140deg,rgba(240,249,255,0.95)_0%,rgba(248,250,252,0.98)_52%,rgba(236,254,255,0.9)_100%)] p-4 sm:p-5"
       >
@@ -166,9 +152,7 @@ function ProjectMedia({
           </div>
         ) : (
           <div className="relative mx-auto w-full max-w-[26rem] overflow-hidden rounded-3xl border border-white/80 bg-white/95 p-3 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.4)]">
-            <div className={`relative overflow-hidden rounded-2xl border border-slate/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(241,245,249,0.92)_100%)] shadow-inner ${
-              compact ? 'aspect-[16/8.8]' : 'aspect-[16/9.2]'
-            }`}>
+            <div className="relative overflow-hidden rounded-2xl border border-slate/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(241,245,249,0.92)_100%)] shadow-inner aspect-[16/9.2]">
               <a
                 href={imageSrc}
                 target="_blank"
@@ -198,22 +182,12 @@ function ProjectMedia({
   )
 }
 
-export function ProjectCard({
-  project,
-  variant = 'primary',
-}: ProjectCardProps) {
+export function ProjectCard({ project }: ProjectCardProps) {
   const [imageSrc, setImageSrc] = useState(project.imageUrl || FALLBACK_IMAGE)
   const [secondaryImageSrc, setSecondaryImageSrc] = useState<string | null>(
     project.secondaryImageUrl ?? null,
   )
   const [shouldContainImage, setShouldContainImage] = useState(false)
-  const compact = variant === 'secondary'
-  const visibleKeyDecisions = compact
-    ? project.keyDecisions.slice(0, 2)
-    : project.keyDecisions
-  const visibleQualityAndDelivery = compact
-    ? project.qualityAndDelivery.slice(0, 2)
-    : project.qualityAndDelivery
 
   const handleImageLoad = (event: SyntheticEvent<HTMLImageElement>) => {
     const ratio =
@@ -232,20 +206,13 @@ export function ProjectCard({
 
   return (
     <article className="surface-card overflow-hidden">
-      <div
-        className={`grid gap-0 ${
-          compact
-            ? 'xl:grid-cols-[minmax(220px,0.58fr)_minmax(0,1.42fr)] xl:items-start'
-            : 'xl:grid-cols-[minmax(250px,0.62fr)_minmax(0,1.38fr)] xl:items-start'
-        }`}
-      >
+      <div className="grid gap-0 xl:grid-cols-[minmax(250px,0.62fr)_minmax(0,1.38fr)] xl:items-start">
         <div className="border-b border-slate/10 xl:self-start xl:border-b-0">
           <ProjectMedia
             project={project}
             imageSrc={imageSrc}
             secondaryImageSrc={secondaryImageSrc}
             shouldContainImage={shouldContainImage}
-            compact={compact}
             onImageLoad={handleImageLoad}
             onImageError={handleImageError}
             onSecondaryImageError={handleSecondaryImageError}
@@ -253,33 +220,21 @@ export function ProjectCard({
         </div>
 
         <div
-          className={`flex flex-col ${
-            compact ? 'gap-4 p-4 sm:p-5' : 'gap-4 p-4 sm:p-5 lg:p-6'
-          }`}
+          className="flex flex-col gap-4 p-4 sm:p-5 lg:p-6"
         >
-          <div
-            className={`flex flex-wrap items-center ${
-              compact ? 'gap-2' : 'gap-2.5'
-            }`}
-          >
+          <div className="flex flex-wrap items-center gap-2.5">
             <span className="pill-accent">{project.typeLabel}</span>
             <span className="pill-muted">{getProjectAvailabilityLabel(project)}</span>
             <span className="pill-muted">{getProjectSourceLabel(project)}</span>
           </div>
 
-          <div className={compact ? 'space-y-2' : 'space-y-2.5'}>
+          <div className="space-y-2.5">
             <h3
-              className={`font-display font-semibold tracking-tight text-slate ${
-                compact ? 'text-[1.7rem] sm:text-[1.85rem]' : 'text-[1.9rem] sm:text-[2.15rem]'
-              }`}
+              className="font-display text-[1.9rem] font-semibold tracking-tight text-slate sm:text-[2.15rem]"
             >
               {project.name}
             </h3>
-            <p
-              className={`max-w-3xl leading-relaxed text-slate/88 ${
-                compact ? 'text-[0.95rem]' : 'text-[0.98rem] sm:text-[1.02rem]'
-              }`}
-            >
+            <p className="max-w-3xl text-[0.98rem] leading-relaxed text-slate/88 sm:text-[1.02rem]">
               {project.tagline}
             </p>
             <ul className="tag-list pt-1">
@@ -293,13 +248,13 @@ export function ProjectCard({
 
           <div className="grid gap-3 lg:grid-cols-2">
             <div className="grid content-start gap-3">
-              <ProjectDetailBlock title="Contexte" compact={compact}>
+              <ProjectDetailBlock title="Contexte">
                 <p className="text-sm leading-relaxed text-slate/80">
                   {project.context}
                 </p>
               </ProjectDetailBlock>
 
-              <ProjectDetailBlock title="Résultat" compact={compact}>
+              <ProjectDetailBlock title="Résultat">
                 <p className="text-sm leading-relaxed text-slate/80">
                   {project.result}
                 </p>
@@ -307,9 +262,9 @@ export function ProjectCard({
             </div>
 
             <div className="grid content-start gap-3">
-              <ProjectDetailBlock title="Décisions clés" compact={compact}>
+              <ProjectDetailBlock title="Décisions clés">
                 <ul className="grid gap-2 text-sm leading-relaxed text-slate/85">
-                  {visibleKeyDecisions.map((decision) => (
+                  {project.keyDecisions.map((decision) => (
                     <li key={`${project.slug}-${decision}`} className="detail-item">
                       <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                       <span>{decision}</span>
@@ -318,12 +273,9 @@ export function ProjectCard({
                 </ul>
               </ProjectDetailBlock>
 
-              <ProjectDetailBlock
-                title="Validation et livraison"
-                compact={compact}
-              >
+              <ProjectDetailBlock title="Validation et livraison">
                 <ul className="grid gap-2 text-sm leading-relaxed text-slate/85">
-                  {visibleQualityAndDelivery.map((qualitySignal) => (
+                  {project.qualityAndDelivery.map((qualitySignal) => (
                     <li
                       key={`${project.slug}-${qualitySignal}`}
                       className="detail-item"
@@ -337,7 +289,7 @@ export function ProjectCard({
             </div>
           </div>
 
-          <ProjectActions project={project} compact={compact} />
+          <ProjectActions project={project} />
         </div>
       </div>
     </article>
