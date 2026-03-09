@@ -11,6 +11,8 @@ const navigationLinks = [
   { href: '#contact', label: 'Contact' },
 ]
 
+const cvDownloadName = 'Arnaud_Wissart_CV_Dev.pdf'
+
 function App() {
   const cvIsAvailable = usePublicFileExists('/cv.pdf')
   const socialLinks = siteConfig.socialLinks.filter(
@@ -101,7 +103,11 @@ function App() {
                   Parler d’une reprise d’existant
                 </a>
                 {cvIsAvailable ? (
-                  <a href="/cv.pdf" className="btn-soft w-full sm:w-auto">
+                  <a
+                    href="/cv.pdf"
+                    download={cvDownloadName}
+                    className="btn-soft w-full sm:w-auto"
+                  >
                     Télécharger le CV
                   </a>
                 ) : null}
@@ -335,7 +341,11 @@ function App() {
                 </a>
 
                 {cvIsAvailable ? (
-                  <a href="/cv.pdf" className="btn-soft w-full sm:w-auto">
+                  <a
+                    href="/cv.pdf"
+                    download={cvDownloadName}
+                    className="btn-soft w-full sm:w-auto"
+                  >
                     Télécharger mon CV
                   </a>
                 ) : null}

@@ -85,6 +85,22 @@ describe('App', () => {
     ).not.toBeInTheDocument()
   })
 
+  it('affiche un lien de téléchargement quand /public/cv.pdf est disponible', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response(null, { status: 200 })),
+    )
+
+    render(<App />)
+
+    const cvLink = await screen.findByRole('link', {
+      name: /télécharger mon cv/i,
+    })
+
+    expect(cvLink).toHaveAttribute('href', '/cv.pdf')
+    expect(cvLink).toHaveAttribute('download', 'Arnaud_Wissart_CV_Dev.pdf')
+  })
+
   it('rend la cible du lien d’évitement focalisable', () => {
     render(<App />)
 
