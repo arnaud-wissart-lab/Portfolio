@@ -76,6 +76,10 @@
     @apply inline-flex items-center rounded-full border border-slate/10 bg-white px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-slate/70;
   }
 
+  .pill-link {
+    @apply inline-flex items-center rounded-full border border-slate/15 bg-white px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-slate/80 transition-colors hover:border-accent/40 hover:bg-accentSoft hover:text-accent;
+  }
+
   .btn-primary {
     @apply inline-flex items-center justify-center rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-cyan-700;
   }

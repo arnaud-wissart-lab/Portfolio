@@ -181,19 +181,19 @@ function App() {
           <SectionTitle
             titleId="projects-title"
             eyebrow="Projets"
-            title="Projets retenus pour montrer les choix techniques et la capacité à livrer"
-            description="Une sélection de projets présentés comme des mini études de cas, pour montrer le contexte, les décisions prises, la validation et le résultat."
+            title="Études de cas"
+            description="Cinq projets pour illustrer des choix de structure, de validation et de mise en ligne sur des sujets concrets."
           />
 
           <div className="surface-panel flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-end sm:justify-between sm:px-5">
             <div>
               <h3 className="font-display text-[1.6rem] font-semibold tracking-tight text-slate sm:text-[1.8rem]">
-                Études de cas courtes
+                Lecture rapide
               </h3>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate/82">
-                Une sélection courte pour montrer du code lisible, des choix
-                assumés et des livraisons vérifiables, sans empiler du détail
-                inutile.
+                Chaque carte résume le contexte, les décisions clés, la
+                validation et ce que le projet démontre, sans entrer dans un
+                niveau de détail disproportionné.
               </p>
             </div>
             <p className="pill-muted">{projectsSummaryLabel}</p>

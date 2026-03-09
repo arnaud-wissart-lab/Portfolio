@@ -17,8 +17,9 @@ type ProjectMediaProps = {
   onSecondaryImageError: () => void
 }
 
-type ProjectActionsProps = {
+type ProjectAccessBadgeProps = {
   project: Project
+  kind: 'demo' | 'code'
 }
 
 type ProjectDetailBlockProps = {
@@ -26,32 +27,32 @@ type ProjectDetailBlockProps = {
   children: ReactNode
 }
 
-function ProjectActions({ project }: ProjectActionsProps) {
+function ProjectAccessBadge({ project, kind }: ProjectAccessBadgeProps) {
+  const href = kind === 'demo' ? project.demoUrl : project.codeUrl
+  const label = kind === 'demo' ? 'Démo en ligne' : 'Code public'
+  const ariaLabel =
+    kind === 'demo'
+      ? `Accéder à la démo en ligne du projet ${project.name} (ouvre dans un nouvel onglet)`
+      : `Accéder au code public du projet ${project.name} (ouvre dans un nouvel onglet)`
+
+  if (!href) {
+    return (
+      <span className="pill-muted">
+        {kind === 'demo' ? 'Sans démo en ligne' : 'Code non public'}
+      </span>
+    )
+  }
+
   return (
-    <div className="flex flex-wrap gap-3">
-      {project.demoUrl ? (
-        <a
-          href={project.demoUrl}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`Voir la démo du projet ${project.name} (ouvre dans un nouvel onglet)`}
-          className="btn-primary px-5 py-3"
-        >
-          Voir la démo
-        </a>
-      ) : null}
-      {project.codeUrl ? (
-        <a
-          href={project.codeUrl}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`Voir le code source du projet ${project.name} (ouvre dans un nouvel onglet)`}
-          className="btn-secondary px-5 py-3"
-        >
-          Voir le code source
-        </a>
-      ) : null}
-    </div>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={ariaLabel}
+      className="pill-link"
+    >
+      {label}
+    </a>
   )
 }
 
@@ -62,14 +63,6 @@ function ProjectDetailBlock({ title, children }: ProjectDetailBlockProps) {
       <div className="mt-3">{children}</div>
     </div>
   )
-}
-
-function getProjectAvailabilityLabel(project: Project): string {
-  return project.demoUrl ? 'Démo en ligne' : 'Sans démo en ligne'
-}
-
-function getProjectSourceLabel(project: Project): string {
-  return project.codeUrl ? 'Code public' : 'Code non public'
 }
 
 function ProjectMedia({
@@ -224,8 +217,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
         >
           <div className="flex flex-wrap items-center gap-2.5">
             <span className="pill-accent">{project.typeLabel}</span>
-            <span className="pill-muted">{getProjectAvailabilityLabel(project)}</span>
-            <span className="pill-muted">{getProjectSourceLabel(project)}</span>
+            <ProjectAccessBadge project={project} kind="demo" />
+            <ProjectAccessBadge project={project} kind="code" />
           </div>
 
           <div className="space-y-2.5">
@@ -288,8 +281,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
               </ProjectDetailBlock>
             </div>
           </div>
-
-          <ProjectActions project={project} />
         </div>
       </div>
     </article>

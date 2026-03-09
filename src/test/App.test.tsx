@@ -44,19 +44,19 @@ describe('App', () => {
     ).toBeInTheDocument()
 
     const projectsSection = screen.getByRole('region', {
-      name: /projets retenus pour montrer les choix techniques/i,
+      name: /études de cas/i,
     })
 
     expect(
       within(projectsSection).getByRole('heading', {
         level: 2,
-        name: /projets retenus pour montrer les choix techniques/i,
+        name: /études de cas/i,
       }),
     ).toBeInTheDocument()
     expect(
       within(projectsSection).getByRole('heading', {
         level: 3,
-        name: /études de cas courtes/i,
+        name: /lecture rapide/i,
       }),
     ).toBeInTheDocument()
     expect(within(projectsSection).getByText('5 projets')).toBeInTheDocument()
@@ -88,7 +88,7 @@ describe('App', () => {
 
     expect(
       within(tetrigularCard).getByRole('link', {
-        name: /voir le code source/i,
+        name: /accéder au code public du projet tetrigular/i,
       }),
     ).toHaveAttribute(
       'href',
@@ -119,6 +119,35 @@ describe('App', () => {
     expect(
       within(nvConsoCard).getByText('Application métier'),
     ).toBeInTheDocument()
+  })
+
+  it('rend les badges d’accès cliquables quand une URL existe', () => {
+    render(<App />)
+
+    const onigirishopHeading = screen.getByRole('heading', {
+      name: 'OnigiriShop',
+    })
+    const onigirishopCard = onigirishopHeading.closest('article')
+
+    expect(onigirishopCard).not.toBeNull()
+    if (!onigirishopCard) {
+      return
+    }
+
+    expect(
+      within(onigirishopCard).getByRole('link', {
+        name: /accéder à la démo en ligne du projet onigirishop/i,
+      }),
+    ).toHaveAttribute('href', 'https://onigirishop.onrender.com/')
+
+    expect(
+      within(onigirishopCard).getByRole('link', {
+        name: /accéder au code public du projet onigirishop/i,
+      }),
+    ).toHaveAttribute(
+      'href',
+      'https://github.com/arnaud-wissart-lab/OnigiriShop',
+    )
   })
 
   it('permet d’ouvrir les captures projet en taille originale', () => {
