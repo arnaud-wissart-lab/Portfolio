@@ -10,11 +10,9 @@ type ProjectCardProps = {
 type ProjectMediaProps = {
   project: Project
   imageSrc: string
-  mediaLabel: string
   shouldContainImage: boolean
   onImageLoad: (event: SyntheticEvent<HTMLImageElement>) => void
   onImageError: () => void
-  compact?: boolean
 }
 
 type ProjectActionsProps = {
@@ -56,18 +54,6 @@ function ProjectActions({
   )
 }
 
-function getProjectAccessLabel(project: Project): string {
-  if (project.demoUrl && project.codeUrl) {
-    return 'Démo + code'
-  }
-
-  if (project.demoUrl) {
-    return 'Démo'
-  }
-
-  return 'Code source'
-}
-
 function getProjectAvailabilityLabel(project: Project): string {
   if (project.demoUrl && project.codeUrl) {
     return 'Démo publique et code source'
@@ -83,11 +69,9 @@ function getProjectAvailabilityLabel(project: Project): string {
 function ProjectMedia({
   project,
   imageSrc,
-  mediaLabel,
   shouldContainImage,
   onImageLoad,
   onImageError,
-  compact = false,
 }: ProjectMediaProps) {
   const imageAlt =
     imageSrc === FALLBACK_IMAGE
@@ -96,50 +80,28 @@ function ProjectMedia({
 
   return (
     <div
-      className={`relative flex h-full flex-col overflow-hidden bg-[linear-gradient(140deg,rgba(240,249,255,0.95)_0%,rgba(248,250,252,0.98)_52%,rgba(236,254,255,0.9)_100%)] ${
-        compact ? 'p-4 sm:p-5' : 'p-5 sm:p-6'
-      }`}
+      className="relative flex h-full flex-col overflow-hidden bg-[linear-gradient(140deg,rgba(240,249,255,0.95)_0%,rgba(248,250,252,0.98)_52%,rgba(236,254,255,0.9)_100%)] p-5 sm:p-6"
     >
       <div
         className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,116,144,0.18),transparent_32%),radial-gradient(circle_at_bottom_left,rgba(15,23,42,0.08),transparent_30%)]"
         aria-hidden="true"
       />
 
-      <div className="relative space-y-4">
-        <div className="flex items-center justify-between gap-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate/65">
-          <span>{compact ? 'Projet complémentaire' : 'Aperçu du projet'}</span>
-          <span>{mediaLabel}</span>
-        </div>
-
-        <div className="overflow-hidden rounded-3xl border border-white/80 bg-white/95 p-3 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.4)]">
-          <div className="mb-3 flex items-center justify-between gap-3 rounded-2xl border border-slate/10 bg-slate-50 px-3 py-2">
-            <span className="truncate text-xs font-semibold text-slate/75">
-              {project.name}
-            </span>
-            <span className="rounded-full bg-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate/50 shadow-sm">
-              {project.demoUrl ? 'Démo' : 'Code'}
-            </span>
-          </div>
-
-          <div
-            className={`overflow-hidden rounded-2xl border border-slate/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(241,245,249,0.92)_100%)] shadow-inner ${
-              compact ? 'aspect-[5/4]' : 'aspect-[16/9]'
+      <div className="relative overflow-hidden rounded-3xl border border-white/80 bg-white/95 p-3 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.4)]">
+        <div className="overflow-hidden rounded-2xl border border-slate/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(241,245,249,0.92)_100%)] shadow-inner aspect-[16/9]">
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            loading="lazy"
+            decoding="async"
+            onLoad={onImageLoad}
+            onError={onImageError}
+            className={`h-full w-full transition duration-500 ${
+              shouldContainImage
+                ? 'object-contain object-center p-2 sm:p-3'
+                : 'object-cover object-top'
             }`}
-          >
-            <img
-              src={imageSrc}
-              alt={imageAlt}
-              loading="lazy"
-              decoding="async"
-              onLoad={onImageLoad}
-              onError={onImageError}
-              className={`h-full w-full transition duration-500 ${
-                shouldContainImage
-                  ? 'object-contain object-center p-2 sm:p-3'
-                  : 'object-cover object-top'
-              }`}
-            />
-          </div>
+          />
         </div>
       </div>
     </div>
@@ -149,7 +111,6 @@ function ProjectMedia({
 export function ProjectCard({ project }: ProjectCardProps) {
   const [imageSrc, setImageSrc] = useState(project.imageUrl || FALLBACK_IMAGE)
   const [shouldContainImage, setShouldContainImage] = useState(false)
-  const mediaLabel = getProjectAccessLabel(project)
 
   const handleImageLoad = (event: SyntheticEvent<HTMLImageElement>) => {
     const ratio =
@@ -169,7 +130,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <ProjectMedia
             project={project}
             imageSrc={imageSrc}
-            mediaLabel={mediaLabel}
             shouldContainImage={shouldContainImage}
             onImageLoad={handleImageLoad}
             onImageError={handleImageError}
