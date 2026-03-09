@@ -19,14 +19,7 @@ function App() {
   const socialLinks = siteConfig.socialLinks.filter(
     (socialLink) => socialLink.url.trim().length > 0,
   )
-  const primaryProjects = projects.filter((project) => project.tier === 'primary')
-  const secondaryProjects = projects.filter(
-    (project) => project.tier === 'secondary',
-  )
-  const projectsSummaryLabel =
-    secondaryProjects.length > 0
-      ? `${primaryProjects.length} principaux · ${secondaryProjects.length} complémentaire${secondaryProjects.length > 1 ? 's' : ''}`
-      : `${primaryProjects.length} projets`
+  const projectsSummaryLabel = `${projects.length} projets`
 
   return (
     <div
@@ -189,7 +182,7 @@ function App() {
             titleId="projects-title"
             eyebrow="Projets"
             title="Projets retenus pour montrer les choix techniques et la capacité à livrer"
-            description="Les projets principaux détaillent le contexte, les choix structurants, la validation et le résultat. Les projets complémentaires gardent la même logique, avec une lecture plus courte."
+            description="Une sélection de projets présentés comme des mini études de cas, pour montrer le contexte, les décisions prises, la validation et le résultat."
           />
 
           <div className="surface-panel flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-end sm:justify-between sm:px-5">
@@ -206,57 +199,10 @@ function App() {
             <p className="pill-muted">{projectsSummaryLabel}</p>
           </div>
 
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                  <p className="section-kicker">Projets principaux</p>
-                  <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate/82">
-                    Les cas les plus détaillés pour montrer la structuration du
-                    code, les choix techniques et la mise en ligne.
-                  </p>
-                </div>
-                <p className="pill-muted">{primaryProjects.length} projets</p>
-              </div>
-
-              <div className="space-y-4">
-                {primaryProjects.map((project) => (
-                  <ProjectCard
-                    key={project.slug}
-                    project={project}
-                    variant="primary"
-                  />
-                ))}
-              </div>
-            </div>
-
-            {secondaryProjects.length > 0 ? (
-              <div className="space-y-4">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-                  <div>
-                    <p className="section-kicker">Projets complémentaires</p>
-                    <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate/82">
-                      Des projets plus démonstratifs, présentés avec un niveau de
-                      détail plus léger pour garder une lecture fluide.
-                    </p>
-                  </div>
-                  <p className="pill-muted">
-                    {secondaryProjects.length} projet
-                    {secondaryProjects.length > 1 ? 's' : ''}
-                  </p>
-                </div>
-
-                <div className="grid gap-4 xl:grid-cols-2">
-                  {secondaryProjects.map((project) => (
-                    <ProjectCard
-                      key={project.slug}
-                      project={project}
-                      variant="secondary"
-                    />
-                  ))}
-                </div>
-              </div>
-            ) : null}
+          <div className="space-y-4">
+            {projects.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
           </div>
         </section>
 
