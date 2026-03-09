@@ -83,10 +83,17 @@ function ProjectMedia({
       : project.imageAlt
   const secondaryImageAlt = project.secondaryImageAlt?.trim()
   const hasSecondaryImage = Boolean(secondaryImageSrc && secondaryImageAlt)
+  const primaryImageLinkLabel =
+    imageSrc === FALLBACK_IMAGE
+      ? `Ouvrir l’illustration du projet ${project.name} dans un nouvel onglet`
+      : `Ouvrir la capture du projet ${project.name} dans un nouvel onglet`
+  const secondaryImageLinkLabel = secondaryImageAlt
+    ? `Ouvrir la capture complémentaire du projet ${project.name} dans un nouvel onglet`
+    : ''
 
   return (
     <div
-      className="relative flex h-full flex-col overflow-hidden bg-[linear-gradient(140deg,rgba(240,249,255,0.95)_0%,rgba(248,250,252,0.98)_52%,rgba(236,254,255,0.9)_100%)] p-5 sm:p-6"
+      className="relative flex h-full flex-col justify-center overflow-hidden bg-[linear-gradient(140deg,rgba(240,249,255,0.95)_0%,rgba(248,250,252,0.98)_52%,rgba(236,254,255,0.9)_100%)] p-5 sm:p-6"
     >
       <div
         className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,116,144,0.18),transparent_32%),radial-gradient(circle_at_bottom_left,rgba(15,23,42,0.08),transparent_30%)]"
@@ -95,34 +102,70 @@ function ProjectMedia({
 
       <div className="relative overflow-hidden rounded-3xl border border-white/80 bg-white/95 p-3 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.4)]">
         <div className="relative overflow-hidden rounded-2xl border border-slate/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(241,245,249,0.92)_100%)] shadow-inner aspect-[16/9]">
-          <img
-            src={imageSrc}
-            alt={imageAlt}
-            loading="lazy"
-            decoding="async"
-            onLoad={onImageLoad}
-            onError={onImageError}
-            className={`h-full w-full transition duration-500 ${
-              shouldContainImage
-                ? 'object-contain object-center p-2 sm:p-3'
-                : 'object-cover object-top'
-            }`}
-          />
-
           {hasSecondaryImage ? (
-            <div className="absolute bottom-3 right-3 z-10 w-[24%] min-w-[88px] max-w-[156px] rounded-[1.35rem] border border-white/85 bg-white/95 p-1.5 shadow-[0_18px_40px_-24px_rgba(15,23,42,0.55)] sm:bottom-4 sm:right-4 sm:min-w-[104px] sm:p-2">
-              <div className="overflow-hidden rounded-[1rem] border border-slate/10 bg-slate-50 aspect-[9/19]">
+            <div className="grid h-full grid-cols-[minmax(0,1.72fr)_minmax(88px,0.62fr)] gap-3 p-3 sm:grid-cols-[minmax(0,1.74fr)_minmax(104px,0.66fr)] sm:gap-4 sm:p-4">
+              <a
+                href={imageSrc}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={primaryImageLinkLabel}
+                className="block h-full overflow-hidden rounded-[1.15rem] border border-slate/10 bg-white cursor-zoom-in"
+              >
+                <img
+                  src={imageSrc}
+                  alt={imageAlt}
+                  loading="lazy"
+                  decoding="async"
+                  onLoad={onImageLoad}
+                  onError={onImageError}
+                  className={`h-full w-full transition duration-500 ${
+                    shouldContainImage
+                      ? 'object-contain object-center p-2 sm:p-3'
+                      : 'object-cover object-top'
+                  }`}
+                />
+              </a>
+
+              <a
+                href={secondaryImageSrc ?? undefined}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={secondaryImageLinkLabel}
+                className="flex h-full items-center justify-center overflow-hidden rounded-[1.15rem] border border-slate/10 bg-white cursor-zoom-in"
+              >
                 <img
                   src={secondaryImageSrc ?? ''}
                   alt={secondaryImageAlt ?? ''}
                   loading="lazy"
                   decoding="async"
                   onError={onSecondaryImageError}
-                  className="h-full w-full object-cover object-top"
+                  className="h-full w-full object-contain object-top p-1.5 sm:p-2"
                 />
-              </div>
+              </a>
             </div>
-          ) : null}
+          ) : (
+            <a
+              href={imageSrc}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={primaryImageLinkLabel}
+              className="block h-full w-full cursor-zoom-in"
+            >
+              <img
+                src={imageSrc}
+                alt={imageAlt}
+                loading="lazy"
+                decoding="async"
+                onLoad={onImageLoad}
+                onError={onImageError}
+                className={`h-full w-full transition duration-500 ${
+                  shouldContainImage
+                    ? 'object-contain object-center p-2 sm:p-3'
+                    : 'object-cover object-top'
+                }`}
+              />
+            </a>
+          )}
         </div>
       </div>
     </div>

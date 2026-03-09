@@ -80,6 +80,28 @@ describe('App', () => {
     )
   })
 
+  it('permet d’ouvrir les captures projet en taille originale', () => {
+    render(<App />)
+
+    expect(
+      screen.getByRole('link', {
+        name: /ouvrir la capture du projet onigirishop/i,
+      }),
+    ).toHaveAttribute('href', '/assets/projects/onigirishop-desktop.png')
+
+    expect(
+      screen.getByRole('link', {
+        name: /ouvrir la capture complémentaire du projet onigirishop/i,
+      }),
+    ).toHaveAttribute('href', '/assets/projects/onigirishop-mobile.png')
+
+    expect(
+      screen.getByRole('link', {
+        name: /ouvrir la capture du projet tetrigular/i,
+      }),
+    ).toHaveAttribute('href', '/assets/projects/tetris.jpg')
+  })
+
   it('pointe le lien du code source du portfolio vers arnaud-wissart-lab', () => {
     render(<App />)
 
