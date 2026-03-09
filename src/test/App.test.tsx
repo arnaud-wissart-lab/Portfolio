@@ -59,6 +59,12 @@ describe('App', () => {
         name: /études de cas courtes/i,
       }),
     ).toBeInTheDocument()
+    expect(
+      within(projectsSection).getByText('Projets principaux'),
+    ).toBeInTheDocument()
+    expect(
+      within(projectsSection).getByText('Projets complémentaires'),
+    ).toBeInTheDocument()
     expect(within(projectsSection).getAllByRole('article')).toHaveLength(
       projects.length,
     )

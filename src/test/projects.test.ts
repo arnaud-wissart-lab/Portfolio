@@ -42,9 +42,21 @@ describe('projects data', () => {
     expect(projects[2]?.slug).toBe('nvconso')
   })
 
-  it('présente Tetrigular dans la même sélection que les autres projets', () => {
-    expect(projects.map((project) => project.slug)).toContain('tetris')
-    expect(projects).toHaveLength(5)
+  it('sépare les projets principaux des projets complémentaires', () => {
+    const primaryProjects = projects.filter((project) => project.tier === 'primary')
+    const secondaryProjects = projects.filter(
+      (project) => project.tier === 'secondary',
+    )
+
+    expect(primaryProjects.map((project) => project.slug)).toEqual([
+      'onigirishop',
+      'bikevoyager',
+      'nvconso',
+      'proba-loto-euromillions',
+    ])
+    expect(secondaryProjects.map((project) => project.slug)).toEqual([
+      'tetris',
+    ])
   })
 
   it('décrit chaque projet comme une mini étude de cas lisible', () => {
@@ -82,5 +94,13 @@ describe('projects data', () => {
     expect(demonstrativeProjects.map((project) => project.slug)).toEqual(
       expect.arrayContaining(['proba-loto-euromillions', 'tetris']),
     )
+  })
+
+  it('renseigne un niveau de hiérarchie pour chaque projet', () => {
+    expect(
+      projects.every(
+        (project) => project.tier === 'primary' || project.tier === 'secondary',
+      ),
+    ).toBe(true)
   })
 })

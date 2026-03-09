@@ -1,6 +1,7 @@
 export type Project = {
   slug: string
   name: string
+  tier: 'primary' | 'secondary'
   typeLabel: string
   tagline: string
   context: string
@@ -20,6 +21,7 @@ export const projects: Project[] = [
   {
     slug: 'onigirishop',
     name: 'OnigiriShop',
+    tier: 'primary',
     typeLabel: 'Application web',
     tagline:
       'Boutique en ligne avec API séparée, parcours de commande lisible et rendu cohérent sur desktop et mobile.',
@@ -50,6 +52,7 @@ export const projects: Project[] = [
   {
     slug: 'bikevoyager',
     name: 'BikeVoyager',
+    tier: 'primary',
     typeLabel: 'Application web',
     tagline:
       'Application de consultation et de planification avec interface claire et socle de données exploitable.',
@@ -77,6 +80,7 @@ export const projects: Project[] = [
   {
     slug: 'nvconso',
     name: 'NVConso',
+    tier: 'primary',
     typeLabel: 'Application métier',
     tagline:
       'Application métier de suivi de consommation, centrée sur le modèle de données et la reprise du socle .NET.',
@@ -103,6 +107,7 @@ export const projects: Project[] = [
   {
     slug: 'proba-loto-euromillions',
     name: 'Probabilités Loto & EuroMillions',
+    tier: 'primary',
     typeLabel: 'Démonstrateur métier',
     tagline:
       'Démonstrateur web de probabilités conçu pour rendre une logique de calcul lisible.',
@@ -130,6 +135,7 @@ export const projects: Project[] = [
   {
     slug: 'tetris',
     name: 'Tetrigular',
+    tier: 'secondary',
     typeLabel: 'Démonstrateur front',
     tagline:
       'Démonstrateur front temps réel centré sur la boucle de jeu, le rendu Canvas et la réactivité.',

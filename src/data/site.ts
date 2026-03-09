@@ -47,11 +47,11 @@ export const siteConfig: SiteConfig = {
   fullName: 'Arnaud Wissart',
   heroBadge: 'Arnaud Wissart • Développeur .NET / web',
   headline:
-    'Développeur .NET / web expérimenté pour reprendre, remettre au clair et faire évoluer vos applications',
+    'Développeur .NET / web expérimenté pour reprendre un existant devenu flou et remettre la livraison sous contrôle',
   valueProposition:
-    'Je reprends des applications .NET / web, clarifie leur structure, sécurise les changements et prépare des mises en ligne fiables.',
+    'J’interviens quand une application devient difficile à faire évoluer : structure confuse, vérifications insuffisantes, mise en ligne fragile. Objectif : un socle lisible, des changements sûrs et une livraison répétable.',
   heroDescription:
-    'API ASP.NET Core, interfaces React ou Angular, SQL, tests ciblés, Docker et chaînes de build : j’interviens avec une logique de lisibilité, de réduction du risque et de continuité de service.',
+    'ASP.NET Core, React ou Angular, SQL, Docker, GitHub Actions, tests ciblés et documentation de reprise : des moyens concrets pour remettre un projet en état de marche et le faire avancer proprement.',
   email: 'contact@arnaudwissart.fr',
   publicUrl: normalizedPublicUrl,
   siteRepoUrl:
@@ -68,16 +68,16 @@ export const siteConfig: SiteConfig = {
     },
   ],
   heroProofs: [
-    '.NET récent et legacy',
-    'ASP.NET Core, React, Angular',
-    'Tests ciblés, revue de code, dette contenue',
-    'Docker, GitHub Actions, livraisons répétables',
+    'Tests ciblés, revues de code et contrôles avant livraison',
+    'GitHub Actions, builds reproductibles et déploiements répétables',
+    'Docker pour aligner environnement local, build et exécution',
+    'Démos en ligne, code public et documentation de reprise',
   ],
   heroFocus: [
-    'Reprise d’applications en service et évolution par étapes',
-    'Découpage clair entre interface, API et données',
-    'Contrôles utiles avant livraison',
-    'Mises en ligne courtes sans fragiliser la production',
+    'Existant devenu difficile à relire, à tester ou à faire évoluer.',
+    'Front, API et données trop liés pour changer sereinement.',
+    'Vérifications trop faibles avant livraison ou publication.',
+    'Mise en ligne fragile, manuelle ou dépendante de trop d’habitudes locales.',
   ],
   interventionAreas: [
     {
