@@ -77,21 +77,21 @@ function App() {
       <main
         id="main-content"
         tabIndex={-1}
-        className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-5 pb-20 pt-10 sm:px-8 sm:pt-12 lg:px-10 lg:gap-20"
+        className="mx-auto flex w-full max-w-6xl flex-col gap-14 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:gap-16"
       >
         <section id="hero" className="section-shell">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.18fr)_minmax(320px,0.82fr)] lg:items-start lg:gap-8">
-            <div className="space-y-6">
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1.18fr)_minmax(320px,0.82fr)] lg:items-start lg:gap-7">
+            <div className="space-y-5">
               <p className="pill-accent">{siteConfig.heroBadge}</p>
 
-              <div className="space-y-5">
-                <h1 className="max-w-4xl font-display text-4xl font-semibold tracking-tight leading-tight text-slate sm:text-5xl lg:text-[3.85rem]">
+              <div className="space-y-4">
+                <h1 className="max-w-4xl font-display text-[2.3rem] font-semibold leading-tight tracking-tight text-slate sm:text-[3rem] lg:text-[3.55rem]">
                   {siteConfig.headline}
                 </h1>
-                <p className="max-w-3xl text-lg font-medium leading-relaxed text-slate/90 sm:text-2xl">
+                <p className="max-w-3xl text-[1.05rem] font-medium leading-relaxed text-slate/90 sm:text-[1.35rem]">
                   {siteConfig.valueProposition}
                 </p>
-                <p className="max-w-3xl text-base leading-relaxed text-slate/82 sm:text-lg">
+                <p className="max-w-3xl text-[0.98rem] leading-relaxed text-slate/82 sm:text-[1.02rem]">
                   {siteConfig.heroDescription}
                 </p>
               </div>
@@ -112,9 +112,9 @@ function App() {
               </div>
             </div>
 
-            <div className="surface-panel p-6 sm:p-7">
+            <div className="surface-panel p-5 sm:p-6">
               <p className="section-kicker">Situations traitées</p>
-              <ul className="mt-5 space-y-4">
+              <ul className="mt-4 space-y-3.5">
                 {siteConfig.heroFocus.map((focus) => (
                   <li key={focus} className="flex gap-3">
                     <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent" />
@@ -125,7 +125,7 @@ function App() {
                 ))}
               </ul>
 
-              <div className="surface-subtle mt-6 px-4 py-4 sm:px-5">
+              <div className="surface-subtle mt-5 px-4 py-4 sm:px-5">
                 <p className="text-sm font-semibold text-slate">
                   Résultat attendu
                 </p>
@@ -137,11 +137,11 @@ function App() {
             </div>
           </div>
 
-          <ul className="surface-panel grid gap-3 p-4 sm:grid-cols-2 sm:p-5 xl:grid-cols-4">
+          <ul className="surface-panel grid gap-2.5 p-4 sm:grid-cols-2 sm:p-5 xl:grid-cols-4">
             {siteConfig.heroProofs.map((proof) => (
               <li
                 key={proof}
-                className="surface-subtle px-4 py-3 text-sm font-medium leading-relaxed text-slate/85"
+                className="surface-subtle px-4 py-2.5 text-sm font-medium leading-relaxed text-slate/85"
               >
                 {proof}
               </li>
@@ -166,7 +166,7 @@ function App() {
               {siteConfig.interventionAreas.map((interventionArea) => (
                 <article
                   key={interventionArea.title}
-                  className="surface-card p-6 sm:p-7"
+                  className="surface-card p-5 sm:p-6"
                 >
                   <h3 className="font-display text-xl font-semibold tracking-tight text-slate">
                     {interventionArea.title}
@@ -192,9 +192,9 @@ function App() {
             description="Les projets principaux détaillent le contexte, les choix structurants, la validation et le résultat. Les projets complémentaires gardent la même logique, avec une lecture plus courte."
           />
 
-          <div className="surface-panel flex flex-col gap-4 px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-6">
+          <div className="surface-panel flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-end sm:justify-between sm:px-5">
             <div>
-              <h3 className="font-display text-2xl font-semibold tracking-tight text-slate">
+              <h3 className="font-display text-[1.6rem] font-semibold tracking-tight text-slate sm:text-[1.8rem]">
                 Études de cas courtes
               </h3>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate/82">
@@ -206,8 +206,8 @@ function App() {
             <p className="pill-muted">{projectsSummaryLabel}</p>
           </div>
 
-          <div className="space-y-8">
-            <div className="space-y-5">
+          <div className="space-y-6">
+            <div className="space-y-4">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <p className="section-kicker">Projets principaux</p>
@@ -219,7 +219,7 @@ function App() {
                 <p className="pill-muted">{primaryProjects.length} projets</p>
               </div>
 
-              <div className="space-y-5">
+              <div className="space-y-4">
                 {primaryProjects.map((project) => (
                   <ProjectCard
                     key={project.slug}
@@ -231,7 +231,7 @@ function App() {
             </div>
 
             {secondaryProjects.length > 0 ? (
-              <div className="space-y-5">
+              <div className="space-y-4">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                   <div>
                     <p className="section-kicker">Projets complémentaires</p>
@@ -246,7 +246,7 @@ function App() {
                   </p>
                 </div>
 
-                <div className="grid gap-5 xl:grid-cols-2">
+                <div className="grid gap-4 xl:grid-cols-2">
                   {secondaryProjects.map((project) => (
                     <ProjectCard
                       key={project.slug}
@@ -277,7 +277,7 @@ function App() {
               {siteConfig.workMethodSteps.map((workMethodStep, index) => (
                 <li
                   key={workMethodStep.title}
-                  className="surface-card p-6 sm:p-7"
+                  className="surface-card p-5 sm:p-6"
                 >
                   <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-accent/20 bg-accentSoft text-sm font-semibold text-accent">
                     {index + 1}
@@ -317,7 +317,7 @@ function App() {
                   <section
                     key={skillGroup.title}
                     aria-labelledby={skillGroupId}
-                    className="surface-card p-6 sm:p-7"
+                    className="surface-card p-5 sm:p-6"
                   >
                     <h3
                       id={skillGroupId}
@@ -358,7 +358,7 @@ function App() {
             description="Un échange court suffit pour cadrer un existant, un point de structure ou une livraison à sécuriser."
           />
 
-          <div className="surface-card p-6 sm:p-8">
+          <div className="surface-card p-5 sm:p-6">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
               <div className="max-w-2xl">
                 <p className="pill-accent">Premier échange</p>
