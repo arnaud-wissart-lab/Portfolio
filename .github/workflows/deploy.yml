@@ -55,7 +55,7 @@ jobs:
           elif [ -n "${DOMAIN:-}" ]; then
             value="https://${DOMAIN#https://}"
           else
-            value="https://arnovissard.fr"
+            value="https://arnaudwissart.fr"
           fi
           value="${value%/}"
           echo "value=$value" >> "$GITHUB_OUTPUT"
