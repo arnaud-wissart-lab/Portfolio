@@ -104,6 +104,17 @@ function App() {
                   </a>
                 ) : null}
               </div>
+
+              <ul className="surface-panel grid gap-2.5 p-4 sm:grid-cols-2 sm:p-5">
+                {siteConfig.heroProofs.map((proof) => (
+                  <li
+                    key={proof}
+                    className="surface-subtle px-4 py-2.5 text-sm font-medium leading-relaxed text-slate/85"
+                  >
+                    {proof}
+                  </li>
+                ))}
+              </ul>
             </div>
 
             <div className="grid gap-4">
@@ -193,16 +204,6 @@ function App() {
             </div>
           </div>
 
-          <ul className="surface-panel grid gap-2.5 p-4 sm:grid-cols-2 sm:p-5 xl:grid-cols-4">
-            {siteConfig.heroProofs.map((proof) => (
-              <li
-                key={proof}
-                className="surface-subtle px-4 py-2.5 text-sm font-medium leading-relaxed text-slate/85"
-              >
-                {proof}
-              </li>
-            ))}
-          </ul>
         </section>
 
         <section
