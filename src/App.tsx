@@ -20,6 +20,7 @@ function App() {
     (socialLink) => socialLink.url.trim().length > 0,
   )
   const projectsSummaryLabel = `${projects.length} projets`
+  const presentationVideo = siteConfig.presentationVideo
 
   return (
     <div
@@ -73,7 +74,7 @@ function App() {
         className="mx-auto flex w-full max-w-6xl flex-col gap-14 px-5 pb-16 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:gap-16"
       >
         <section id="hero" className="section-shell">
-          <div className="grid gap-5 lg:grid-cols-[minmax(0,1.18fr)_minmax(320px,0.82fr)] lg:items-start lg:gap-7">
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1.14fr)_minmax(320px,0.86fr)] lg:items-start lg:gap-7">
             <div className="space-y-5">
               <p className="pill-accent">{siteConfig.heroBadge}</p>
 
@@ -105,27 +106,89 @@ function App() {
               </div>
             </div>
 
-            <div className="surface-panel p-5 sm:p-6">
-              <p className="section-kicker">Situations traitées</p>
-              <ul className="mt-4 space-y-3.5">
-                {siteConfig.heroFocus.map((focus) => (
-                  <li key={focus} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent" />
-                    <span className="text-sm leading-relaxed text-slate/85">
-                      {focus}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+            <div className="grid gap-4">
+              <section
+                aria-labelledby="presentation-video-title"
+                className="surface-panel p-4 sm:p-5"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="section-kicker">Présentation</p>
+                    <h2
+                      id="presentation-video-title"
+                      className="mt-2 font-display text-[1.45rem] font-semibold tracking-tight text-slate"
+                    >
+                      {presentationVideo.title}
+                    </h2>
+                  </div>
+                  <span className="pill-muted shrink-0">
+                    {presentationVideo.durationLabel}
+                  </span>
+                </div>
 
-              <div className="surface-subtle mt-5 px-4 py-4 sm:px-5">
-                <p className="text-sm font-semibold text-slate">
-                  Résultat attendu
+                <p className="mt-3 text-sm leading-relaxed text-slate/78">
+                  {presentationVideo.description}
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-slate/75">
-                  Un code relisible, des points de contrôle utiles et une mise
-                  en ligne qui ne dépend plus d’opérations fragiles.
-                </p>
+
+                <div className="mt-5">
+                  <div className="mx-auto w-full max-w-[18rem] overflow-hidden rounded-[2rem] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(241,245,249,0.94)_100%)] p-2.5 shadow-[0_24px_50px_-36px_rgba(15,23,42,0.45)]">
+                    <div className="overflow-hidden rounded-[1.6rem] border border-slate/10 bg-slate">
+                      <video
+                        className="aspect-[9/16] h-auto w-full bg-slate object-cover"
+                        controls
+                        preload="metadata"
+                        playsInline
+                        aria-label="Vidéo de présentation d’Arnaud Wissart"
+                      >
+                        <source src={presentationVideo.src} type="video/mp4" />
+                        <track
+                          kind="captions"
+                          srcLang="fr"
+                          label="Sous-titres français"
+                          src="/assets/video/arnaud-wissart-presentation.fr.vtt"
+                          default
+                        />
+                        Votre navigateur ne prend pas en charge la lecture vidéo
+                        intégrée.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="surface-subtle mt-4 px-4 py-4 sm:px-5">
+                  <p className="text-sm font-semibold text-slate">
+                    {presentationVideo.posterLabel}
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-slate/75">
+                    Une vidéo courte, pensée pour donner rapidement le ton sur
+                    le type de missions que je reprends et ma façon de les
+                    sécuriser.
+                  </p>
+                </div>
+              </section>
+
+              <div className="surface-panel p-5 sm:p-6">
+                <p className="section-kicker">Situations traitées</p>
+                <ul className="mt-4 space-y-3.5">
+                  {siteConfig.heroFocus.map((focus) => (
+                    <li key={focus} className="flex gap-3">
+                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent" />
+                      <span className="text-sm leading-relaxed text-slate/85">
+                        {focus}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="surface-subtle mt-5 px-4 py-4 sm:px-5">
+                  <p className="text-sm font-semibold text-slate">
+                    Résultat attendu
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-slate/75">
+                    Un code relisible, des points de contrôle utiles et une mise
+                    en ligne qui ne dépend plus d’opérations fragiles.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

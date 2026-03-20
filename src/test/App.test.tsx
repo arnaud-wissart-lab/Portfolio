@@ -42,6 +42,15 @@ describe('App', () => {
         name: /compétences structurées par domaine/i,
       }),
     ).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: /présentation vidéo/i,
+      }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByLabelText(/vidéo de présentation d’arnaud wissart/i),
+    ).toHaveAttribute('preload', 'metadata')
 
     const projectsSection = screen.getByRole('region', {
       name: /études de cas/i,

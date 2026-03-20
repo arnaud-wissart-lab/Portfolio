@@ -19,12 +19,21 @@ export type InterventionArea = {
   description: string
 }
 
+export type PresentationVideo = {
+  title: string
+  description: string
+  posterLabel: string
+  durationLabel: string
+  src: string
+}
+
 export type SiteConfig = {
   fullName: string
   heroBadge: string
   headline: string
   valueProposition: string
   heroDescription: string
+  presentationVideo: PresentationVideo
   email: string
   publicUrl: string
   siteRepoUrl: string
@@ -52,6 +61,14 @@ export const siteConfig: SiteConfig = {
     'J’interviens quand une application devient difficile à faire évoluer : structure confuse, vérifications insuffisantes, mise en ligne fragile. Objectif : un socle lisible, des changements sûrs et une livraison répétable.',
   heroDescription:
     'ASP.NET Core, React ou Angular, SQL, Docker, GitHub Actions, tests ciblés et documentation de reprise : des moyens concrets pour remettre un projet en état de marche et le faire avancer proprement.',
+  presentationVideo: {
+    title: 'Présentation vidéo',
+    description:
+      'Une présentation directe pour mettre un visage, une voix et une manière de travailler sur le profil.',
+    posterLabel: 'Format portrait · 52 secondes',
+    durationLabel: '52 s',
+    src: '/assets/video/arnaud-wissart-presentation.mp4',
+  },
   email: 'contact@arnaudwissart.fr',
   publicUrl: normalizedPublicUrl,
   siteRepoUrl:
