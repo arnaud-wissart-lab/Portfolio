@@ -36,7 +36,7 @@ export const projects: Project[] = [
       'Captures, documentation de structure et CI GitHub Actions pour relire la base sans dépendre uniquement du code source.',
     ],
     result:
-      'Un socle .NET multi-projets lisible, démontrable et directement reprenable pour une application métier web.',
+      'Un socle .NET multi-projets lisible, démontrable et directement reprenable pour lancer ou recadrer une application métier web.',
     stack: [
       'Blazor Web App',
       'ASP.NET Core',
@@ -97,7 +97,7 @@ export const projects: Project[] = [
       'Séparer données utiles à l’interface et logique de navigation pour limiter les régressions.',
     ],
     qualityAndDelivery: [
-      'Code public et démo accessible pour vérifier l’ensemble.',
+      'Code public et démo accessible pour vérifier les parcours principaux.',
       'Socle de données conçu pour évoluer par étapes.',
       'Mise en ligne disponible pour contrôler le rendu et les flux principaux.',
     ],
@@ -141,7 +141,7 @@ export const projects: Project[] = [
     name: 'Probabilités Loto & EuroMillions',
     typeLabel: 'Démonstrateur métier',
     tagline:
-      'Démonstrateur web de probabilités conçu pour rendre une logique de calcul lisible.',
+      'Démonstrateur web de probabilités pour rendre une logique de calcul lisible.',
     context:
       'Rendre compréhensibles des calculs statistiques pour un public non spécialiste, avec une interface simple et un code facile à faire évoluer.',
     keyDecisions: [
@@ -179,7 +179,7 @@ export const projects: Project[] = [
     qualityAndDelivery: [
       'Code public et démo en ligne pour vérifier le comportement en conditions réelles.',
       'Build front simple et rapide à republier.',
-      'Projet volontairement démonstratif pour montrer la structuration d’un comportement interactif.',
+      'Projet démonstratif centré sur la structuration d’un comportement interactif.',
     ],
     result:
       'Une organisation front claire sur un sujet temps réel, sans complexité superflue.',

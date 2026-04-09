@@ -60,7 +60,7 @@ export const siteConfig: SiteConfig = {
   valueProposition:
     'J’interviens quand une application devient difficile à faire évoluer : structure floue, validations faibles, mise en ligne fragile. Objectif : un socle lisible, des changements sûrs et une livraison vérifiable.',
   heroDescription:
-    'ASP.NET Core, Blazor, React ou Angular, SQL, Docker, .NET Aspire, GitHub Actions et tests ciblés : des moyens concrets pour remettre une application en état de marche et la faire évoluer proprement.',
+    'ASP.NET Core, Blazor, React ou Angular, SQL, Docker, .NET Aspire, GitHub Actions et tests ciblés pour remettre une application en état de marche, clarifier sa structure et la faire évoluer proprement.',
   presentationVideo: {
     title: 'Présentation vidéo',
     description:
@@ -85,13 +85,13 @@ export const siteConfig: SiteConfig = {
     },
   ],
   heroProofs: [
-    'Études de cas avec démos en ligne, code public et captures d’écran utiles',
+    'Études de cas avec démos en ligne, code public et captures d’écran',
     'Tests ciblés, CI GitHub Actions et contrôles avant livraison',
     'Architecture clarifiée entre front, API, design system et données',
     'Lancement local reproductible via Docker ou .NET Aspire',
   ],
   heroFocus: [
-    'Application devenue difficile à relire, tester ou faire évoluer.',
+    'Application difficile à relire, tester ou faire évoluer.',
     'Architecture brouillée entre interface, API et données.',
     'Changements risqués faute de garde-fous utiles.',
     'Mise en ligne trop manuelle ou trop dépendante du poste local.',

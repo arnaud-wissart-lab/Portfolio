@@ -19,7 +19,7 @@ function App() {
   const socialLinks = siteConfig.socialLinks.filter(
     (socialLink) => socialLink.url.trim().length > 0,
   )
-  const projectsSummaryLabel = `${projects.length} projets sélectionnés`
+  const projectsSummaryLabel = `${projects.length} projets`
   const presentationVideo = siteConfig.presentationVideo
 
   return (
@@ -245,7 +245,7 @@ function App() {
             titleId="projects-title"
             eyebrow="Projets"
             title="Études de cas"
-            description="Une sélection de projets pour montrer comment je reprends un socle, clarifie la structure, sécurise les changements et livre quelque chose de visible et vérifiable."
+            description="Des projets pour montrer comment je reprends un socle, clarifie la structure, sécurise les changements et livre un résultat visible."
           />
 
           <div className="surface-panel flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-end sm:justify-between sm:px-5">
@@ -255,7 +255,7 @@ function App() {
               </h3>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate/82">
                 Chaque carte relie le besoin, les choix de structure, les
-                contrôles mis en place et le résultat livré.
+                contrôles et le résultat livré.
               </p>
             </div>
             <p className="pill-muted">{projectsSummaryLabel}</p>

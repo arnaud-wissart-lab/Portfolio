@@ -68,9 +68,7 @@ describe('App', () => {
         name: /ce que montrent les projets/i,
       }),
     ).toBeInTheDocument()
-    expect(
-      within(projectsSection).getByText('6 projets sélectionnés'),
-    ).toBeInTheDocument()
+    expect(within(projectsSection).getByText('6 projets')).toBeInTheDocument()
     expect(within(projectsSection).getAllByRole('article')).toHaveLength(
       projects.length,
     )
