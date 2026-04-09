@@ -54,13 +54,13 @@ const normalizedPublicUrl = (envPublicUrl || defaultPublicUrl).replace(
 
 export const siteConfig: SiteConfig = {
   fullName: 'Arnaud Wissart',
-  heroBadge: 'Arnaud Wissart • Développeur .NET / web',
+  heroBadge: 'Arnaud Wissart • Reprise d’existant .NET / web',
   headline:
-    'Développeur .NET / web expérimenté pour reprendre un existant devenu flou et remettre la livraison sous contrôle',
+    'Développeur .NET / web pour reprendre un existant, clarifier l’architecture et remettre la livraison sous contrôle',
   valueProposition:
-    'J’interviens quand une application devient difficile à faire évoluer : structure confuse, vérifications insuffisantes, mise en ligne fragile. Objectif : un socle lisible, des changements sûrs et une livraison répétable.',
+    'J’interviens quand une application devient difficile à faire évoluer : structure floue, validations faibles, mise en ligne fragile. Objectif : un socle lisible, des changements sûrs et une livraison vérifiable.',
   heroDescription:
-    'ASP.NET Core, React ou Angular, SQL, Docker, GitHub Actions, tests ciblés et documentation de reprise : des moyens concrets pour remettre un projet en état de marche et le faire avancer proprement.',
+    'ASP.NET Core, Blazor, React ou Angular, SQL, Docker, .NET Aspire, GitHub Actions et tests ciblés : des moyens concrets pour remettre une application en état de marche et la faire évoluer proprement.',
   presentationVideo: {
     title: 'Présentation vidéo',
     description:
@@ -85,16 +85,16 @@ export const siteConfig: SiteConfig = {
     },
   ],
   heroProofs: [
-    'Tests ciblés, revues de code et contrôles avant livraison',
-    'GitHub Actions, builds reproductibles et déploiements répétables',
-    'Docker pour aligner environnement local, build et exécution',
-    'Démos en ligne, code public et documentation de reprise',
+    'Études de cas avec démos en ligne, code public et captures d’écran utiles',
+    'Tests ciblés, CI GitHub Actions et contrôles avant livraison',
+    'Architecture clarifiée entre front, API, design system et données',
+    'Lancement local reproductible via Docker ou .NET Aspire',
   ],
   heroFocus: [
-    'Existant devenu difficile à relire, à tester ou à faire évoluer.',
-    'Front, API et données trop liés pour changer sereinement.',
-    'Vérifications trop faibles avant livraison ou publication.',
-    'Mise en ligne fragile, manuelle ou dépendante de trop d’habitudes locales.',
+    'Application devenue difficile à relire, tester ou faire évoluer.',
+    'Architecture brouillée entre interface, API et données.',
+    'Changements risqués faute de garde-fous utiles.',
+    'Mise en ligne trop manuelle ou trop dépendante du poste local.',
   ],
   interventionAreas: [
     {

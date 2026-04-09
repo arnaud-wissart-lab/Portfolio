@@ -29,7 +29,7 @@ type ProjectDetailBlockProps = {
 
 function ProjectAccessBadge({ project, kind }: ProjectAccessBadgeProps) {
   const href = kind === 'demo' ? project.demoUrl : project.codeUrl
-  const label = kind === 'demo' ? 'Démo en ligne' : 'Code public'
+  const label = kind === 'demo' ? 'Voir la démo' : 'Voir le code'
   const ariaLabel =
     kind === 'demo'
       ? `Accéder à la démo en ligne du projet ${project.name} (ouvre dans un nouvel onglet)`
@@ -90,9 +90,7 @@ function ProjectMedia({
 
   return (
     <div className="p-4 sm:p-5 lg:p-6">
-      <div
-        className="relative overflow-hidden rounded-[2rem] bg-[linear-gradient(140deg,rgba(240,249,255,0.95)_0%,rgba(248,250,252,0.98)_52%,rgba(236,254,255,0.9)_100%)] p-4 sm:p-5"
-      >
+      <div className="relative overflow-hidden rounded-[2rem] bg-[linear-gradient(140deg,rgba(240,249,255,0.95)_0%,rgba(248,250,252,0.98)_52%,rgba(236,254,255,0.9)_100%)] p-4 sm:p-5">
         <div
           className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,116,144,0.18),transparent_32%),radial-gradient(circle_at_bottom_left,rgba(15,23,42,0.08),transparent_30%)]"
           aria-hidden="true"
@@ -212,9 +210,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           />
         </div>
 
-        <div
-          className="flex flex-col gap-4 p-4 sm:p-5 lg:p-6"
-        >
+        <div className="flex flex-col gap-4 p-4 sm:p-5 lg:p-6">
           <div className="flex flex-wrap items-center gap-2.5">
             <span className="pill-accent">{project.typeLabel}</span>
             <ProjectAccessBadge project={project} kind="demo" />
@@ -222,9 +218,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
 
           <div className="space-y-2.5">
-            <h3
-              className="font-display text-[1.9rem] font-semibold tracking-tight text-slate sm:text-[2.15rem]"
-            >
+            <h3 className="font-display text-[1.9rem] font-semibold tracking-tight text-slate sm:text-[2.15rem]">
               {project.name}
             </h3>
             <p className="max-w-3xl text-[0.98rem] leading-relaxed text-slate/88 sm:text-[1.02rem]">
@@ -258,7 +252,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
               <ProjectDetailBlock title="Décisions clés">
                 <ul className="grid gap-2 text-sm leading-relaxed text-slate/85">
                   {project.keyDecisions.map((decision) => (
-                    <li key={`${project.slug}-${decision}`} className="detail-item">
+                    <li
+                      key={`${project.slug}-${decision}`}
+                      className="detail-item"
+                    >
                       <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                       <span>{decision}</span>
                     </li>

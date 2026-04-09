@@ -19,7 +19,7 @@ function App() {
   const socialLinks = siteConfig.socialLinks.filter(
     (socialLink) => socialLink.url.trim().length > 0,
   )
-  const projectsSummaryLabel = `${projects.length} projets`
+  const projectsSummaryLabel = `${projects.length} projets sélectionnés`
   const presentationVideo = siteConfig.presentationVideo
 
   return (
@@ -203,7 +203,6 @@ function App() {
               </div>
             </div>
           </div>
-
         </section>
 
         <section
@@ -246,18 +245,17 @@ function App() {
             titleId="projects-title"
             eyebrow="Projets"
             title="Études de cas"
-            description="Cinq projets pour illustrer des choix de structure, de validation et de mise en ligne sur des sujets concrets."
+            description="Une sélection de projets pour montrer comment je reprends un socle, clarifie la structure, sécurise les changements et livre quelque chose de visible et vérifiable."
           />
 
           <div className="surface-panel flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-end sm:justify-between sm:px-5">
             <div>
               <h3 className="font-display text-[1.6rem] font-semibold tracking-tight text-slate sm:text-[1.8rem]">
-                Lecture rapide
+                Ce que montrent les projets
               </h3>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate/82">
-                Chaque carte résume le contexte, les décisions clés, la
-                validation et ce que le projet démontre, sans entrer dans un
-                niveau de détail disproportionné.
+                Chaque carte relie le besoin, les choix de structure, les
+                contrôles mis en place et le résultat livré.
               </p>
             </div>
             <p className="pill-muted">{projectsSummaryLabel}</p>

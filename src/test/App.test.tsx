@@ -18,7 +18,7 @@ describe('App', () => {
     expect(
       screen.getByRole('heading', {
         level: 1,
-        name: /développeur \.net \/ web expérimenté/i,
+        name: /développeur \.net \/ web pour reprendre un existant/i,
       }),
     ).toBeInTheDocument()
     expect(
@@ -65,10 +65,12 @@ describe('App', () => {
     expect(
       within(projectsSection).getByRole('heading', {
         level: 3,
-        name: /lecture rapide/i,
+        name: /ce que montrent les projets/i,
       }),
     ).toBeInTheDocument()
-    expect(within(projectsSection).getByText('5 projets')).toBeInTheDocument()
+    expect(
+      within(projectsSection).getByText('6 projets sélectionnés'),
+    ).toBeInTheDocument()
     expect(within(projectsSection).getAllByRole('article')).toHaveLength(
       projects.length,
     )

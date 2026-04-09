@@ -18,6 +18,42 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: 'blazor-enterprise-starter',
+    name: 'BlazorEnterpriseStarter',
+    typeLabel: 'Starter applicatif',
+    tagline:
+      'Starter applicatif .NET structuré autour d’une Blazor Web App, d’une API ASP.NET Core séparée et d’un backlog métier déjà exploitable.',
+    context:
+      'Poser une base métier réutilisable pour démarrer ou remettre au clair une application web .NET, avec un front, une API, des composants réemployables et un lancement local simple à reprendre.',
+    keyDecisions: [
+      'Séparer la Blazor Web App, l’API ASP.NET Core et les contrats partagés pour garder des frontières nettes.',
+      'Isoler un design system et une bibliothèque de composants réutilisables au lieu de disperser la logique UI dans les pages.',
+      'Ancrer la démonstration sur un module backlog concret avec recherche, filtres, pagination et CRUD.',
+    ],
+    qualityAndDelivery: [
+      'Tests unitaires, composants et E2E ciblés déjà présents dans la solution.',
+      'Lancement local prévu via .NET Aspire ou Docker selon le contexte.',
+      'Captures, documentation de structure et CI GitHub Actions pour relire la base sans dépendre uniquement du code source.',
+    ],
+    result:
+      'Un socle .NET multi-projets lisible, démontrable et directement reprenable pour une application métier web.',
+    stack: [
+      'Blazor Web App',
+      'ASP.NET Core',
+      'Design system',
+      'Tests',
+      'Aspire / Docker',
+    ],
+    demoUrl: 'https://blazor.arnaudwissart.fr/',
+    codeUrl: 'https://github.com/arnaud-wissart-lab/blazor-enterprise-starter',
+    imageUrl: '/assets/projects/blazor-enterprise-starter-home.png',
+    imageAlt:
+      'Capture de BlazorEnterpriseStarter montrant la page d’accueil du starter, son positionnement et les accès aux parcours principaux.',
+    secondaryImageUrl: '/assets/projects/blazor-enterprise-starter-backlog.png',
+    secondaryImageAlt:
+      'Capture de BlazorEnterpriseStarter montrant le module backlog avec la liste des éléments, les filtres et les actions métier.',
+  },
+  {
     slug: 'onigirishop',
     name: 'OnigiriShop',
     typeLabel: 'Application web',
@@ -36,7 +72,7 @@ export const projects: Project[] = [
       'Structure pensée pour faire évoluer le tunnel de commande sans reprise lourde.',
     ],
     result:
-      'Le projet montre une base e-commerce claire, publiable et reprenable, avec des responsabilités bien séparées.',
+      'Une base e-commerce claire, publiable et reprenable, avec des responsabilités bien séparées.',
     stack: ['ASP.NET Core', 'React', 'Docker'],
     demoUrl: 'https://onigirishop.onrender.com/',
     codeUrl: 'https://github.com/arnaud-wissart-lab/OnigiriShop',
@@ -52,7 +88,7 @@ export const projects: Project[] = [
     name: 'BikeVoyager',
     typeLabel: 'Application web',
     tagline:
-      'Application de consultation et de planification avec interface claire et socle de données exploitable.',
+      'Application de consultation et de planification avec interface claire et socle de données prêt à évoluer.',
     context:
       'Organiser une application de consultation rapide tout en gardant un modèle de données capable d’évoluer sans remise à plat.',
     keyDecisions: [
@@ -66,7 +102,7 @@ export const projects: Project[] = [
       'Mise en ligne disponible pour contrôler le rendu et les flux principaux.',
     ],
     result:
-      'Le projet montre une application web lisible, évolutive et livrable sans surcouche inutile.',
+      'Une application web lisible, évolutive et livrable sans surcouche inutile.',
     stack: ['ASP.NET Core', 'React', 'SQL'],
     demoUrl: 'https://bike.arnaudwissart.fr',
     codeUrl: 'https://github.com/arnaud-wissart-lab/BikeVoyager',
@@ -79,7 +115,7 @@ export const projects: Project[] = [
     name: 'NVConso',
     typeLabel: 'Application métier',
     tagline:
-      'Application métier de suivi de consommation, centrée sur le modèle de données et la reprise du socle .NET.',
+      'Application métier de suivi de consommation centrée sur la donnée, avec un socle .NET prêt à être repris.',
     context:
       'Poser un socle .NET et SQL orienté analyse pour rendre un suivi de consommation exploitable dans la durée.',
     keyDecisions: [
@@ -93,7 +129,7 @@ export const projects: Project[] = [
       'Pas de démo en ligne à ce stade : l’évaluation passe par le code et la conception.',
     ],
     result:
-      'Le projet montre une base métier orientée données, prête pour l’analyse et pour des évolutions ciblées.',
+      'Une base métier orientée données, exploitable pour l’analyse et pour des évolutions ciblées.',
     stack: ['.NET', 'SQL', 'Docker'],
     codeUrl: 'https://github.com/arnaud-wissart-lab/NVConso',
     imageUrl: '/assets/projects/nvconso.jpg',
@@ -119,7 +155,7 @@ export const projects: Project[] = [
       'Organisation du code adaptée à l’ajout de nouveaux scénarios.',
     ],
     result:
-      'Le projet montre comment rendre une logique métier lisible à la fois dans l’interface et dans le code.',
+      'Une logique métier rendue lisible à la fois dans l’interface et dans le code.',
     stack: ['TypeScript', 'Statistiques', 'UI Web'],
     demoUrl: 'https://loto.arnaudwissart.fr',
     codeUrl: 'https://github.com/arnaud-wissart-lab/proba-loto-euromillions',
@@ -146,7 +182,7 @@ export const projects: Project[] = [
       'Projet volontairement démonstratif pour montrer la structuration d’un comportement interactif.',
     ],
     result:
-      'Le projet montre une organisation front claire sur un sujet temps réel, sans complexité superflue.',
+      'Une organisation front claire sur un sujet temps réel, sans complexité superflue.',
     stack: ['TypeScript', 'Canvas', 'Game loop'],
     demoUrl: 'https://tetris.arnaudwissart.fr',
     codeUrl: 'https://github.com/arnaud-wissart-lab/Tetrigular',

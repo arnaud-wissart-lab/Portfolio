@@ -4,6 +4,7 @@ import { projects } from '../data/projects'
 describe('projects data', () => {
   it('contient bien les URLs live fournies', () => {
     const expectedLiveUrls = [
+      'https://blazor.arnaudwissart.fr/',
       'https://onigirishop.onrender.com/',
       'https://bike.arnaudwissart.fr',
       'https://loto.arnaudwissart.fr',
@@ -37,14 +38,26 @@ describe('projects data', () => {
   })
 
   it('remonte les projets .NET / web les plus crédibles en tête de liste', () => {
-    expect(projects[0]?.slug).toBe('onigirishop')
-    expect(projects[1]?.slug).toBe('bikevoyager')
-    expect(projects[2]?.slug).toBe('nvconso')
+    expect(projects[0]?.slug).toBe('blazor-enterprise-starter')
+    expect(projects[1]?.slug).toBe('onigirishop')
+    expect(projects[2]?.slug).toBe('bikevoyager')
   })
 
-  it('conserve une sélection unique de cinq projets', () => {
-    expect(projects).toHaveLength(5)
+  it('renseigne la démo et le dépôt de BlazorEnterpriseStarter', () => {
+    const starter = projects.find(
+      (project) => project.slug === 'blazor-enterprise-starter',
+    )
+
+    expect(starter?.demoUrl).toBe('https://blazor.arnaudwissart.fr/')
+    expect(starter?.codeUrl).toBe(
+      'https://github.com/arnaud-wissart-lab/blazor-enterprise-starter',
+    )
+  })
+
+  it('conserve une sélection unique de six projets', () => {
+    expect(projects).toHaveLength(6)
     expect(projects.map((project) => project.slug)).toEqual([
+      'blazor-enterprise-starter',
       'onigirishop',
       'bikevoyager',
       'nvconso',
@@ -66,11 +79,28 @@ describe('projects data', () => {
   })
 
   it('utilise deux captures pour illustrer OnigiriShop', () => {
-    const onigirishop = projects.find((project) => project.slug === 'onigirishop')
+    const onigirishop = projects.find(
+      (project) => project.slug === 'onigirishop',
+    )
 
-    expect(onigirishop?.imageUrl).toBe('/assets/projects/onigirishop-desktop.png')
+    expect(onigirishop?.imageUrl).toBe(
+      '/assets/projects/onigirishop-desktop.png',
+    )
     expect(onigirishop?.secondaryImageUrl).toBe(
       '/assets/projects/onigirishop-mobile.png',
+    )
+  })
+
+  it('ajoute deux captures cohérentes pour BlazorEnterpriseStarter', () => {
+    const starter = projects.find(
+      (project) => project.slug === 'blazor-enterprise-starter',
+    )
+
+    expect(starter?.imageUrl).toBe(
+      '/assets/projects/blazor-enterprise-starter-home.png',
+    )
+    expect(starter?.secondaryImageUrl).toBe(
+      '/assets/projects/blazor-enterprise-starter-backlog.png',
     )
   })
 
@@ -89,5 +119,4 @@ describe('projects data', () => {
       expect.arrayContaining(['proba-loto-euromillions', 'tetris']),
     )
   })
-
 })
