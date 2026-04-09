@@ -65,7 +65,7 @@ describe('App', () => {
     expect(
       within(projectsSection).getByRole('heading', {
         level: 3,
-        name: /ce que montrent les projets/i,
+        name: /projets récents/i,
       }),
     ).toBeInTheDocument()
     expect(within(projectsSection).getByText('6 projets')).toBeInTheDocument()

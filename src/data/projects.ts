@@ -22,9 +22,9 @@ export const projects: Project[] = [
     name: 'BlazorEnterpriseStarter',
     typeLabel: 'Starter applicatif',
     tagline:
-      'Starter applicatif .NET structuré autour d’une Blazor Web App, d’une API ASP.NET Core séparée et d’un backlog métier déjà exploitable.',
+      'Starter applicatif .NET avec Blazor Web App, API ASP.NET Core séparée et backlog métier exploitable.',
     context:
-      'Poser une base métier réutilisable pour démarrer ou remettre au clair une application web .NET, avec un front, une API, des composants réemployables et un lancement local simple à reprendre.',
+      'Poser une base métier réutilisable pour démarrer ou remettre au clair une application web .NET, avec un front, une API, des composants réemployables et un lancement local simple.',
     keyDecisions: [
       'Séparer la Blazor Web App, l’API ASP.NET Core et les contrats partagés pour garder des frontières nettes.',
       'Isoler un design system et une bibliothèque de composants réutilisables au lieu de disperser la logique UI dans les pages.',
@@ -33,7 +33,7 @@ export const projects: Project[] = [
     qualityAndDelivery: [
       'Tests unitaires, composants et E2E ciblés déjà présents dans la solution.',
       'Lancement local prévu via .NET Aspire ou Docker selon le contexte.',
-      'Captures, documentation de structure et CI GitHub Actions pour relire la base sans dépendre uniquement du code source.',
+      'Captures, documentation de structure et CI GitHub Actions pour relire la base sans dépendre du seul code source.',
     ],
     result:
       'Un socle .NET multi-projets lisible, démontrable et directement reprenable pour lancer ou recadrer une application métier web.',
@@ -60,7 +60,7 @@ export const projects: Project[] = [
     tagline:
       'Boutique en ligne avec API séparée, parcours de commande lisible et rendu cohérent sur desktop et mobile.',
     context:
-      'Construire une boutique web claire, avec une séparation nette entre API et interface pour faire évoluer le parcours de commande sans rigidifier le code.',
+      'Construire une boutique web claire, avec une séparation nette entre API et interface pour faire évoluer le parcours de commande sans rigidifier l’ensemble.',
     keyDecisions: [
       'Séparer l’API ASP.NET Core de l’interface React pour faire évoluer le parcours sans couplage excessif.',
       'Organiser catalogue, panier et commande autour de flux courts et relisibles.',
@@ -90,7 +90,7 @@ export const projects: Project[] = [
     tagline:
       'Application de consultation et de planification avec interface claire et socle de données prêt à évoluer.',
     context:
-      'Organiser une application de consultation rapide tout en gardant un modèle de données capable d’évoluer sans remise à plat.',
+      'Organiser une application de consultation rapide avec un modèle de données capable d’évoluer sans remise à plat.',
     keyDecisions: [
       'Garder un socle ASP.NET Core + SQL simple à étendre sur un périmètre fonctionnel clair.',
       'Construire une interface React centrée sur la consultation rapide plutôt que sur l’accumulation d’écrans.',

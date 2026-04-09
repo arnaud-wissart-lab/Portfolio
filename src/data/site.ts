@@ -56,11 +56,11 @@ export const siteConfig: SiteConfig = {
   fullName: 'Arnaud Wissart',
   heroBadge: 'Arnaud Wissart • Reprise d’existant .NET / web',
   headline:
-    'Développeur .NET / web pour reprendre un existant, clarifier l’architecture et remettre la livraison sous contrôle',
+    'Développeur .NET / web pour reprendre un existant, clarifier l’architecture et sécuriser la livraison',
   valueProposition:
     'J’interviens quand une application devient difficile à faire évoluer : structure floue, validations faibles, mise en ligne fragile. Objectif : un socle lisible, des changements sûrs et une livraison vérifiable.',
   heroDescription:
-    'ASP.NET Core, Blazor, React ou Angular, SQL, Docker, .NET Aspire, GitHub Actions et tests ciblés pour remettre une application en état de marche, clarifier sa structure et la faire évoluer proprement.',
+    'ASP.NET Core, Blazor, React ou Angular, SQL, Docker, .NET Aspire, GitHub Actions et tests ciblés pour remettre une application en marche, clarifier sa structure et la faire évoluer proprement.',
   presentationVideo: {
     title: 'Présentation vidéo',
     description:
@@ -75,10 +75,6 @@ export const siteConfig: SiteConfig = {
     import.meta.env.VITE_SITE_REPO_URL ||
     'https://github.com/arnaud-wissart-lab/Portfolio',
   socialLinks: [
-    {
-      label: 'LinkedIn',
-      url: '',
-    },
     {
       label: 'GitHub',
       url: 'https://github.com/arnaud-wissart',
