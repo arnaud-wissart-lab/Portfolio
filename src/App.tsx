@@ -347,7 +347,7 @@ function App() {
             titleId="contact-title"
             eyebrow="Contact"
             title="Échange sur une reprise, une remise au clair technique ou une mise en ligne"
-            description="Un échange court suffit pour cadrer un existant, un point de structure ou une livraison à sécuriser."
+            description="Un échange court suffit pour cadrer un existant, un point de structure, une livraison à sécuriser ou une opportunité en région."
           />
 
           <div className="surface-card p-5 sm:p-6">

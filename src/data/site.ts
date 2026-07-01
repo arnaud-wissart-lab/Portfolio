@@ -68,7 +68,7 @@ export const siteConfig: SiteConfig = {
   profilePresentation: {
     eyebrow: 'Présentation',
     title: 'Un parcours guidé par la clarté, l’usage et la qualité',
-    lead: 'Une trajectoire tournée vers la clarté, l’usage et la contribution locale.',
+    lead: 'Un parcours de reconversion construit autour d’un fil conducteur : rendre les besoins lisibles, les solutions utiles et les projets reprenables.',
     sections: [
       {
         title: 'Parcours',
@@ -87,8 +87,8 @@ export const siteConfig: SiteConfig = {
       {
         title: 'Projet actuel',
         paragraphs: [
-          'Aujourd’hui, je souhaite ouvrir un nouveau chapitre professionnel en mettant mon savoir-faire au service de projets implantés en région.',
-          'Avec l’envie de contribuer localement, d’apporter une expertise solide en développement web et de m’investir dans des environnements où la qualité du service, la proximité et la satisfaction client restent essentielles.',
+          'Je prépare aujourd’hui une nouvelle étape : rejoindre ou accompagner des projets implantés en région.',
+          'J’ai envie d’y apporter une expertise .NET / web solide, une culture de la qualité et une vraie proximité avec les usages métier.',
         ],
       },
     ],
