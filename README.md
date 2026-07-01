@@ -1,6 +1,9 @@
 # Portfolio Hub - Arnaud Wissart
 
-Site vitrine statique (Vite + React + TypeScript + Tailwind) pour presenter Arnaud Wissart et centraliser les liens vers les demos live et les repos GitHub.
+[![CI](https://github.com/arnaud-wissart-lab/Portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/arnaud-wissart-lab/Portfolio/actions/workflows/ci.yml)
+[![Deploy](https://github.com/arnaud-wissart-lab/Portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/arnaud-wissart-lab/Portfolio/actions/workflows/deploy.yml)
+
+Site vitrine statique (Vite + React + TypeScript + Tailwind) pour présenter Arnaud Wissart et centraliser les liens vers les démos en ligne et les dépôts GitHub.
 
 ## Stack
 
@@ -9,12 +12,15 @@ Site vitrine statique (Vite + React + TypeScript + Tailwind) pour presenter Arna
 - ESLint + Prettier
 - Vitest + Testing Library
 - Docker multi-stage
-- Nginx (headers securite + SPA fallback)
+- Nginx (headers de sécurité + SPA fallback)
 - GitHub Actions (CI + Deploy)
 
 ## Lancer en local
 
-Prerequis recommande: Node.js 22 LTS.
+Prérequis recommandés :
+
+- Node.js `>=22.12 <25`
+- npm `>=10`
 
 ```bash
 npm ci
@@ -23,17 +29,18 @@ npm run dev
 
 Le site est disponible sur `http://localhost:5173`.
 
-## Build
+## Qualité et build
 
 ```bash
 npm run lint
+npm run format:check
 npm run test
 npm run build
 ```
 
-Le build statique est genere dans `dist/`.
+Le build statique est généré dans `dist/`.
 
-## Docker (build et run)
+## Docker
 
 ```bash
 docker build -t portfolio-hub:local .
@@ -42,90 +49,97 @@ docker run --rm -p 8080:80 portfolio-hub:local
 
 Le site est servi sur `http://localhost:8080`.
 
-## Deploiement production
+## Déploiement production
 
-Le workflow de deploiement pousse l'image sur GHCR puis execute un deploiement distant idempotent via SSH:
+Le workflow de déploiement pousse l’image sur GHCR puis exécute un déploiement distant idempotent via SSH :
 
 - `docker compose pull`
 - `docker compose up -d`
 - healthcheck HTTP (`/healthz`)
 
-### 1) Preparer la machine Docker de prod
-
-1. Definir le chemin de deploiement (via `DEPLOY_PATH` ou `SSH_PATH`), par exemple:
-   - `/home/arnaud/apps/portfolio-hub` (recommande sans sudo)
-   - `/opt/apps/portfolio-hub` (possible si permissions configurees)
-2. Le workflow cree automatiquement ce dossier a la premiere execution.
-3. Si `docker-compose.yml` est absent, le workflow cree automatiquement un template minimal.
-4. Verifier que la machine peut faire `docker compose`.
-5. Optionnel: si image privee, faire `docker login ghcr.io` sur la machine.
-
-Exposition recommandee (safe): `127.0.0.1:8080:80`, puis reverse proxy (Traefik / Nginx Proxy Manager / Caddy) pour TLS.
-
-### 2) Configurer les secrets GitHub Actions
-
-Secrets requis:
-
-- `DEPLOY_HOST` (IP/DNS de la machine Docker de prod)
-- `DEPLOY_USER` (utilisateur SSH)
-- `DEPLOY_SSH_KEY` (cle privee SSH, format OpenSSH)
-- `DEPLOY_PATH` (ex: `/opt/portfolio-hub`, fallback par defaut: `/opt/portfolio-hub`)
-
-Secrets optionnels:
-
-- `DEPLOY_PORT` (defaut `22`)
-- `DEPLOY_APP_PORT` (port HTTP local de l'app, defaut `8080`)
-- `APP_PORT` (alias accepte)
-- `DEPLOY_BIND_IP` (IP de bind local, defaut `0.0.0.0`)
-- `APP_BIND_IP` (alias accepte)
-- `PUBLIC_URL` (prioritaire pour injecter l'URL publique au build)
-- `DOMAIN` (fallback, ex: `arnaudwissart.fr`)
-
-Notes:
-
-- `DEPLOY_SSH_KEY` doit rester un secret.
-- `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`, `DEPLOY_PORT` peuvent etre configures en `Repository secrets` ou `Repository variables`.
-- Compatibilite legacy: le workflow accepte aussi `SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY`, `SSH_PORT` (et `SSH_PATH` si vous l'utilisez deja).
-- Si aucun chemin n'est fourni, fallback automatique: `/home/<user>/apps/portfolio-hub`.
-- Le workflow effectue un `docker login ghcr.io` a distance avant le `pull` (avec `GHCR_TOKEN` si fourni, sinon `GITHUB_TOKEN`).
-- En cas de collision de port, definir `DEPLOY_APP_PORT` (ex: `18080`).
-- Le script de deploiement detecte aussi automatiquement le port publie reel (`docker compose port`) pour le healthcheck.
-- Pour un reverse proxy en conteneur (NPM/Traefik), preferer `DEPLOY_BIND_IP=0.0.0.0`.
-
-### 3) Lancer le deploiement ("bouton magique")
-
-Deux modes:
-
-- Automatique: push sur `main`
-- Manuel: onglet Actions -> workflow **Deploy** -> `Run workflow`
-
 Le workflow utilise `scripts/deploy-remote.sh`.
 
-## Configuration du domaine (arnaudwissart.fr par defaut)
+### 1. Préparer la machine Docker de production
 
-Valeur par defaut: `https://arnaudwissart.fr`.
+1. Définir le chemin de déploiement via `DEPLOY_PATH` ou `SSH_PATH`, par exemple :
+   - `/home/arnaud/apps/portfolio-hub` (recommandé sans sudo)
+   - `/opt/apps/portfolio-hub` (possible si les permissions sont configurées)
+2. Le workflow crée automatiquement ce dossier à la première exécution.
+3. Si `docker-compose.yml` est absent, le workflow crée automatiquement un template minimal.
+4. Vérifier que la machine peut exécuter `docker compose`.
 
-Modifier:
+Si aucun chemin n’est fourni, le fallback automatique est `/home/<user>/apps/portfolio-hub`.
 
-1. `.env` (`VITE_PUBLIC_URL=...`) pour le runtime/build front
-2. `npm run seo:sync` pour regenerer `public/robots.txt` et `public/sitemap.xml`
+Exposition recommandée :
 
-## Modifier les donnees du site
+- Reverse proxy sur l’hôte Docker : `DEPLOY_BIND_IP=127.0.0.1`
+- Reverse proxy en conteneur : `DEPLOY_BIND_IP=0.0.0.0`
 
-Tout est data-driven:
+Dans les deux cas, le port applicatif par défaut est `8080`.
 
-- Donnees globales: `src/data/site.ts`
-- Projets: `src/data/projects.ts`
+### 2. Configurer GitHub Actions
 
-Important:
+Variables ou secrets requis :
 
-- Ne pas inventer de demo/repo non confirme.
-- Si un repo n'est pas connu, laisser `codeUrl` vide.
-- Le bouton **Code** s'affiche seulement si `codeUrl` est renseigne.
+- `DEPLOY_HOST` : IP ou DNS de la machine Docker de production
+- `DEPLOY_USER` : utilisateur SSH
+- `DEPLOY_SSH_KEY` : clé privée SSH au format OpenSSH, à stocker en secret
 
-## Assets a remplacer
+Variables ou secrets optionnels :
 
-Placeholders fournis:
+- `DEPLOY_PATH` : chemin distant de déploiement
+- `DEPLOY_PORT` : port SSH, par défaut `22`
+- `DEPLOY_APP_PORT` : port HTTP local de l’application, par défaut `8080`
+- `APP_PORT` : alias accepté pour `DEPLOY_APP_PORT`
+- `DEPLOY_BIND_IP` : IP de bind locale, par défaut `0.0.0.0`
+- `APP_BIND_IP` : alias accepté pour `DEPLOY_BIND_IP`
+- `PUBLIC_URL` : URL publique prioritaire injectée au build
+- `DOMAIN` : fallback pour construire l’URL publique, par exemple `arnaudwissart.fr`
+- `GHCR_TOKEN` : jeton utilisé pour le `docker login ghcr.io` distant, sinon `GITHUB_TOKEN` est utilisé
+
+Compatibilité legacy :
+
+- `SSH_HOST`
+- `SSH_USER`
+- `SSH_PRIVATE_KEY`
+- `SSH_PORT`
+- `SSH_PATH`
+
+Le script de déploiement détecte automatiquement le port publié réel avec `docker compose port` pour le healthcheck.
+
+### 3. Lancer le déploiement
+
+Deux modes sont disponibles :
+
+- Automatique : push sur `main`
+- Manuel : onglet Actions, workflow **Deploy**, puis `Run workflow`
+
+## Configuration du domaine
+
+Valeur par défaut : `https://arnaudwissart.fr`.
+
+Pour modifier l’URL publique :
+
+1. Définir `VITE_PUBLIC_URL=...` dans `.env` pour le build front local.
+2. Définir `PUBLIC_URL` ou `DOMAIN` dans GitHub Actions pour le build de production.
+3. Exécuter `npm run seo:sync` pour régénérer `public/robots.txt` et `public/sitemap.xml` si besoin.
+
+## Modifier les données du site
+
+Tout est data-driven :
+
+- Données globales : `src/data/site.ts`
+- Projets : `src/data/projects.ts`
+
+Important :
+
+- Ne pas inventer de démo ou de dépôt non confirmé.
+- Si un dépôt n’est pas connu, laisser `codeUrl` vide.
+- Le bouton **Code** s’affiche seulement si `codeUrl` est renseigné.
+
+## Assets à remplacer
+
+Images fournies :
 
 - `public/assets/avatar-placeholder.jpg`
 - `public/assets/og/portfolio.png`
@@ -139,18 +153,18 @@ Vous pouvez remplacer ces fichiers sans changer le code.
 
 ## CI/CD
 
-- `ci.yml`: lint + test + build sur push/PR
-- `deploy.yml`: build/push GHCR + deploiement SSH sur `main` et `workflow_dispatch`
+- `ci.yml` : installation, lint, format, tests et build sur push/PR
+- `deploy.yml` : build/push GHCR + déploiement SSH sur `main` et `workflow_dispatch`
 
-Tagging image:
+Étiquetage des images :
 
-- `latest` sur branche par defaut
-- `sha-<GITHUB_SHA>` pour tracabilite
+- `latest` sur la branche par défaut
+- `sha-<GITHUB_SHA>` pour la traçabilité
 
 ## Checklist production
 
-- DNS `arnaudwissart.fr` vers votre reverse proxy
-- HTTPS/TLS actif cote reverse proxy
+- DNS `arnaudwissart.fr` vers le reverse proxy
+- HTTPS/TLS actif côté reverse proxy
 - Route reverse proxy vers `http://<docker-host>:8080`
-- Open Graph image valide: `/assets/og/portfolio.png`
-- Verifier `robots.txt` et `sitemap.xml`
+- Open Graph image valide : `/assets/og/portfolio.png`
+- `robots.txt` et `sitemap.xml` vérifiés
