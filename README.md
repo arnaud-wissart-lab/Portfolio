@@ -134,7 +134,6 @@ Placeholders fournis:
 - `public/assets/projects/loto.jpg`
 - `public/assets/projects/tetris.jpg`
 - `public/assets/projects/nvconso.jpg`
-- `public/assets/projects/demoredis.jpg`
 
 Vous pouvez remplacer ces fichiers sans changer le code.
 
