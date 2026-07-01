@@ -62,6 +62,11 @@ describe('App', () => {
       ),
     ).toBeInTheDocument()
     expect(
+      within(profilePresentationSection).getByText(
+        /rejoindre ou accompagner des projets implantés en région/i,
+      ),
+    ).toBeInTheDocument()
+    expect(
       within(profilePresentationSection).getAllByRole('article'),
     ).toHaveLength(siteConfig.profilePresentation.sections.length)
 
@@ -93,6 +98,14 @@ describe('App', () => {
     expect(within(interventionsSection).getAllByRole('article')).toHaveLength(
       siteConfig.interventionAreas.length,
     )
+
+    const contactSection = screen.getByRole('region', {
+      name: /échange sur une reprise/i,
+    })
+
+    expect(
+      within(contactSection).getByText(/opportunité en région/i),
+    ).toBeInTheDocument()
   })
 
   it('affiche le lien Code pour Tetrigular', () => {
