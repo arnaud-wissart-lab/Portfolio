@@ -19,12 +19,16 @@ export type InterventionArea = {
   description: string
 }
 
-export type PresentationVideo = {
+export type ProfilePresentationSection = {
   title: string
-  description: string
-  posterLabel: string
-  durationLabel: string
-  src: string
+  paragraphs: string[]
+}
+
+export type ProfilePresentation = {
+  eyebrow: string
+  title: string
+  lead: string
+  sections: ProfilePresentationSection[]
 }
 
 export type SiteConfig = {
@@ -33,7 +37,7 @@ export type SiteConfig = {
   headline: string
   valueProposition: string
   heroDescription: string
-  presentationVideo: PresentationVideo
+  profilePresentation: ProfilePresentation
   email: string
   publicUrl: string
   siteRepoUrl: string
@@ -61,13 +65,33 @@ export const siteConfig: SiteConfig = {
     'J’interviens quand une application devient difficile à faire évoluer : structure floue, validations faibles, mise en ligne fragile. Objectif : un socle lisible, des changements sûrs et une livraison vérifiable.',
   heroDescription:
     'ASP.NET Core, Blazor, React ou Angular, SQL, Docker, .NET Aspire, GitHub Actions et tests ciblés pour remettre une application en marche, clarifier sa structure et la faire évoluer proprement.',
-  presentationVideo: {
-    title: 'Présentation vidéo',
-    description:
-      'Une présentation directe pour mettre un visage, une voix et une manière de travailler sur le profil.',
-    posterLabel: 'Format portrait · 52 secondes',
-    durationLabel: '52 s',
-    src: '/assets/video/arnaud-wissart-presentation.mp4',
+  profilePresentation: {
+    eyebrow: 'Présentation',
+    title: 'Un parcours guidé par la clarté, l’usage et la qualité',
+    lead: 'Une trajectoire tournée vers la clarté, l’usage et la contribution locale.',
+    sections: [
+      {
+        title: 'Parcours',
+        paragraphs: [
+          'Originaire du Pas-de-Calais, j’ai d’abord rejoint l’Île-de-France avec une ambition : devenir journaliste. De cette première trajectoire, j’ai gardé le goût des messages clairs, de l’écoute et de la transmission.',
+          'Comprendre un besoin, structurer une information, rendre un sujet accessible : ces réflexes m’accompagnent encore aujourd’hui dans mon métier de développeur.',
+        ],
+      },
+      {
+        title: 'Démarche',
+        paragraphs: [
+          'Après une reconversion vers le développement web et .NET, j’ai trouvé dans le code une autre manière de construire du sens : concevoir des interfaces utiles, fiabiliser des parcours, transformer des besoins métiers en solutions concrètes.',
+          'Mon approche reste guidée par le même principe : livrer un travail propre, compréhensible et réellement utile à celles et ceux qui l’utilisent.',
+        ],
+      },
+      {
+        title: 'Projet actuel',
+        paragraphs: [
+          'Aujourd’hui, je souhaite ouvrir un nouveau chapitre professionnel en mettant mon savoir-faire au service de projets implantés en région.',
+          'Avec l’envie de contribuer localement, d’apporter une expertise solide en développement web et de m’investir dans des environnements où la qualité du service, la proximité et la satisfaction client restent essentielles.',
+        ],
+      },
+    ],
   },
   email: 'contact@arnaudwissart.fr',
   publicUrl: normalizedPublicUrl,

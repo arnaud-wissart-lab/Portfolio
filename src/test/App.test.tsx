@@ -45,12 +45,25 @@ describe('App', () => {
     expect(
       screen.getByRole('heading', {
         level: 2,
-        name: /présentation vidéo/i,
+        name: /un parcours guidé par la clarté/i,
       }),
     ).toBeInTheDocument()
     expect(
-      screen.getByLabelText(/vidéo de présentation d’arnaud wissart/i),
-    ).toHaveAttribute('preload', 'metadata')
+      screen.queryByLabelText(/vidéo de présentation d’arnaud wissart/i),
+    ).not.toBeInTheDocument()
+
+    const profilePresentationSection = screen.getByRole('region', {
+      name: /un parcours guidé par la clarté/i,
+    })
+
+    expect(
+      within(profilePresentationSection).getByText(
+        /originaire du pas-de-calais/i,
+      ),
+    ).toBeInTheDocument()
+    expect(
+      within(profilePresentationSection).getAllByRole('article'),
+    ).toHaveLength(siteConfig.profilePresentation.sections.length)
 
     const projectsSection = screen.getByRole('region', {
       name: /études de cas/i,
