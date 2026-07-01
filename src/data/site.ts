@@ -88,7 +88,7 @@ export const siteConfig: SiteConfig = {
         title: 'Projet actuel',
         paragraphs: [
           'Je prépare aujourd’hui une nouvelle étape : rejoindre ou accompagner des projets implantés en région.',
-          'J’ai envie d’y apporter une expertise .NET / web solide, une culture de la qualité et une vraie proximité avec les usages métier.',
+          'Avec la volonté d’y apporter une expertise .NET / web solide, une culture de la qualité et une vraie proximité avec les usages métier.',
         ],
       },
     ],
