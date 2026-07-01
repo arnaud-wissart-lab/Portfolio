@@ -20,7 +20,7 @@ function App() {
     (socialLink) => socialLink.url.trim().length > 0,
   )
   const projectsSummaryLabel = `${projects.length} projets`
-  const presentationVideo = siteConfig.presentationVideo
+  const profilePresentation = siteConfig.profilePresentation
 
   return (
     <div
@@ -119,62 +119,47 @@ function App() {
 
             <div className="grid gap-4">
               <section
-                aria-labelledby="presentation-video-title"
-                className="surface-panel p-4 sm:p-5"
+                aria-labelledby="profile-presentation-title"
+                className="surface-panel p-5 sm:p-6"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="section-kicker">Présentation</p>
-                    <h2
-                      id="presentation-video-title"
-                      className="mt-2 font-display text-[1.45rem] font-semibold tracking-tight text-slate"
-                    >
-                      {presentationVideo.title}
-                    </h2>
-                  </div>
-                  <span className="pill-muted shrink-0">
-                    {presentationVideo.durationLabel}
-                  </span>
-                </div>
-
-                <p className="mt-3 text-sm leading-relaxed text-slate/78">
-                  {presentationVideo.description}
+                <p className="section-kicker">{profilePresentation.eyebrow}</p>
+                <h2
+                  id="profile-presentation-title"
+                  className="mt-2 max-w-[34rem] font-display text-[1.45rem] font-semibold leading-tight tracking-tight text-slate"
+                >
+                  {profilePresentation.title}
+                </h2>
+                <p className="mt-4 max-w-[56ch] text-[0.95rem] leading-relaxed text-slate/82">
+                  {profilePresentation.lead}
                 </p>
 
-                <div className="mt-5">
-                  <div className="mx-auto w-full max-w-[18rem] overflow-hidden rounded-[2rem] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(241,245,249,0.94)_100%)] p-2.5 shadow-[0_24px_50px_-36px_rgba(15,23,42,0.45)]">
-                    <div className="overflow-hidden rounded-[1.6rem] border border-slate/10 bg-slate">
-                      <video
-                        className="aspect-[9/16] h-auto w-full bg-slate object-cover"
-                        controls
-                        preload="metadata"
-                        playsInline
-                        aria-label="Vidéo de présentation d’Arnaud Wissart"
+                <div className="mt-5 space-y-4">
+                  {profilePresentation.sections.map(
+                    (presentationSection, index) => (
+                      <article
+                        key={presentationSection.title}
+                        className={
+                          index === 0
+                            ? 'space-y-2.5'
+                            : 'space-y-2.5 border-t border-slate/10 pt-4'
+                        }
                       >
-                        <source src={presentationVideo.src} type="video/mp4" />
-                        <track
-                          kind="captions"
-                          srcLang="fr"
-                          label="Sous-titres français"
-                          src="/assets/video/arnaud-wissart-presentation.fr.vtt"
-                          default
-                        />
-                        Votre navigateur ne prend pas en charge la lecture vidéo
-                        intégrée.
-                      </video>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="surface-subtle mt-4 px-4 py-4 sm:px-5">
-                  <p className="text-sm font-semibold text-slate">
-                    {presentationVideo.posterLabel}
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-slate/75">
-                    Une vidéo courte, pensée pour donner rapidement le ton sur
-                    le type de missions que je reprends et ma façon de les
-                    sécuriser.
-                  </p>
+                        <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+                          {presentationSection.title}
+                        </h3>
+                        <div className="space-y-1.5">
+                          {presentationSection.paragraphs.map((paragraph) => (
+                            <p
+                              key={paragraph}
+                              className="max-w-[62ch] text-sm leading-relaxed text-slate/78"
+                            >
+                              {paragraph}
+                            </p>
+                          ))}
+                        </div>
+                      </article>
+                    ),
+                  )}
                 </div>
               </section>
 
