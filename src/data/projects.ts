@@ -9,6 +9,7 @@ export type Project = {
   result: string
   stack: string[]
   demoUrl?: string
+  releaseUrl?: string
   codeUrl?: string
   imageUrl: string
   imageAlt: string
@@ -17,6 +18,34 @@ export type Project = {
 }
 
 export const projects: Project[] = [
+  {
+    slug: 'layup-pulse',
+    name: 'LayupPulse',
+    typeLabel: 'Démonstrateur Windows',
+    tagline:
+      'Supervision WPF d’une cellule fictive de drapage composite, avec télémétrie temps réel, historique local et rapports de cycle.',
+    context:
+      'Démontrer une architecture .NET de supervision autour d’un simulateur déterministe, sans présenter l’application, ses données ou ses automatismes comme un système industriel réel.',
+    keyDecisions: [
+      'Séparer l’application WPF et le simulateur par un contrat gRPC versionné, avec un domaine indépendant des technologies.',
+      'Borner l’acquisition, l’historique, les agrégats et le rafraîchissement de l’interface pour maîtriser la télémétrie à haute fréquence.',
+      'Limiter l’adoption de CODE Framework aux documents du rapport, avec export XPS natif et PDF disponible uniquement via une imprimante Windows.',
+    ],
+    qualityAndDelivery: [
+      'Suite automatisée couvrant le domaine, les dépendances, la concurrence, la persistance SQLite et la sérialisation XPS.',
+      'Paquet Windows x64 autonome soumis à un test de démarrage avant publication.',
+      'Version 0.4.0 publiée avec aperçu paginé, impression Windows et export XPS du rapport de cycle.',
+    ],
+    result:
+      'Un démonstrateur Windows téléchargeable et auditable qui rend visibles les choix d’architecture, de performance et de testabilité, sans prétendre commander une machine réelle.',
+    stack: ['.NET 10', 'WPF', 'gRPC', 'SQLite / EF Core', 'CODE Framework'],
+    releaseUrl:
+      'https://github.com/arnaud-wissart-lab/layup-pulse/releases/latest',
+    codeUrl: 'https://github.com/arnaud-wissart-lab/layup-pulse',
+    imageUrl: '/assets/projects/layup-pulse-overview.png',
+    imageAlt:
+      'Capture de LayupPulse pendant un cycle simulé, avec vue 3D fictive, télémétrie, tendances et commandes de démonstration.',
+  },
   {
     slug: 'blazor-enterprise-starter',
     name: 'BlazorEnterpriseStarter',
