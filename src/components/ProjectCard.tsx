@@ -19,7 +19,7 @@ type ProjectMediaProps = {
 
 type ProjectAccessBadgeProps = {
   project: Project
-  kind: 'demo' | 'code'
+  kind: 'demo' | 'release' | 'code'
 }
 
 type ProjectDetailBlockProps = {
@@ -28,14 +28,25 @@ type ProjectDetailBlockProps = {
 }
 
 function ProjectAccessBadge({ project, kind }: ProjectAccessBadgeProps) {
-  const href = kind === 'demo' ? project.demoUrl : project.codeUrl
-  const label = kind === 'demo' ? 'Voir la démo' : 'Voir le code'
-  const ariaLabel =
-    kind === 'demo'
-      ? `Accéder à la démo en ligne du projet ${project.name} (ouvre dans un nouvel onglet)`
-      : `Accéder au code public du projet ${project.name} (ouvre dans un nouvel onglet)`
+  const access = {
+    demo: {
+      href: project.demoUrl,
+      label: 'Voir la démo',
+      ariaLabel: `Accéder à la démo en ligne du projet ${project.name} (ouvre dans un nouvel onglet)`,
+    },
+    release: {
+      href: project.releaseUrl,
+      label: 'Télécharger',
+      ariaLabel: `Accéder à la dernière version téléchargeable du projet ${project.name} (ouvre dans un nouvel onglet)`,
+    },
+    code: {
+      href: project.codeUrl,
+      label: 'Voir le code',
+      ariaLabel: `Accéder au code public du projet ${project.name} (ouvre dans un nouvel onglet)`,
+    },
+  }[kind]
 
-  if (!href) {
+  if (!access.href) {
     return (
       <span className="pill-muted">
         {kind === 'demo' ? 'Sans démo en ligne' : 'Code non public'}
@@ -45,13 +56,13 @@ function ProjectAccessBadge({ project, kind }: ProjectAccessBadgeProps) {
 
   return (
     <a
-      href={href}
+      href={access.href}
       target="_blank"
       rel="noreferrer"
-      aria-label={ariaLabel}
+      aria-label={access.ariaLabel}
       className="pill-link"
     >
-      {label}
+      {access.label}
     </a>
   )
 }
@@ -214,6 +225,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <div className="flex flex-wrap items-center gap-2.5">
             <span className="pill-accent">{project.typeLabel}</span>
             <ProjectAccessBadge project={project} kind="demo" />
+            {project.releaseUrl ? (
+              <ProjectAccessBadge project={project} kind="release" />
+            ) : null}
             <ProjectAccessBadge project={project} kind="code" />
           </div>
 

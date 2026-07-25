@@ -38,9 +38,9 @@ describe('projects data', () => {
   })
 
   it('remonte les projets .NET / web les plus crédibles en tête de liste', () => {
-    expect(projects[0]?.slug).toBe('blazor-enterprise-starter')
-    expect(projects[1]?.slug).toBe('onigirishop')
-    expect(projects[2]?.slug).toBe('bikevoyager')
+    expect(projects[0]?.slug).toBe('layup-pulse')
+    expect(projects[1]?.slug).toBe('blazor-enterprise-starter')
+    expect(projects[2]?.slug).toBe('onigirishop')
   })
 
   it('renseigne la démo et le dépôt de BlazorEnterpriseStarter', () => {
@@ -54,9 +54,24 @@ describe('projects data', () => {
     )
   })
 
-  it('conserve une sélection unique de six projets', () => {
-    expect(projects).toHaveLength(6)
+  it('renseigne le dépôt et la version téléchargeable de LayupPulse', () => {
+    const layupPulse = projects.find(
+      (project) => project.slug === 'layup-pulse',
+    )
+
+    expect(layupPulse?.releaseUrl).toBe(
+      'https://github.com/arnaud-wissart-lab/layup-pulse/releases/latest',
+    )
+    expect(layupPulse?.codeUrl).toBe(
+      'https://github.com/arnaud-wissart-lab/layup-pulse',
+    )
+    expect(layupPulse?.context).toMatch(/sans présenter .* industriel réel/i)
+  })
+
+  it('conserve une sélection unique de sept projets', () => {
+    expect(projects).toHaveLength(7)
     expect(projects.map((project) => project.slug)).toEqual([
+      'layup-pulse',
       'blazor-enterprise-starter',
       'onigirishop',
       'bikevoyager',

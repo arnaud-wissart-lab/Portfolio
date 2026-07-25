@@ -86,7 +86,7 @@ describe('App', () => {
         name: /projets récents/i,
       }),
     ).toBeInTheDocument()
-    expect(within(projectsSection).getByText('6 projets')).toBeInTheDocument()
+    expect(within(projectsSection).getByText('7 projets')).toBeInTheDocument()
     expect(within(projectsSection).getAllByRole('article')).toHaveLength(
       projects.length,
     )
@@ -132,6 +132,32 @@ describe('App', () => {
 
     expect(
       within(tetrigularCard).getByText('Démonstrateur front'),
+    ).toBeInTheDocument()
+  })
+
+  it('affiche la version Windows téléchargeable de LayupPulse', () => {
+    render(<App />)
+
+    const layupPulseHeading = screen.getByRole('heading', {
+      name: 'LayupPulse',
+    })
+    const layupPulseCard = layupPulseHeading.closest('article')
+
+    expect(layupPulseCard).not.toBeNull()
+    if (!layupPulseCard) {
+      return
+    }
+
+    expect(
+      within(layupPulseCard).getByRole('link', {
+        name: /accéder à la dernière version téléchargeable du projet layuppulse/i,
+      }),
+    ).toHaveAttribute(
+      'href',
+      'https://github.com/arnaud-wissart-lab/layup-pulse/releases/latest',
+    )
+    expect(
+      within(layupPulseCard).getByText('Sans démo en ligne'),
     ).toBeInTheDocument()
   })
 
