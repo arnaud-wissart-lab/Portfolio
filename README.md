@@ -154,3 +154,5 @@ Tagging image:
 - Route reverse proxy vers `http://<docker-host>:8080`
 - Open Graph image valide: `/assets/og/portfolio.png`
 - Verifier `robots.txt` et `sitemap.xml`
+
+<!-- deploy-trigger: 2026-08-20T09:36+02:00 -->
