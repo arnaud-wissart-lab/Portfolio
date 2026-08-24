@@ -131,7 +131,7 @@ describe('App', () => {
     )
 
     expect(
-      within(tetrigularCard).getByText('Démonstrateur front'),
+      within(tetrigularCard).getByText('Démonstrateur Angular'),
     ).toBeInTheDocument()
   })
 
@@ -164,21 +164,21 @@ describe('App', () => {
   it('rend explicite l’absence de démo en ligne quand elle n’existe pas', () => {
     render(<App />)
 
-    const nvConsoHeading = screen.getByRole('heading', {
-      name: 'NVConso',
+    const wattPilotHeading = screen.getByRole('heading', {
+      name: 'WattPilot',
     })
-    const nvConsoCard = nvConsoHeading.closest('article')
+    const wattPilotCard = wattPilotHeading.closest('article')
 
-    expect(nvConsoCard).not.toBeNull()
-    if (!nvConsoCard) {
+    expect(wattPilotCard).not.toBeNull()
+    if (!wattPilotCard) {
       return
     }
 
     expect(
-      within(nvConsoCard).getByText('Sans démo en ligne'),
+      within(wattPilotCard).getByText('Sans démo en ligne'),
     ).toBeInTheDocument()
     expect(
-      within(nvConsoCard).getByText('Application métier'),
+      within(wattPilotCard).getByText('Utilitaire Windows'),
     ).toBeInTheDocument()
   })
 
