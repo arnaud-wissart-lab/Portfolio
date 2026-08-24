@@ -35,3 +35,15 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  self-hosted-runner-diagnostics:
+    if: github.event_name == 'pull_request' && github.head_ref == 'chore/dependabot-github-actions'
+    runs-on:
+      - self-hosted
+      - linux
+
+    steps:
+      - name: Runner diagnostics
+        run: |
+          echo "Kernel: $(uname -a)"
+          echo "Runner diagnostics completed."
