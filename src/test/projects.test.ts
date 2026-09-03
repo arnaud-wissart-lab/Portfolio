@@ -25,6 +25,20 @@ describe('projects data', () => {
     )
   })
 
+  it('présente Tetrigular comme une vitrine Angular 21 outillée', () => {
+    const tetrigular = projects.find((project) => project.slug === 'tetris')
+
+    expect(tetrigular?.stack).toEqual(
+      expect.arrayContaining(['Angular 21', 'Signals', 'Vitest', 'Docker']),
+    )
+    expect(tetrigular?.qualityAndDelivery).toEqual(
+      expect.arrayContaining([
+        expect.stringMatching(/CI publique/i),
+        expect.stringMatching(/Tests unitaires/i),
+      ]),
+    )
+  })
+
   it('pointe les dépôts projet vers le compte arnaud-wissart-lab', () => {
     const projectRepoUrls = projects
       .map((project) => project.codeUrl)
