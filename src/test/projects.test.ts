@@ -52,9 +52,9 @@ describe('projects data', () => {
   })
 
   it('remonte les projets .NET / web les plus crédibles en tête de liste', () => {
-    expect(projects[0]?.slug).toBe('layup-pulse')
+    expect(projects[0]?.slug).toBe('bikevoyager')
     expect(projects[1]?.slug).toBe('blazor-enterprise-starter')
-    expect(projects[2]?.slug).toBe('onigirishop')
+    expect(projects[2]?.slug).toBe('layup-pulse')
   })
 
   it('renseigne la démo et le dépôt de BlazorEnterpriseStarter', () => {
@@ -85,10 +85,10 @@ describe('projects data', () => {
   it('conserve une sélection unique de sept projets', () => {
     expect(projects).toHaveLength(7)
     expect(projects.map((project) => project.slug)).toEqual([
-      'layup-pulse',
-      'blazor-enterprise-starter',
-      'onigirishop',
       'bikevoyager',
+      'blazor-enterprise-starter',
+      'layup-pulse',
+      'onigirishop',
       'nvconso',
       'proba-loto-euromillions',
       'tetris',
@@ -139,13 +139,14 @@ describe('projects data', () => {
     ).toBe(true)
   })
 
-  it('rend visibles les projets plus démonstratifs sans les sortir de la sélection', () => {
+  it('rend visibles les projets démonstratifs sans les sortir de la sélection', () => {
     const demonstrativeProjects = projects.filter((project) =>
       project.typeLabel.includes('Démonstrateur'),
     )
 
-    expect(demonstrativeProjects.map((project) => project.slug)).toEqual(
-      expect.arrayContaining(['proba-loto-euromillions', 'tetris']),
-    )
+    expect(demonstrativeProjects.map((project) => project.slug)).toEqual([
+      'layup-pulse',
+      'tetris',
+    ])
   })
 })
