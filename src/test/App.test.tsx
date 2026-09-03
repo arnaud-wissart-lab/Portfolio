@@ -131,7 +131,7 @@ describe('App', () => {
     )
 
     expect(
-      within(tetrigularCard).getByText('Démonstrateur front'),
+      within(tetrigularCard).getByText('Démonstrateur Angular'),
     ).toBeInTheDocument()
   })
 

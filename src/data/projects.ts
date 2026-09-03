@@ -195,24 +195,31 @@ export const projects: Project[] = [
   {
     slug: 'tetris',
     name: 'Tetrigular',
-    typeLabel: 'Démonstrateur front',
+    typeLabel: 'Démonstrateur Angular',
     tagline:
-      'Démonstrateur front temps réel centré sur la boucle de jeu, le rendu Canvas et la réactivité.',
+      'Démonstrateur Angular 21 temps réel associant signals, Canvas 2D et moteur TypeScript indépendant du framework.',
     context:
-      'Projet plus démonstratif, centré sur le rendu navigateur, la boucle de jeu et la réactivité de l’interface.',
+      'Illustrer un découpage clair entre l’interface Angular, les entrées utilisateur, le moteur de jeu et les règles de domaine.',
     keyDecisions: [
-      'S’appuyer sur Canvas et une boucle de jeu explicite pour garder la maîtrise du rendu.',
-      'Isoler collisions, rotations et score dans des règles relisibles.',
-      'Garder un client léger, simple à publier et à reprendre.',
+      'S’appuyer sur Canvas 2D et une boucle de jeu explicite pour maîtriser le rendu temps réel.',
+      'Isoler collisions, rotations, score et randomisation dans un moteur TypeScript relisible et indépendant d’Angular.',
+      'Utiliser signals, inputs/outputs, OnPush et DestroyRef pour garder une interface réactive et maintenable.',
     ],
     qualityAndDelivery: [
-      'Code public et démo en ligne pour vérifier le comportement en conditions réelles.',
-      'Build front simple et rapide à republier.',
-      'Projet démonstratif centré sur la structuration d’un comportement interactif.',
+      'Tests unitaires du domaine, du moteur et de composants Angular ciblés.',
+      'CI publique : installation reproductible, formatage, lint, tests, build de production et audit des dépendances.',
+      'Image Docker Nginx et déploiement manuel séparé de la CI.',
     ],
     result:
-      'Une organisation front claire sur un sujet temps réel, sans complexité superflue.',
-    stack: ['TypeScript', 'Canvas', 'Game loop'],
+      'Une vitrine Angular 21 claire sur un sujet temps réel, sans fonctionnalité artificielle ni complexité superflue.',
+    stack: [
+      'Angular 21',
+      'TypeScript',
+      'Signals',
+      'Canvas 2D',
+      'Vitest',
+      'Docker',
+    ],
     demoUrl: 'https://tetris.arnaudwissart.fr',
     codeUrl: 'https://github.com/arnaud-wissart-lab/Tetrigular',
     imageUrl: '/assets/projects/tetris.jpg',
