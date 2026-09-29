@@ -53,8 +53,9 @@ describe('projects data', () => {
 
   it('remonte les projets .NET / web les plus crédibles en tête de liste', () => {
     expect(projects[0]?.slug).toBe('bikevoyager')
-    expect(projects[1]?.slug).toBe('blazor-enterprise-starter')
-    expect(projects[2]?.slug).toBe('layup-pulse')
+    expect(projects[1]?.slug).toBe('orymessa')
+    expect(projects[2]?.slug).toBe('blazor-enterprise-starter')
+    expect(projects[3]?.slug).toBe('layup-pulse')
   })
 
   it('renseigne la démo et le dépôt de BlazorEnterpriseStarter', () => {
@@ -82,10 +83,11 @@ describe('projects data', () => {
     expect(layupPulse?.context).toMatch(/sans présenter .* industriel réel/i)
   })
 
-  it('conserve une sélection unique de sept projets', () => {
-    expect(projects).toHaveLength(7)
+  it('conserve une sélection unique de huit projets', () => {
+    expect(projects).toHaveLength(8)
     expect(projects.map((project) => project.slug)).toEqual([
       'bikevoyager',
+      'orymessa',
       'blazor-enterprise-starter',
       'layup-pulse',
       'onigirishop',

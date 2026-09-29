@@ -11,8 +11,12 @@ export type Project = {
   demoUrl?: string
   releaseUrl?: string
   codeUrl?: string
+  steamUrl?: string
+  statusLabel?: string
+  role?: string
   imageUrl: string
   imageAlt: string
+  imageCredit?: { label: string; url: string }
   secondaryImageUrl?: string
   secondaryImageAlt?: string
 }
@@ -51,6 +55,45 @@ export const projects: Project[] = [
     imageUrl: '/assets/projects/bikevoyager.jpg',
     imageAlt:
       'Capture de BikeVoyager montrant l’interface de préparation et de consultation d’un parcours vélo.',
+  },
+  {
+    slug: 'orymessa',
+    name: 'Orymessa',
+    typeLabel: 'Logiciel indépendant · Windows / Linux',
+    statusLabel: 'À venir sur Steam',
+    role: 'Conception, développement et préparation de la distribution sur Steam.',
+    tagline:
+      'Un lecteur multimédia pensé pour le salon : chaînes, films et séries de sources Xtream ou M3U autorisées, accessibles à la manette, au clavier, à la souris ou au tactile.',
+    context:
+      'Concevoir un logiciel de bureau confortable à distance, du catalogue à la lecture, avec favoris, historique et reprise des vidéos. Aucun contenu ni abonnement TV n’est fourni.',
+    keyDecisions: [
+      'Construire une interface multiplateforme en C# / Avalonia, avec des actions indépendantes du périphérique et une navigation au focus explicite.',
+      'Isoler les sources Xtream / M3U et le moteur LibVLC ; charger progressivement les catalogues pour garder une interface réactive.',
+      'Conserver les préférences et l’historique localement, protéger les identifiants avec le coffre du système et ne collecter aucune télémétrie.',
+    ],
+    qualityAndDelivery: [
+      'Tests automatisés et contrôles de compilation sous Windows et Linux, complétés par des essais de lecture et de navigation.',
+      'Préparation des paquets, vérification des composants redistribués et de leurs notices de licence avant lancement.',
+    ],
+    result:
+      'Une page Steam publique et un logiciel en cours de préparation pour sa sortie. Ce projet associe architecture .NET, ergonomie multiplateforme et préparation d’une distribution grand public.',
+    stack: [
+      'C# / .NET 10',
+      'Avalonia',
+      'LibVLCSharp',
+      'Xtream / M3U',
+      'Steam Input',
+      'GitHub Actions',
+    ],
+    steamUrl: 'https://store.steampowered.com/app/5071870/Orymessa/',
+    imageUrl: '/assets/projects/orymessa.jpg',
+    imageCredit: {
+      label:
+        'Vidéo de démonstration : Big Buck Bunny — © Blender Foundation, CC BY 3.0.',
+      url: 'https://peach.blender.org/about/',
+    },
+    imageAlt:
+      'Capture publique d’Orymessa présentant le catalogue de démonstration et son interface de lecture.',
   },
   {
     slug: 'blazor-enterprise-starter',

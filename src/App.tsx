@@ -105,6 +105,17 @@ function App() {
                 ) : null}
               </div>
 
+              <p className="text-sm leading-relaxed text-slate/82">
+                En cours :{' '}
+                <a
+                  href="#orymessa"
+                  className="font-semibold text-accent underline underline-offset-4"
+                >
+                  Orymessa, mon lecteur multimédia à venir sur Steam
+                </a>
+                .
+              </p>
+
               <ul className="surface-panel grid gap-2.5 p-4 sm:grid-cols-2 sm:p-5">
                 {siteConfig.heroProofs.map((proof) => (
                   <li
@@ -230,7 +241,7 @@ function App() {
             titleId="projects-title"
             eyebrow="Projets"
             title="Études de cas"
-            description="Applications et démonstrateurs publiés."
+            description="Applications publiées, démonstrateurs et logiciel en préparation."
           />
 
           <div className="surface-panel flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-end sm:justify-between sm:px-5">
@@ -239,7 +250,8 @@ function App() {
                 Projets récents
               </h3>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate/82">
-                Projets publiés et testables.
+                Des projets à explorer et Orymessa à découvrir avant sa sortie
+                sur Steam.
               </p>
             </div>
             <p className="pill-muted">{projectsSummaryLabel}</p>
