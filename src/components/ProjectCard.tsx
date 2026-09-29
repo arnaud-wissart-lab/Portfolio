@@ -19,7 +19,7 @@ type ProjectMediaProps = {
 
 type ProjectAccessBadgeProps = {
   project: Project
-  kind: 'demo' | 'release' | 'code'
+  kind: 'demo' | 'release' | 'code' | 'steam'
 }
 
 type ProjectDetailBlockProps = {
@@ -29,6 +29,11 @@ type ProjectDetailBlockProps = {
 
 function ProjectAccessBadge({ project, kind }: ProjectAccessBadgeProps) {
   const access = {
+    steam: {
+      href: project.steamUrl,
+      label: 'Découvrir sur Steam',
+      ariaLabel: `Découvrir ${project.name} sur Steam (ouvre dans un nouvel onglet)`,
+    },
     demo: {
       href: project.demoUrl,
       label: 'Voir la démo',
@@ -207,7 +212,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
   }
 
   return (
-    <article className="surface-card overflow-hidden">
+    <article
+      id={project.slug}
+      className="surface-card scroll-mt-24 overflow-hidden"
+    >
       <div className="grid gap-0 xl:grid-cols-[minmax(250px,0.62fr)_minmax(0,1.38fr)] xl:items-start">
         <div className="border-b border-slate/10 xl:self-start xl:border-b-0">
           <ProjectMedia
@@ -219,12 +227,31 @@ export function ProjectCard({ project }: ProjectCardProps) {
             onImageError={handleImageError}
             onSecondaryImageError={handleSecondaryImageError}
           />
+          {project.imageCredit ? (
+            <p className="px-5 pb-5 text-xs leading-relaxed text-slate/75">
+              <a
+                href={project.imageCredit.url}
+                target="_blank"
+                rel="noreferrer"
+                className="underline underline-offset-2"
+              >
+                {project.imageCredit.label}
+              </a>
+            </p>
+          ) : null}
         </div>
 
         <div className="flex flex-col gap-4 p-4 sm:p-5 lg:p-6">
           <div className="flex flex-wrap items-center gap-2.5">
             <span className="pill-accent">{project.typeLabel}</span>
-            <ProjectAccessBadge project={project} kind="demo" />
+            {project.statusLabel ? (
+              <span className="pill-muted">{project.statusLabel}</span>
+            ) : null}
+            {project.steamUrl ? (
+              <ProjectAccessBadge project={project} kind="steam" />
+            ) : (
+              <ProjectAccessBadge project={project} kind="demo" />
+            )}
             {project.releaseUrl ? (
               <ProjectAccessBadge project={project} kind="release" />
             ) : null}
@@ -238,6 +265,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <p className="max-w-3xl text-[0.98rem] leading-relaxed text-slate/88 sm:text-[1.02rem]">
               {project.tagline}
             </p>
+            {project.role ? (
+              <p className="text-sm leading-relaxed text-slate/80">
+                <span className="font-semibold">Mon rôle : </span>
+                {project.role}
+              </p>
+            ) : null}
             <ul className="tag-list pt-1">
               {project.stack.map((stackItem) => (
                 <li key={`${project.slug}-${stackItem}`} className="tag-item">

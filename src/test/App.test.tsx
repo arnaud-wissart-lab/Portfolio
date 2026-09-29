@@ -86,7 +86,7 @@ describe('App', () => {
         name: /projets récents/i,
       }),
     ).toBeInTheDocument()
-    expect(within(projectsSection).getByText('7 projets')).toBeInTheDocument()
+    expect(within(projectsSection).getByText('8 projets')).toBeInTheDocument()
     expect(within(projectsSection).getAllByRole('article')).toHaveLength(
       projects.length,
     )
@@ -106,6 +106,29 @@ describe('App', () => {
     expect(
       within(contactSection).getByText(/opportunité en région/i),
     ).toBeInTheDocument()
+  })
+
+  it('présente Orymessa avant sa sortie sans proposer de téléchargement', () => {
+    render(<App />)
+    const card = screen
+      .getByRole('heading', { name: 'Orymessa' })
+      .closest('article')!
+    expect(card).toHaveAttribute('id', 'orymessa')
+    expect(within(card).getByText('À venir sur Steam')).toBeInTheDocument()
+    expect(
+      within(card).getByRole('link', { name: /découvrir Orymessa sur Steam/i }),
+    ).toHaveAttribute(
+      'href',
+      'https://store.steampowered.com/app/5071870/Orymessa/',
+    )
+    expect(
+      within(card).queryByRole('link', {
+        name: /téléchargeable|démo en ligne|code public/i,
+      }),
+    ).not.toBeInTheDocument()
+    expect(
+      screen.getByRole('link', { name: /Orymessa, mon lecteur/i }),
+    ).toHaveAttribute('href', '#orymessa')
   })
 
   it('affiche le lien Code pour Tetrigular', () => {
