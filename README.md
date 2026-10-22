@@ -14,7 +14,7 @@ Site vitrine statique (Vite + React + TypeScript + Tailwind) pour presenter Arna
 
 ## Lancer en local
 
-Prerequis recommande: Node.js 22 LTS.
+Prérequis recommandé : Node.js 24.22.1 LTS.
 
 ```bash
 npm ci
